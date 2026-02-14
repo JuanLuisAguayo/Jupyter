@@ -1,0 +1,832 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Tablas Avanzadas de Teoría de la Información &#8212; Información Mutua, Fundamentos Matemáticos y Aplicaciones en Ciencia de Datos</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '05_appendices/advanced_tables';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Agradecimientos" href="acknowledgments.html" />
+    <link rel="prev" title="Demostraciones Matemáticas Avanzadas" href="proofs.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Información Mutua, Fundamentos Matemáticos y Aplicaciones en Ciencia de Datos</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Portada</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_frontmatter/abstract.html">Resumen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_frontmatter/contributions.html">Contribuciones del Libro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_frontmatter/notation.html">Notación y Convenciones Matemáticas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Teóricos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_theory/entropy.html">Entropía de Shannon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_theory/conditional_entropy.html">Entropía Conjunta y Entropía Condicional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_theory/mutual_information.html">Información Mutua</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Matemáticos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_mathematical_foundations/formal_definitions.html">Definiciones Formales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_mathematical_foundations/properties_theorems.html">Propiedades y Teoremas Fundamentales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_mathematical_foundations/kl_divergence.html">Divergencia de Kullback–Leibler</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos Multivariados</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_multivariate_models/mi_matrix.html">Matriz de Información Mutua</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_multivariate_models/conditional_mi.html">Información Mutua Condicional Multivariada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_multivariate_models/high_dimensional.html">Análisis de Información Mutua en Alta Dimensión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Aplicaciones en Ciencia de Datos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_data_science_applications/clustering_mi.html">Clustering basado en Información Mutua</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_data_science_applications/deep_learning_mi.html">Información Mutua en Deep Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Apéndices</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="proofs.html">Demostraciones Matemáticas Avanzadas</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tablas Avanzadas de Teoría de la Información</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledgments.html">Agradecimientos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/05_appendices/advanced_tables.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Tablas Avanzadas de Teoría de la Información</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-1-definiciones-fundamentales">B.1 Definiciones Fundamentales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-2-relaciones-fundamentales">B.2 Relaciones Fundamentales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-3-desigualdades-clasicas">B.3 Desigualdades Clásicas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-4-propiedades-algebraicas">B.4 Propiedades Algebraicas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-5-descomposicion-multivariada">B.5 Descomposición Multivariada</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-6-interpretaciones-en-ciencia-de-datos">B.6 Interpretaciones en Ciencia de Datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-7-propiedades-en-aprendizaje-automatico">B.7 Propiedades en Aprendizaje Automático</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-8-propiedades-de-independencia">B.8 Propiedades de Independencia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-9-propiedades-diferenciales-continuas">B.9 Propiedades Diferenciales (Continuas)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-10-complejidad-computacional-estimacion-mi">B.10 Complejidad Computacional (Estimación MI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-11-resumen-de-relaciones-clave">B.11 Resumen de Relaciones Clave</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-del-apendice">Conclusión del Apéndice</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="tablas-avanzadas-de-teoria-de-la-informacion">
+<h1>Tablas Avanzadas de Teoría de la Información<a class="headerlink" href="#tablas-avanzadas-de-teoria-de-la-informacion" title="Permalink to this heading">#</a></h1>
+<section id="introduccion">
+<h2>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h2>
+<p>Este apéndice reúne tablas de referencia rápida con definiciones, propiedades,
+desigualdades fundamentales y relaciones estructurales entre medidas de la
+teoría de la información.<br />
+El objetivo es proporcionar un compendio operativo útil para investigación,
+docencia y aplicaciones en ciencia de datos e ingeniería.</p>
+</section>
+<hr class="docutils" />
+<section id="b-1-definiciones-fundamentales">
+<h2>B.1 Definiciones Fundamentales<a class="headerlink" href="#b-1-definiciones-fundamentales" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Medida</p></th>
+<th class="head"><p>Definición Matemática</p></th>
+<th class="head"><p>Interpretación</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Entropía</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X)=-\sum_x P(x)\log P(x)\)</span></p></td>
+<td><p>Incertidumbre promedio</p></td>
+</tr>
+<tr class="row-odd"><td><p>Entropía conjunta</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X,Y)\)</span></p></td>
+<td><p>Incertidumbre del sistema completo</p></td>
+</tr>
+<tr class="row-even"><td><p>Entropía condicional</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X|Y)\)</span></p></td>
+<td><p>Incertidumbre restante</p></td>
+</tr>
+<tr class="row-odd"><td><p>Información mutua</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)\)</span></p></td>
+<td><p>Dependencia estadística</p></td>
+</tr>
+<tr class="row-even"><td><p>MI condicional</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y|Z)\)</span></p></td>
+<td><p>Dependencia condicionada</p></td>
+</tr>
+<tr class="row-odd"><td><p>Divergencia KL</p></td>
+<td><p><span class="math notranslate nohighlight">\(D_{KL}(P||Q)\)</span></p></td>
+<td><p>Diferencia entre distribuciones</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-2-relaciones-fundamentales">
+<h2>B.2 Relaciones Fundamentales<a class="headerlink" href="#b-2-relaciones-fundamentales" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Relación</p></th>
+<th class="head"><p>Expresión</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Regla de cadena</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X,Y)=H(X)+H(Y|X)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>MI por entropías</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)=H(X)+H(Y)-H(X,Y)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>MI alternativa</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)=H(X)-H(X|Y)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>MI condicional</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y|Z)=H(X|Z)-H(X|Y,Z)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Cadena MI</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y,Z)=I(X;Y)+I(X;Z|Y)\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-3-desigualdades-clasicas">
+<h2>B.3 Desigualdades Clásicas<a class="headerlink" href="#b-3-desigualdades-clasicas" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Desigualdad</p></th>
+<th class="head"><p>Expresión</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>No negatividad KL</p></td>
+<td><p><span class="math notranslate nohighlight">\(D_{KL}(P||Q)\ge0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>No negatividad MI</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)\ge0\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Subaditividad</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X,Y)\le H(X)+H(Y)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Monotonía</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X|Y)\le H(X)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Procesamiento de datos</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Z)\le I(X;Y)\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-4-propiedades-algebraicas">
+<h2>B.4 Propiedades Algebraicas<a class="headerlink" href="#b-4-propiedades-algebraicas" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Propiedad</p></th>
+<th class="head"><p>Entropía</p></th>
+<th class="head"><p>Información Mutua</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Simetría</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X,Y)=H(Y,X)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)=I(Y;X)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>No negatividad</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X)\ge0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)\ge0\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Invariancia</p></td>
+<td><p>Bajo permutaciones</p></td>
+<td><p>Bajo permutaciones</p></td>
+</tr>
+<tr class="row-odd"><td><p>Extensibilidad</p></td>
+<td><p>Sí</p></td>
+<td><p>Sí</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-5-descomposicion-multivariada">
+<h2>B.5 Descomposición Multivariada<a class="headerlink" href="#b-5-descomposicion-multivariada" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Expansión</p></th>
+<th class="head"><p>Expresión</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Entropía triple</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X,Y,Z)=H(X)+H(Y|X)+H(Z|X,Y)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>MI triple</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y,Z)=I(X;Y)+I(X;Z|Y)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>MI cuádruple</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y,Z,W)=I(X;Y)+I(X;Z|Y)+I(X;W|Y,Z)\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-6-interpretaciones-en-ciencia-de-datos">
+<h2>B.6 Interpretaciones en Ciencia de Datos<a class="headerlink" href="#b-6-interpretaciones-en-ciencia-de-datos" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Medida</p></th>
+<th class="head"><p>Uso típico</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Entropía</p></td>
+<td><p>Medición de complejidad</p></td>
+</tr>
+<tr class="row-odd"><td><p>MI</p></td>
+<td><p>Selección de características</p></td>
+</tr>
+<tr class="row-even"><td><p>MI condicional</p></td>
+<td><p>Eliminación de redundancia</p></td>
+</tr>
+<tr class="row-odd"><td><p>KL</p></td>
+<td><p>Evaluación de modelos</p></td>
+</tr>
+<tr class="row-even"><td><p>Entropía conjunta</p></td>
+<td><p>Modelado multivariado</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-7-propiedades-en-aprendizaje-automatico">
+<h2>B.7 Propiedades en Aprendizaje Automático<a class="headerlink" href="#b-7-propiedades-en-aprendizaje-automatico" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Contexto</p></th>
+<th class="head"><p>Uso de MI</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Feature Selection</p></td>
+<td><p>Ranking informacional</p></td>
+</tr>
+<tr class="row-odd"><td><p>Clustering</p></td>
+<td><p>Medida de similitud</p></td>
+</tr>
+<tr class="row-even"><td><p>Deep Learning</p></td>
+<td><p>Bottleneck informacional</p></td>
+</tr>
+<tr class="row-odd"><td><p>Representaciones latentes</p></td>
+<td><p>Maximización MI</p></td>
+</tr>
+<tr class="row-even"><td><p>Regularización</p></td>
+<td><p>Penalización KL</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-8-propiedades-de-independencia">
+<h2>B.8 Propiedades de Independencia<a class="headerlink" href="#b-8-propiedades-de-independencia" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Condición</p></th>
+<th class="head"><p>Consecuencia</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Independencia</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)=0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Independencia condicional</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y|Z)=0\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Cadena de Markov</p></td>
+<td><p>Procesamiento de datos</p></td>
+</tr>
+<tr class="row-odd"><td><p>Factorización</p></td>
+<td><p><span class="math notranslate nohighlight">\(P(x,y)=P(x)P(y)\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-9-propiedades-diferenciales-continuas">
+<h2>B.9 Propiedades Diferenciales (Continuas)<a class="headerlink" href="#b-9-propiedades-diferenciales-continuas" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Medida</p></th>
+<th class="head"><p>Forma Continua</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Entropía diferencial</p></td>
+<td><p><span class="math notranslate nohighlight">\(h(X)=-\int p(x)\log p(x)\,dx\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>MI continua</p></td>
+<td><p>Integral doble</p></td>
+</tr>
+<tr class="row-even"><td><p>KL continua</p></td>
+<td><p>Integral sobre densidades</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-10-complejidad-computacional-estimacion-mi">
+<h2>B.10 Complejidad Computacional (Estimación MI)<a class="headerlink" href="#b-10-complejidad-computacional-estimacion-mi" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Método</p></th>
+<th class="head"><p>Complejidad Aproximada</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Histogramas</p></td>
+<td><p><span class="math notranslate nohighlight">\(O(n)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>KDE</p></td>
+<td><p><span class="math notranslate nohighlight">\(O(n^2)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>kNN</p></td>
+<td><p><span class="math notranslate nohighlight">\(O(n\log n)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>MINE</p></td>
+<td><p>Dependiente del modelo</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-11-resumen-de-relaciones-clave">
+<h2>B.11 Resumen de Relaciones Clave<a class="headerlink" href="#b-11-resumen-de-relaciones-clave" title="Permalink to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+I(X;Y) &amp;= H(X)-H(X|Y) \\
+I(X;Y) &amp;= D_{KL}(P(X,Y)||P(X)P(Y)) \\
+H(X,Y) &amp;= H(X)+H(Y|X) \\
+I(X;Y|Z) &amp;= H(X|Z)-H(X|Y,Z)
+\end{aligned}
+\end{split}\]</div>
+</section>
+<hr class="docutils" />
+<section id="conclusion-del-apendice">
+<h2>Conclusión del Apéndice<a class="headerlink" href="#conclusion-del-apendice" title="Permalink to this heading">#</a></h2>
+<p>Las tablas anteriores sintetizan las relaciones estructurales más importantes
+de la teoría de la información y constituyen una referencia rápida para:</p>
+<ul class="simple">
+<li><p>desarrollo teórico</p></li>
+<li><p>análisis estadístico</p></li>
+<li><p>modelamiento multivariado</p></li>
+<li><p>aplicaciones en ciencia de datos y aprendizaje automático</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./05_appendices"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="proofs.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Demostraciones Matemáticas Avanzadas</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="acknowledgments.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Agradecimientos</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-1-definiciones-fundamentales">B.1 Definiciones Fundamentales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-2-relaciones-fundamentales">B.2 Relaciones Fundamentales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-3-desigualdades-clasicas">B.3 Desigualdades Clásicas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-4-propiedades-algebraicas">B.4 Propiedades Algebraicas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-5-descomposicion-multivariada">B.5 Descomposición Multivariada</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-6-interpretaciones-en-ciencia-de-datos">B.6 Interpretaciones en Ciencia de Datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-7-propiedades-en-aprendizaje-automatico">B.7 Propiedades en Aprendizaje Automático</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-8-propiedades-de-independencia">B.8 Propiedades de Independencia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-9-propiedades-diferenciales-continuas">B.9 Propiedades Diferenciales (Continuas)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-10-complejidad-computacional-estimacion-mi">B.10 Complejidad Computacional (Estimación MI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#b-11-resumen-de-relaciones-clave">B.11 Resumen de Relaciones Clave</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-del-apendice">Conclusión del Apéndice</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Juan Luis Aguayo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

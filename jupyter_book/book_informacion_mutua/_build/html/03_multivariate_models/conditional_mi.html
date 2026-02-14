@@ -1,0 +1,855 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Información Mutua Condicional Multivariada &#8212; Información Mutua, Fundamentos Matemáticos y Aplicaciones en Ciencia de Datos</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '03_multivariate_models/conditional_mi';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Análisis de Información Mutua en Alta Dimensión" href="high_dimensional.html" />
+    <link rel="prev" title="Matriz de Información Mutua" href="mi_matrix.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Información Mutua, Fundamentos Matemáticos y Aplicaciones en Ciencia de Datos</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Front Matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_frontmatter/abstract.html">Resumen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_frontmatter/contributions.html">Contribuciones del Libro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_frontmatter/notation.html">Notación y Convenciones Matemáticas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Teóricos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_theory/entropy.html">Entropía de Shannon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_theory/conditional_entropy.html">Entropía Condicional y Entropía Conjunta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_theory/mutual_information.html">Información Mutua</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Matemáticos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_mathematical_foundations/formal_definitions.html">Definiciones Formales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_mathematical_foundations/properties_theorems.html">Propiedades y Teoremas Fundamentales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_mathematical_foundations/kl_divergence.html">Divergencia de Kullback–Leibler</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos Multivariados</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="mi_matrix.html">Matriz de Información Mutua</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Información Mutua Condicional Multivariada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="high_dimensional.html">Análisis de Información Mutua en Alta Dimensión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Aplicaciones en Ciencia de Datos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_data_science_applications/clustering_mi.html">Clustering basado en Información Mutua</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_data_science_applications/deep_learning_mi.html">Información Mutua en Deep Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Apéndices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_appendices/proofs.html">Demostraciones Matemáticas Avanzadas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_appendices/advanced_tables.html">Tablas Avanzadas de Teoría de la Información</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_appendices/acknowledgments.html">Agradecimientos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_appendices/references.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/03_multivariate_models/conditional_mi.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Información Mutua Condicional Multivariada</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-general">Definición General</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-informacional">Interpretación Informacional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-multivariado-general">Caso Multivariado General</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-geometrica">Interpretación Geométrica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#independencia-condicional">Independencia Condicional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-fundamentales">Propiedades Fundamentales</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-negatividad">No Negatividad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simetria">Simetría</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regla-de-cadena">Regla de Cadena</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expansion-multivariable">Expansión Multivariable</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-grafos-probabilisticos">Relación con Grafos Probabilísticos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#construccion-de-la-matriz-de-informacion-mutua-condicional">Construcción de la Matriz de Información Mutua Condicional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-conceptual">Ejemplo Conceptual</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicaciones-en-ciencia-de-datos">Aplicaciones en Ciencia de Datos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seleccion-de-caracteristicas">Selección de Características</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aprendizaje-estructural">Aprendizaje Estructural</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning">Deep Learning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desafios-computacionales">Desafíos Computacionales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extensiones-avanzadas">Extensiones Avanzadas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusión</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="informacion-mutua-condicional-multivariada">
+<h1>Información Mutua Condicional Multivariada<a class="headerlink" href="#informacion-mutua-condicional-multivariada" title="Permalink to this heading">#</a></h1>
+<section id="introduccion">
+<h2>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h2>
+<p>En sistemas multivariados complejos, las dependencias entre variables
+no siempre son directas. Muchas relaciones observadas pueden deberse
+a variables intermedias o factores latentes.</p>
+<p>La información mutua condicional permite medir la dependencia entre
+dos variables eliminando la influencia de una o más variables de control.</p>
+<p>Este concepto es fundamental en:</p>
+<ul class="simple">
+<li><p>inferencia causal</p></li>
+<li><p>redes bayesianas</p></li>
+<li><p>selección de variables</p></li>
+<li><p>análisis de dependencia estructural</p></li>
+<li><p>aprendizaje automático moderno</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="definicion-general">
+<h2>Definición General<a class="headerlink" href="#definicion-general" title="Permalink to this heading">#</a></h2>
+<p>Sean variables aleatorias:</p>
+<div class="math notranslate nohighlight">
+\[
+X,\ Y,\ Z.
+\]</div>
+<p>La información mutua condicional se define como:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)
+=
+H(X|Z)
+-
+H(X|Y,Z).
+\]</div>
+<p>También puede escribirse como:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)
+=
+H(X,Z)
++
+H(Y,Z)
+-
+H(Z)
+-
+H(X,Y,Z).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-informacional">
+<h2>Interpretación Informacional<a class="headerlink" href="#interpretacion-informacional" title="Permalink to this heading">#</a></h2>
+<p>La cantidad:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)
+\]</div>
+<p>mide la reducción de incertidumbre sobre <span class="math notranslate nohighlight">\(X\)</span> al conocer <span class="math notranslate nohighlight">\(Y\)</span>,
+una vez que ya conocemos <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>dependencia directa residual</p></li>
+<li><p>información adicional</p></li>
+<li><p>asociación libre de confusores</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="caso-multivariado-general">
+<h2>Caso Multivariado General<a class="headerlink" href="#caso-multivariado-general" title="Permalink to this heading">#</a></h2>
+<p>Sean vectores aleatorios:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{X},\ \mathbf{Y},\ \mathbf{Z}.
+\]</div>
+<p>La definición general es:</p>
+<div class="math notranslate nohighlight">
+\[
+I(\mathbf{X};\mathbf{Y}|\mathbf{Z})
+=
+H(\mathbf{X}|\mathbf{Z})
+-
+H(\mathbf{X}|\mathbf{Y},\mathbf{Z}).
+\]</div>
+<p>Equivalentemente:</p>
+<div class="math notranslate nohighlight">
+\[
+I(\mathbf{X};\mathbf{Y}|\mathbf{Z})
+=
+H(\mathbf{X},\mathbf{Z})
++
+H(\mathbf{Y},\mathbf{Z})
+-
+H(\mathbf{Z})
+-
+H(\mathbf{X},\mathbf{Y},\mathbf{Z}).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-geometrica">
+<h2>Interpretación Geométrica<a class="headerlink" href="#interpretacion-geometrica" title="Permalink to this heading">#</a></h2>
+<p>En términos de incertidumbre:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Z\)</span> define el contexto informacional</p></li>
+<li><p><span class="math notranslate nohighlight">\(Y\)</span> aporta información adicional sobre <span class="math notranslate nohighlight">\(X\)</span></p></li>
+<li><p>la dependencia medida es la parte irreducible
+una vez controlado <span class="math notranslate nohighlight">\(Z\)</span></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="independencia-condicional">
+<h2>Independencia Condicional<a class="headerlink" href="#independencia-condicional" title="Permalink to this heading">#</a></h2>
+<p>Si:</p>
+<div class="math notranslate nohighlight">
+\[
+X \perp Y \mid Z
+\]</div>
+<p>entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)=0.
+\]</div>
+<p>Esto permite detectar:</p>
+<ul class="simple">
+<li><p>independencia estructural</p></li>
+<li><p>separación d-separation en grafos</p></li>
+<li><p>relaciones indirectas</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="propiedades-fundamentales">
+<h2>Propiedades Fundamentales<a class="headerlink" href="#propiedades-fundamentales" title="Permalink to this heading">#</a></h2>
+<section id="no-negatividad">
+<h3>No Negatividad<a class="headerlink" href="#no-negatividad" title="Permalink to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)\ge 0.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="simetria">
+<h3>Simetría<a class="headerlink" href="#simetria" title="Permalink to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)=I(Y;X|Z).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="regla-de-cadena">
+<h3>Regla de Cadena<a class="headerlink" href="#regla-de-cadena" title="Permalink to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y,Z)
+=
+I(X;Z)
++
+I(X;Y|Z).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="expansion-multivariable">
+<h3>Expansión Multivariable<a class="headerlink" href="#expansion-multivariable" title="Permalink to this heading">#</a></h3>
+<p>Para variables múltiples:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y_1,Y_2|Z)
+=
+I(X;Y_1|Z)
++
+I(X;Y_2|Y_1,Z).
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="relacion-con-grafos-probabilisticos">
+<h2>Relación con Grafos Probabilísticos<a class="headerlink" href="#relacion-con-grafos-probabilisticos" title="Permalink to this heading">#</a></h2>
+<p>La información mutua condicional permite:</p>
+<ul class="simple">
+<li><p>aprender estructuras de redes bayesianas</p></li>
+<li><p>identificar aristas redundantes</p></li>
+<li><p>evaluar independencia estructural</p></li>
+</ul>
+<p>Ejemplo:</p>
+<div class="math notranslate nohighlight">
+\[
+X \rightarrow Z \rightarrow Y
+\]</div>
+<p>puede implicar:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)&gt;0
+\]</div>
+<p>pero:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)=0.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="construccion-de-la-matriz-de-informacion-mutua-condicional">
+<h2>Construcción de la Matriz de Información Mutua Condicional<a class="headerlink" href="#construccion-de-la-matriz-de-informacion-mutua-condicional" title="Permalink to this heading">#</a></h2>
+<p>Sea:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{X}=(X_1,\dots,X_n).
+\]</div>
+<p>Definimos la matriz condicionada a <span class="math notranslate nohighlight">\(Z\)</span> como:</p>
+<div class="math notranslate nohighlight">
+\[
+M_{ij}^{(Z)}=I(X_i;X_j|Z).
+\]</div>
+<p>Aplicaciones:</p>
+<ul class="simple">
+<li><p>análisis estructural</p></li>
+<li><p>inferencia causal</p></li>
+<li><p>reducción de dimensionalidad</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-conceptual">
+<h2>Ejemplo Conceptual<a class="headerlink" href="#ejemplo-conceptual" title="Permalink to this heading">#</a></h2>
+<p>Variables:</p>
+<ul class="simple">
+<li><p>Edad</p></li>
+<li><p>Presión arterial</p></li>
+<li><p>Índice de masa corporal</p></li>
+<li><p>Actividad física</p></li>
+</ul>
+<p>Supongamos:</p>
+<p>Edad → Presión
+Edad → IMC
+IMC → Presión</p>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+I(IMC;Presión)&gt;0
+\]</div>
+<p>pero posiblemente:</p>
+<div class="math notranslate nohighlight">
+\[
+I(IMC;Presión|Edad)
+\]</div>
+<p>disminuye significativamente.</p>
+</section>
+<hr class="docutils" />
+<section id="aplicaciones-en-ciencia-de-datos">
+<h2>Aplicaciones en Ciencia de Datos<a class="headerlink" href="#aplicaciones-en-ciencia-de-datos" title="Permalink to this heading">#</a></h2>
+<section id="seleccion-de-caracteristicas">
+<h3>Selección de Características<a class="headerlink" href="#seleccion-de-caracteristicas" title="Permalink to this heading">#</a></h3>
+<p>Detectar:</p>
+<ul class="simple">
+<li><p>redundancia indirecta</p></li>
+<li><p>variables irrelevantes</p></li>
+<li><p>efectos mediadores</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="aprendizaje-estructural">
+<h3>Aprendizaje Estructural<a class="headerlink" href="#aprendizaje-estructural" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>redes bayesianas</p></li>
+<li><p>grafos probabilísticos</p></li>
+<li><p>modelos causales</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="deep-learning">
+<h3>Deep Learning<a class="headerlink" href="#deep-learning" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>análisis de representaciones internas</p></li>
+<li><p>regularización informacional</p></li>
+<li><p>aprendizaje contrastivo</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="desafios-computacionales">
+<h2>Desafíos Computacionales<a class="headerlink" href="#desafios-computacionales" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>estimación en alta dimensión</p></li>
+<li><p>sesgo en muestras pequeñas</p></li>
+<li><p>necesidad de estimadores robustos</p></li>
+<li><p>complejidad combinatoria</p></li>
+</ul>
+<p>Métodos comunes:</p>
+<ul class="simple">
+<li><p>k-NN estimators</p></li>
+<li><p>métodos kernel</p></li>
+<li><p>modelos generativos</p></li>
+<li><p>normalizing flows</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="extensiones-avanzadas">
+<h2>Extensiones Avanzadas<a class="headerlink" href="#extensiones-avanzadas" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>información mutua parcial</p></li>
+<li><p>información multivariada total</p></li>
+<li><p>sinergia e información redundante</p></li>
+<li><p>descomposición PID (Partial Information Decomposition)</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="conclusion">
+<h2>Conclusión<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>La información mutua condicional multivariada permite analizar
+dependencias directas eliminando la influencia de variables de control.</p>
+<p>Es una herramienta esencial para:</p>
+<ul class="simple">
+<li><p>inferencia causal</p></li>
+<li><p>modelamiento probabilístico</p></li>
+<li><p>análisis estructural</p></li>
+<li><p>aprendizaje automático moderno</p></li>
+</ul>
+<p>En el siguiente capítulo se abordará el análisis de sistemas
+de alta dimensión mediante herramientas computacionales
+y notebooks experimentales.</p>
+<p><span id="id1">[<a class="reference internal" href="../05_appendices/references.html#id9" title="Judea Pearl. Causality. Cambridge, 2009.">Pearl, 2009</a>]</span>, <span id="id2">[<a class="reference internal" href="../05_appendices/references.html#id5" title="Kevin Murphy. Machine Learning: A Probabilistic Perspective. MIT Press, 2012.">Murphy, 2012</a>]</span>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./03_multivariate_models"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="mi_matrix.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Matriz de Información Mutua</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="high_dimensional.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Análisis de Información Mutua en Alta Dimensión</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-general">Definición General</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-informacional">Interpretación Informacional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-multivariado-general">Caso Multivariado General</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-geometrica">Interpretación Geométrica</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#independencia-condicional">Independencia Condicional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-fundamentales">Propiedades Fundamentales</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-negatividad">No Negatividad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simetria">Simetría</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regla-de-cadena">Regla de Cadena</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expansion-multivariable">Expansión Multivariable</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-grafos-probabilisticos">Relación con Grafos Probabilísticos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#construccion-de-la-matriz-de-informacion-mutua-condicional">Construcción de la Matriz de Información Mutua Condicional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-conceptual">Ejemplo Conceptual</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicaciones-en-ciencia-de-datos">Aplicaciones en Ciencia de Datos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#seleccion-de-caracteristicas">Selección de Características</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aprendizaje-estructural">Aprendizaje Estructural</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deep-learning">Deep Learning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desafios-computacionales">Desafíos Computacionales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extensiones-avanzadas">Extensiones Avanzadas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusión</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Juan Luis Aguayo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

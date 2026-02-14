@@ -1,0 +1,869 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Divergencia de Kullback–Leibler &#8212; Información Mutua, Fundamentos Matemáticos y Aplicaciones en Ciencia de Datos</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '02_mathematical_foundations/kl_divergence';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Matriz de Información Mutua" href="../03_multivariate_models/mi_matrix.html" />
+    <link rel="prev" title="Propiedades y Teoremas Fundamentales" href="properties_theorems.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Información Mutua, Fundamentos Matemáticos y Aplicaciones en Ciencia de Datos</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Front Matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_frontmatter/abstract.html">Resumen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_frontmatter/contributions.html">Contribuciones del Libro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_frontmatter/notation.html">Notación y Convenciones Matemáticas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Teóricos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_theory/entropy.html">Entropía de Shannon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_theory/conditional_entropy.html">Entropía Condicional y Entropía Conjunta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_theory/mutual_information.html">Información Mutua</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Matemáticos</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="formal_definitions.html">Definiciones Formales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="properties_theorems.html">Propiedades y Teoremas Fundamentales</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Divergencia de Kullback–Leibler</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos Multivariados</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_multivariate_models/mi_matrix.html">Matriz de Información Mutua</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_multivariate_models/conditional_mi.html">Información Mutua Condicional Multivariada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_multivariate_models/high_dimensional.html">Análisis de Información Mutua en Alta Dimensión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Aplicaciones en Ciencia de Datos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../04_data_science_applications/clustering_mi.html">Clustering basado en Información Mutua</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04_data_science_applications/deep_learning_mi.html">Información Mutua en Deep Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Apéndices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_appendices/proofs.html">Demostraciones Matemáticas Avanzadas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_appendices/advanced_tables.html">Tablas Avanzadas de Teoría de la Información</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_appendices/acknowledgments.html">Agradecimientos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_appendices/references.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/02_mathematical_foundations/kl_divergence.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Divergencia de Kullback–Leibler</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-formal-variables-discretas">Definición Formal (Variables Discretas)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-continua">Definición Continua</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-informacional">Interpretación Informacional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-fundamentales">Propiedades Fundamentales</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-negatividad">No Negatividad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-simetria">No Simetría</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-cumple-desigualdad-triangular">No Cumple Desigualdad Triangular</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convexidad">Convexidad</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-entropia-cruzada">Relación con Entropía Cruzada</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-informacion-mutua">Relación con Información Mutua</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-discreto">Ejemplo Discreto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-interpretativo-modelo-mal-especificado">Ejemplo Interpretativo (Modelo Mal Especificado)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#divergencia-kl-condicional">Divergencia KL Condicional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descomposicion-de-kl">Descomposición de KL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kl-en-aprendizaje-automatico">KL en Aprendizaje Automático</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-de-perdida">Función de Pérdida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularizacion">Regularización</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inferencia-variacional">Inferencia Variacional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-otras-medidas">Relación con Otras Medidas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-multivariado">Ejemplo Multivariado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusión</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="divergencia-de-kullbackleibler">
+<h1>Divergencia de Kullback–Leibler<a class="headerlink" href="#divergencia-de-kullbackleibler" title="Permalink to this heading">#</a></h1>
+<section id="introduccion">
+<h2>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h2>
+<p>La divergencia de Kullback–Leibler (KL) es una medida fundamental
+de la diferencia entre dos distribuciones de probabilidad.</p>
+<p>En teoría de la información, cuantifica la cantidad de información
+perdida al aproximar una distribución verdadera mediante otra.</p>
+<p>En ciencia de datos y aprendizaje automático aparece en:</p>
+<ul class="simple">
+<li><p>aprendizaje profundo</p></li>
+<li><p>modelos generativos</p></li>
+<li><p>inferencia variacional</p></li>
+<li><p>selección de modelos</p></li>
+<li><p>regularización informacional</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="definicion-formal-variables-discretas">
+<h2>Definición Formal (Variables Discretas)<a class="headerlink" href="#definicion-formal-variables-discretas" title="Permalink to this heading">#</a></h2>
+<p>Sean <span class="math notranslate nohighlight">\(P\)</span> y <span class="math notranslate nohighlight">\(Q\)</span> dos distribuciones sobre el mismo espacio.</p>
+<p>La divergencia KL se define como:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)=
+\sum_x P(x)\log\frac{P(x)}{Q(x)}.
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>mide discrepancia probabilística</p></li>
+<li><p>no es una distancia métrica</p></li>
+<li><p>es una medida direccional</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="definicion-continua">
+<h2>Definición Continua<a class="headerlink" href="#definicion-continua" title="Permalink to this heading">#</a></h2>
+<p>Para variables continuas:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)=
+\int p(x)\log\frac{p(x)}{q(x)}dx.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-informacional">
+<h2>Interpretación Informacional<a class="headerlink" href="#interpretacion-informacional" title="Permalink to this heading">#</a></h2>
+<p>Reescribiendo:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)
+=
+-\sum P(x)\log Q(x)
+-
+H(P).
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>diferencia entre entropía cruzada y entropía real</p></li>
+<li><p>exceso de longitud de código</p></li>
+<li><p>pérdida de eficiencia de compresión</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="propiedades-fundamentales">
+<h2>Propiedades Fundamentales<a class="headerlink" href="#propiedades-fundamentales" title="Permalink to this heading">#</a></h2>
+<section id="no-negatividad">
+<h3>No Negatividad<a class="headerlink" href="#no-negatividad" title="Permalink to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)\ge 0.
+\]</div>
+<p>Igualdad solo si:</p>
+<div class="math notranslate nohighlight">
+\[
+P=Q.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="no-simetria">
+<h3>No Simetría<a class="headerlink" href="#no-simetria" title="Permalink to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)\neq D_{KL}(Q\|P).
+\]</div>
+<p>Consecuencia:</p>
+<p>no es una métrica.</p>
+</section>
+<hr class="docutils" />
+<section id="no-cumple-desigualdad-triangular">
+<h3>No Cumple Desigualdad Triangular<a class="headerlink" href="#no-cumple-desigualdad-triangular" title="Permalink to this heading">#</a></h3>
+<p>No define distancia geométrica clásica.</p>
+</section>
+<hr class="docutils" />
+<section id="convexidad">
+<h3>Convexidad<a class="headerlink" href="#convexidad" title="Permalink to this heading">#</a></h3>
+<p>La divergencia KL es convexa respecto a <span class="math notranslate nohighlight">\(Q\)</span>.</p>
+<p>Importancia:</p>
+<ul class="simple">
+<li><p>optimización convexa</p></li>
+<li><p>aprendizaje probabilístico</p></li>
+<li><p>estabilidad numérica</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="relacion-con-entropia-cruzada">
+<h2>Relación con Entropía Cruzada<a class="headerlink" href="#relacion-con-entropia-cruzada" title="Permalink to this heading">#</a></h2>
+<p>Definición:</p>
+<div class="math notranslate nohighlight">
+\[
+H(P,Q)=
+-\sum P(x)\log Q(x).
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)=H(P,Q)-H(P).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="relacion-con-informacion-mutua">
+<h2>Relación con Información Mutua<a class="headerlink" href="#relacion-con-informacion-mutua" title="Permalink to this heading">#</a></h2>
+<p>Recordemos:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=
+D_{KL}(P_{X,Y}\|P_XP_Y).
+\]</div>
+<p>Interpretación:</p>
+<p>la información mutua mide desviación respecto a independencia.</p>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-discreto">
+<h2>Ejemplo Discreto<a class="headerlink" href="#ejemplo-discreto" title="Permalink to this heading">#</a></h2>
+<p>Sea:</p>
+<div class="math notranslate nohighlight">
+\[
+P=(0.6,0.4),
+\quad
+Q=(0.5,0.5).
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)
+=
+0.6\log\frac{0.6}{0.5}
++
+0.4\log\frac{0.4}{0.5}.
+\]</div>
+<p>Calculando:</p>
+<div class="math notranslate nohighlight">
+\[
+=0.6\log(1.2)+0.4\log(0.8).
+\]</div>
+<p>Resultado positivo ⇒ distribuciones diferentes.</p>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-interpretativo-modelo-mal-especificado">
+<h2>Ejemplo Interpretativo (Modelo Mal Especificado)<a class="headerlink" href="#ejemplo-interpretativo-modelo-mal-especificado" title="Permalink to this heading">#</a></h2>
+<p>Supongamos:</p>
+<ul class="simple">
+<li><p>distribución real: <span class="math notranslate nohighlight">\(P\)</span></p></li>
+<li><p>modelo estimado: <span class="math notranslate nohighlight">\(Q\)</span></p></li>
+</ul>
+<p>La divergencia KL mide:</p>
+<ul class="simple">
+<li><p>error informacional del modelo</p></li>
+<li><p>pérdida de eficiencia predictiva</p></li>
+</ul>
+<p>Aplicaciones:</p>
+<ul class="simple">
+<li><p>modelos bayesianos</p></li>
+<li><p>machine learning</p></li>
+<li><p>selección de arquitectura</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="divergencia-kl-condicional">
+<h2>Divergencia KL Condicional<a class="headerlink" href="#divergencia-kl-condicional" title="Permalink to this heading">#</a></h2>
+<p>Para variables:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P(X|Y)\|Q(X|Y)).
+\]</div>
+<p>Definición promedio:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}_Y
+\left[
+D_{KL}(P(X|Y)\|Q(X|Y))
+\right].
+\]</div>
+<p>Uso:</p>
+<ul class="simple">
+<li><p>modelos jerárquicos</p></li>
+<li><p>inferencia variacional</p></li>
+<li><p>redes probabilísticas</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="descomposicion-de-kl">
+<h2>Descomposición de KL<a class="headerlink" href="#descomposicion-de-kl" title="Permalink to this heading">#</a></h2>
+<p>Para variables conjuntas:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P(X,Y)\|Q(X,Y))
+=
+D_{KL}(P(X)\|Q(X))
++
+D_{KL}(P(Y|X)\|Q(Y|X)).
+\]</div>
+<p>Importancia:</p>
+<ul class="simple">
+<li><p>modelos estructurados</p></li>
+<li><p>factorización probabilística</p></li>
+<li><p>aprendizaje profundo</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="kl-en-aprendizaje-automatico">
+<h2>KL en Aprendizaje Automático<a class="headerlink" href="#kl-en-aprendizaje-automatico" title="Permalink to this heading">#</a></h2>
+<section id="funcion-de-perdida">
+<h3>Función de Pérdida<a class="headerlink" href="#funcion-de-perdida" title="Permalink to this heading">#</a></h3>
+<p>Muchos modelos minimizan:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P_{datos}\|P_{modelo}).
+\]</div>
+<p>Ejemplos:</p>
+<ul class="simple">
+<li><p>modelos generativos</p></li>
+<li><p>VAE</p></li>
+<li><p>language models</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="regularizacion">
+<h3>Regularización<a class="headerlink" href="#regularizacion" title="Permalink to this heading">#</a></h3>
+<p>KL controla:</p>
+<ul class="simple">
+<li><p>complejidad del modelo</p></li>
+<li><p>sobreajuste</p></li>
+<li><p>divergencia respecto a prior</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="inferencia-variacional">
+<h2>Inferencia Variacional<a class="headerlink" href="#inferencia-variacional" title="Permalink to this heading">#</a></h2>
+<p>Objetivo:</p>
+<p>aproximar posterior:</p>
+<div class="math notranslate nohighlight">
+\[
+p(z|x)
+\]</div>
+<p>mediante:</p>
+<div class="math notranslate nohighlight">
+\[
+q(z).
+\]</div>
+<p>Minimizando:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(q(z)\|p(z|x)).
+\]</div>
+<p>Base matemática de:</p>
+<ul class="simple">
+<li><p>autoencoders variacionales</p></li>
+<li><p>modelos bayesianos modernos</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="relacion-con-otras-medidas">
+<h2>Relación con Otras Medidas<a class="headerlink" href="#relacion-con-otras-medidas" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Jensen–Shannon divergence</p></li>
+<li><p>Total variation</p></li>
+<li><p>Wasserstein distance</p></li>
+</ul>
+<p>KL destaca por:</p>
+<ul class="simple">
+<li><p>tractabilidad analítica</p></li>
+<li><p>diferenciabilidad</p></li>
+<li><p>conexión directa con entropía</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-multivariado">
+<h2>Ejemplo Multivariado<a class="headerlink" href="#ejemplo-multivariado" title="Permalink to this heading">#</a></h2>
+<p>Sea:</p>
+<div class="math notranslate nohighlight">
+\[
+P(X,Y)
+\]</div>
+<p>y modelo independiente:</p>
+<div class="math notranslate nohighlight">
+\[
+Q=P_XP_Y.
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)=I(X;Y).
+\]</div>
+<p>Interpretación:</p>
+<p>la información mutua es KL contra independencia.</p>
+</section>
+<hr class="docutils" />
+<section id="conclusion">
+<h2>Conclusión<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>La divergencia de Kullback–Leibler constituye el núcleo matemático
+de la teoría moderna de la información y el aprendizaje automático.</p>
+<p>Proporciona:</p>
+<ul class="simple">
+<li><p>medida fundamental de discrepancia</p></li>
+<li><p>base para información mutua</p></li>
+<li><p>herramienta central en deep learning</p></li>
+<li><p>fundamento de inferencia probabilística</p></li>
+</ul>
+<p>En los siguientes capítulos se utilizará extensivamente para:</p>
+<ul class="simple">
+<li><p>matrices de información mutua</p></li>
+<li><p>modelos multivariados</p></li>
+<li><p>selección de características</p></li>
+<li><p>análisis informacional en ciencia de datos</p></li>
+</ul>
+<p><span id="id1">[<a class="reference internal" href="../05_appendices/references.html#id15" title="Solomon Kullback and Richard Leibler. On information and sufficiency. Annals of Mathematical Statistics, 1951.">Kullback and Leibler, 1951</a>]</span>, <span id="id2">[<a class="reference internal" href="../05_appendices/references.html#id4" title="Christopher Bishop. Pattern Recognition and Machine Learning. Springer, 2006.">Bishop, 2006</a>]</span></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./02_mathematical_foundations"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="properties_theorems.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Propiedades y Teoremas Fundamentales</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../03_multivariate_models/mi_matrix.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Matriz de Información Mutua</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-formal-variables-discretas">Definición Formal (Variables Discretas)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-continua">Definición Continua</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-informacional">Interpretación Informacional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#propiedades-fundamentales">Propiedades Fundamentales</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-negatividad">No Negatividad</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-simetria">No Simetría</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-cumple-desigualdad-triangular">No Cumple Desigualdad Triangular</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convexidad">Convexidad</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-entropia-cruzada">Relación con Entropía Cruzada</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-informacion-mutua">Relación con Información Mutua</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-discreto">Ejemplo Discreto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-interpretativo-modelo-mal-especificado">Ejemplo Interpretativo (Modelo Mal Especificado)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#divergencia-kl-condicional">Divergencia KL Condicional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descomposicion-de-kl">Descomposición de KL</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kl-en-aprendizaje-automatico">KL en Aprendizaje Automático</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funcion-de-perdida">Función de Pérdida</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularizacion">Regularización</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inferencia-variacional">Inferencia Variacional</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relacion-con-otras-medidas">Relación con Otras Medidas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-multivariado">Ejemplo Multivariado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusión</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Juan Luis Aguayo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

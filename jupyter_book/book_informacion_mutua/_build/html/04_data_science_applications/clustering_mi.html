@@ -1,0 +1,699 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Clustering basado en Información Mutua &#8212; Información Mutua, Fundamentos Matemáticos y Aplicaciones en Ciencia de Datos</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '04_data_science_applications/clustering_mi';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Información Mutua en Deep Learning" href="deep_learning_mi.html" />
+    <link rel="prev" title="Análisis de Información Mutua en Alta Dimensión" href="../03_multivariate_models/high_dimensional.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Información Mutua, Fundamentos Matemáticos y Aplicaciones en Ciencia de Datos</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Front Matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_frontmatter/abstract.html">Resumen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_frontmatter/contributions.html">Contribuciones del Libro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_frontmatter/notation.html">Notación y Convenciones Matemáticas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Teóricos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../01_theory/entropy.html">Entropía de Shannon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_theory/conditional_entropy.html">Entropía Condicional y Entropía Conjunta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01_theory/mutual_information.html">Información Mutua</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Matemáticos</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../02_mathematical_foundations/formal_definitions.html">Definiciones Formales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_mathematical_foundations/properties_theorems.html">Propiedades y Teoremas Fundamentales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../02_mathematical_foundations/kl_divergence.html">Divergencia de Kullback–Leibler</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos Multivariados</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../03_multivariate_models/mi_matrix.html">Matriz de Información Mutua</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_multivariate_models/conditional_mi.html">Información Mutua Condicional Multivariada</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../03_multivariate_models/high_dimensional.html">Análisis de Información Mutua en Alta Dimensión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Aplicaciones en Ciencia de Datos</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Clustering basado en Información Mutua</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deep_learning_mi.html">Información Mutua en Deep Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Apéndices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../05_appendices/proofs.html">Demostraciones Matemáticas Avanzadas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_appendices/advanced_tables.html">Tablas Avanzadas de Teoría de la Información</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_appendices/acknowledgments.html">Agradecimientos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05_appendices/references.html">Bibliografía</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/04_data_science_applications/clustering_mi.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Clustering basado en Información Mutua</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-de-informacion-mutua-para-clustering">Definición de Información Mutua para Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalized-mutual-information-nmi">Normalized Mutual Information (NMI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ajuste-por-azar-adjusted-mutual-information-ami">Ajuste por Azar: Adjusted Mutual Information (AMI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-conceptual">Ejemplo Conceptual</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-mutua-como-funcion-objetivo">Información Mutua como Función Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ventajas-frente-a-distancias-clasicas">Ventajas frente a Distancias Clásicas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones">Limitaciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones">Conclusiones</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="clustering-basado-en-informacion-mutua">
+<h1>Clustering basado en Información Mutua<a class="headerlink" href="#clustering-basado-en-informacion-mutua" title="Permalink to this heading">#</a></h1>
+<section id="introduccion">
+<h2>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h2>
+<p>La información mutua constituye una herramienta fundamental para medir la dependencia estadística entre variables aleatorias.<br />
+En ciencia de datos, se utiliza ampliamente para:</p>
+<ul class="simple">
+<li><p>Evaluar calidad de agrupamientos</p></li>
+<li><p>Diseñar funciones objetivo</p></li>
+<li><p>Comparar particiones</p></li>
+<li><p>Detectar estructura latente en datos</p></li>
+</ul>
+<p>A diferencia de métricas basadas en distancia euclidiana, la información mutua captura relaciones no lineales y dependencias complejas.</p>
+</section>
+<hr class="docutils" />
+<section id="definicion-de-informacion-mutua-para-clustering">
+<h2>Definición de Información Mutua para Clustering<a class="headerlink" href="#definicion-de-informacion-mutua-para-clustering" title="Permalink to this heading">#</a></h2>
+<p>Sean:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(C\)</span> : etiquetas reales</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{C}\)</span> : etiquetas obtenidas por el algoritmo de clustering</p></li>
+</ul>
+<p>La información mutua se define como:</p>
+<div class="math notranslate nohighlight">
+\[
+I(C;\hat{C}) = \sum_{c,\hat{c}} P(c,\hat{c})
+\log \frac{P(c,\hat{c})}{P(c)P(\hat{c})}
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(I=0\)</span> → independencia total</p></li>
+<li><p><span class="math notranslate nohighlight">\(I\)</span> grande → fuerte concordancia estructural</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="normalized-mutual-information-nmi">
+<h2>Normalized Mutual Information (NMI)<a class="headerlink" href="#normalized-mutual-information-nmi" title="Permalink to this heading">#</a></h2>
+<p>Para comparar clustering con distinto número de grupos se utiliza:</p>
+<div class="math notranslate nohighlight">
+\[
+NMI = \frac{I(C;\hat{C})}{\sqrt{H(C)H(\hat{C})}}
+\]</div>
+<p>Propiedades:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(0 \leq NMI \leq 1\)</span></p></li>
+<li><p>Invariante ante permutaciones de etiquetas</p></li>
+<li><p>Robusta frente a clusters desbalanceados</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ajuste-por-azar-adjusted-mutual-information-ami">
+<h2>Ajuste por Azar: Adjusted Mutual Information (AMI)<a class="headerlink" href="#ajuste-por-azar-adjusted-mutual-information-ami" title="Permalink to this heading">#</a></h2>
+<p>Corrige el sesgo introducido por coincidencias aleatorias:</p>
+<div class="math notranslate nohighlight">
+\[
+AMI = \frac{I - E[I]}{\max(H(C),H(\hat{C})) - E[I]}
+\]</div>
+<p>Ventajas:</p>
+<ul class="simple">
+<li><p>Penaliza coincidencias fortuitas</p></li>
+<li><p>Mejora comparabilidad entre modelos</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-conceptual">
+<h2>Ejemplo Conceptual<a class="headerlink" href="#ejemplo-conceptual" title="Permalink to this heading">#</a></h2>
+<p>Supongamos:</p>
+<ul class="simple">
+<li><p>Clases reales: 3</p></li>
+<li><p>Clusters obtenidos: 3</p></li>
+</ul>
+<p>Matriz de contingencia:</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Real / Pred</p></th>
+<th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+<th class="head"><p>C</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>30</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>25</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>1</p></td>
+<td><p>4</p></td>
+<td><p>28</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A partir de esta tabla:</p>
+<ol class="arabic simple">
+<li><p>Se calcula <span class="math notranslate nohighlight">\(P(c,\hat{c})\)</span></p></li>
+<li><p>Se obtienen marginales</p></li>
+<li><p>Se evalúa la suma de información mutua</p></li>
+</ol>
+<p>Resultado esperado:</p>
+<ul class="simple">
+<li><p>NMI alto</p></li>
+<li><p>Buen alineamiento estructural</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="informacion-mutua-como-funcion-objetivo">
+<h2>Información Mutua como Función Objetivo<a class="headerlink" href="#informacion-mutua-como-funcion-objetivo" title="Permalink to this heading">#</a></h2>
+<p>Algunos algoritmos maximizan directamente:</p>
+<div class="math notranslate nohighlight">
+\[
+\max I(X;Z)
+\]</div>
+<p>donde:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X\)</span> datos originales</p></li>
+<li><p><span class="math notranslate nohighlight">\(Z\)</span> representación latente</p></li>
+</ul>
+<p>Ejemplos:</p>
+<ul class="simple">
+<li><p>Information Bottleneck Clustering</p></li>
+<li><p>Deep InfoMax Clustering</p></li>
+<li><p>Spectral Clustering basado en MI</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ventajas-frente-a-distancias-clasicas">
+<h2>Ventajas frente a Distancias Clásicas<a class="headerlink" href="#ventajas-frente-a-distancias-clasicas" title="Permalink to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Métrica</p></th>
+<th class="head"><p>Dependencias no lineales</p></th>
+<th class="head"><p>Invarianza</p></th>
+<th class="head"><p>Robustez</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Euclidiana</p></td>
+<td><p>No</p></td>
+<td><p>Baja</p></td>
+<td><p>Media</p></td>
+</tr>
+<tr class="row-odd"><td><p>Coseno</p></td>
+<td><p>Parcial</p></td>
+<td><p>Media</p></td>
+<td><p>Media</p></td>
+</tr>
+<tr class="row-even"><td><p>Información Mutua</p></td>
+<td><p>Sí</p></td>
+<td><p>Alta</p></td>
+<td><p>Alta</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="limitaciones">
+<h2>Limitaciones<a class="headerlink" href="#limitaciones" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Estimación de probabilidades en alta dimensión</p></li>
+<li><p>Sensibilidad a discretización</p></li>
+<li><p>Costo computacional</p></li>
+</ul>
+<p>Soluciones modernas:</p>
+<ul class="simple">
+<li><p>Estimadores kNN</p></li>
+<li><p>KDE</p></li>
+<li><p>Redes neuronales estimadoras de MI</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="conclusiones">
+<h2>Conclusiones<a class="headerlink" href="#conclusiones" title="Permalink to this heading">#</a></h2>
+<p>La información mutua permite:</p>
+<ul class="simple">
+<li><p>Evaluar clustering sin suposiciones geométricas</p></li>
+<li><p>Capturar relaciones complejas</p></li>
+<li><p>Diseñar algoritmos robustos</p></li>
+</ul>
+<p>Es especialmente útil en:</p>
+<ul class="simple">
+<li><p>Datos no lineales</p></li>
+<li><p>Variables categóricas</p></li>
+<li><p>Representaciones profundas</p></li>
+</ul>
+<p><span id="id1">[<a class="reference internal" href="../05_appendices/references.html#id4" title="Christopher Bishop. Pattern Recognition and Machine Learning. Springer, 2006.">Bishop, 2006</a>]</span>, <span id="id2">[<a class="reference internal" href="../05_appendices/references.html#id5" title="Kevin Murphy. Machine Learning: A Probabilistic Perspective. MIT Press, 2012.">Murphy, 2012</a>]</span>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./04_data_science_applications"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../03_multivariate_models/high_dimensional.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Análisis de Información Mutua en Alta Dimensión</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="deep_learning_mi.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Información Mutua en Deep Learning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definicion-de-informacion-mutua-para-clustering">Definición de Información Mutua para Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalized-mutual-information-nmi">Normalized Mutual Information (NMI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ajuste-por-azar-adjusted-mutual-information-ami">Ajuste por Azar: Adjusted Mutual Information (AMI)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejemplo-conceptual">Ejemplo Conceptual</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#informacion-mutua-como-funcion-objetivo">Información Mutua como Función Objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ventajas-frente-a-distancias-clasicas">Ventajas frente a Distancias Clásicas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones">Limitaciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones">Conclusiones</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Juan Luis Aguayo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

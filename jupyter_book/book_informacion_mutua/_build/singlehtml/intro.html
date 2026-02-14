@@ -1,0 +1,4460 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Información Mutua, Fundamentos Matemáticos y Aplicaciones en Ciencia de Datos</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">None</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1 current active">
+                <a class="reference internal" href="#">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Portada</span></p>
+<ul class="nav bd-sidenav">
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Teóricos</span></p>
+<ul class="nav bd-sidenav">
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Matemáticos</span></p>
+<ul class="nav bd-sidenav">
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos Multivariados</span></p>
+<ul class="nav bd-sidenav">
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Aplicaciones en Ciencia de Datos</span></p>
+<ul class="nav bd-sidenav">
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Apéndices</span></p>
+<ul class="nav bd-sidenav">
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introducción</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <p aria-level="2" class="caption" role="heading"><span class="caption-text">Portada</span></p>
+<ul class="visible nav section-nav flex-column">
+<li class="toctree-l1 toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-00_frontmatter/abstract">Resumen</a></li>
+<li class="toctree-l1 toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-00_frontmatter/contributions">Contribuciones del Libro</a></li>
+<li class="toctree-l1 toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-00_frontmatter/notation">Notación y Convenciones Matemáticas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Teóricos</span></p>
+<ul class="nav section-nav flex-column">
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-01_theory/entropy">Entropía de Shannon</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-01_theory/conditional_entropy">Entropía Conjunta y Entropía Condicional</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-01_theory/mutual_information">Información Mutua</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Matemáticos</span></p>
+<ul class="nav section-nav flex-column">
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-02_mathematical_foundations/formal_definitions">Definiciones Formales</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-02_mathematical_foundations/properties_theorems">Propiedades y Teoremas Fundamentales</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-02_mathematical_foundations/kl_divergence">Divergencia de Kullback–Leibler</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos Multivariados</span></p>
+<ul class="nav section-nav flex-column">
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-03_multivariate_models/mi_matrix">Matriz de Información Mutua</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-03_multivariate_models/conditional_mi">Información Mutua Condicional Multivariada</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-03_multivariate_models/high_dimensional">Análisis de Información Mutua en Alta Dimensión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Aplicaciones en Ciencia de Datos</span></p>
+<ul class="nav section-nav flex-column">
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-04_data_science_applications/clustering_mi">Clustering basado en Información Mutua</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-04_data_science_applications/deep_learning_mi">Información Mutua en Deep Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Apéndices</span></p>
+<ul class="nav section-nav flex-column">
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-05_appendices/proofs">Demostraciones Matemáticas Avanzadas</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-05_appendices/advanced_tables">Tablas Avanzadas de Teoría de la Información</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-05_appendices/acknowledgments">Agradecimientos</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-05_appendices/references">Bibliografía</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduccion">
+<h1>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h1>
+<p>Este libro presenta una formulación moderna de la información mutua desde una perspectiva matemática y aplicada a ciencia de datos.</p>
+<p>Se estudian, por ejemplo:</p>
+<ul class="simple">
+<li><p>Entropías</p></li>
+<li><p>Información mutua</p></li>
+<li><p>Divergencia KL</p></li>
+<li><p>Modelos multivariados</p></li>
+<li><p>Aplicaciones en machine learning</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<span id="document-00_frontmatter/abstract"></span><section class="tex2jax_ignore mathjax_ignore" id="resumen">
+<h2>Resumen<a class="headerlink" href="#resumen" title="Permalink to this heading">#</a></h2>
+<p>La información mutua constituye una de las herramientas fundamentales dentro de la teoría de la información moderna y desempeña un rol central en múltiples áreas de la ingeniería, la estadística y la ciencia de datos. Su capacidad para cuantificar dependencias estadísticas generales —más allá de relaciones lineales— la convierte en un instrumento clave para el análisis de datos complejos, el aprendizaje automático y la inferencia probabilística.</p>
+<p>Este libro presenta un tratamiento sistemático de la información mutua desde una perspectiva matemática, computacional y aplicada. Se desarrollan los fundamentos teóricos clásicos, incluyendo entropía, entropía condicional e información mutua, junto con sus propiedades estructurales, formulaciones multivariadas y conexiones con divergencias de información tales como la divergencia de Kullback–Leibler.</p>
+<p>Posteriormente, se introducen modelos multivariados basados en matrices de información mutua, extensiones condicionales y análisis en espacios de alta dimensión, proporcionando herramientas formales para el estudio de dependencias complejas en datos reales. Estas construcciones se integran con aplicaciones modernas en ciencia de datos, incluyendo selección de variables, agrupamiento basado en información y métodos contemporáneos en aprendizaje profundo.</p>
+<p>El texto combina el formalismo matemático con ejemplos interpretativos y desarrollos aplicados, manteniendo un equilibrio entre teoría y práctica. Asimismo, se incluyen demostraciones formales, tablas avanzadas y material complementario destinado a facilitar tanto la comprensión conceptual como la implementación práctica.</p>
+<p>Este libro busca establecer un puente entre la teoría clásica de la información y las metodologías contemporáneas de análisis de datos, proporcionando una base sólida para el estudio avanzado de dependencias estadísticas en sistemas complejos.</p>
+<p><span id="id1">[<a class="reference internal" href="intro.html#id6" title="Claude E. Shannon. A mathematical theory of communication. Bell System Technical Journal, 27(3):379–423, 1948.">Shannon, 1948</a>]</span>,<span id="id2">[<a class="reference internal" href="intro.html#id2" title="Thomas Cover and Joy Thomas. Elements of Information Theory. Wiley, 2006.">Cover and Thomas, 2006</a>]</span>,<span id="id3">[<a class="reference internal" href="intro.html#id3" title="David MacKay. Information Theory, Inference, and Learning Algorithms. Cambridge University Press, 2003.">MacKay, 2003</a>]</span>.</p>
+</section>
+<span id="document-00_frontmatter/contributions"></span><section class="tex2jax_ignore mathjax_ignore" id="contribuciones-del-libro">
+<h2>Contribuciones del Libro<a class="headerlink" href="#contribuciones-del-libro" title="Permalink to this heading">#</a></h2>
+<p>Este libro presenta un tratamiento integrado de la información mutua que combina formalismo matemático riguroso, modelado probabilístico moderno y aplicaciones contemporáneas en ciencia de datos e inteligencia artificial. Las contribuciones principales se estructuran en los siguientes ejes:</p>
+<section id="formalizacion-matematica-sistematica">
+<h3>1. Formalización Matemática Sistemática<a class="headerlink" href="#formalizacion-matematica-sistematica" title="Permalink to this heading">#</a></h3>
+<p>Se desarrolla una exposición rigurosa de los conceptos fundamentales de la teoría de la información:</p>
+<ul class="simple">
+<li><p>Entropía y entropía conjunta</p></li>
+<li><p>Entropía condicional</p></li>
+<li><p>Información mutua y sus variantes</p></li>
+<li><p>Divergencia de Kullback–Leibler</p></li>
+<li><p>Dependencias estadísticas generales</p></li>
+</ul>
+<p>El enfoque enfatiza definiciones formales, demostraciones matemáticas y propiedades estructurales fundamentales.</p>
+</section>
+<section id="integracion-entre-teoria-de-la-informacion-y-probabilidad">
+<h3>2. Integración entre Teoría de la Información y Probabilidad<a class="headerlink" href="#integracion-entre-teoria-de-la-informacion-y-probabilidad" title="Permalink to this heading">#</a></h3>
+<p>El texto establece conexiones explícitas entre:</p>
+<ul class="simple">
+<li><p>teoría de la medida probabilística,</p></li>
+<li><p>variables aleatorias multivariadas,</p></li>
+<li><p>modelos estadísticos,</p></li>
+<li><p>dependencia e independencia condicional.</p></li>
+</ul>
+<p>Se presenta una formulación coherente que permite interpretar la información mutua como una medida general de dependencia estadística.</p>
+</section>
+<section id="extensiones-multivariadas-y-modelos-de-alta-dimension">
+<h3>3. Extensiones Multivariadas y Modelos de Alta Dimensión<a class="headerlink" href="#extensiones-multivariadas-y-modelos-de-alta-dimension" title="Permalink to this heading">#</a></h3>
+<p>Se introducen estructuras avanzadas orientadas al análisis de sistemas complejos:</p>
+<ul class="simple">
+<li><p>matrices de información mutua,</p></li>
+<li><p>información mutua condicional multivariable,</p></li>
+<li><p>análisis de dependencias en espacios de alta dimensión,</p></li>
+<li><p>representación estructural de relaciones estadísticas.</p></li>
+</ul>
+<p>Estas herramientas permiten extender el análisis más allá del caso bivariado clásico.</p>
+</section>
+<section id="conexion-con-ciencia-de-datos-moderna">
+<h3>4. Conexión con Ciencia de Datos Moderna<a class="headerlink" href="#conexion-con-ciencia-de-datos-moderna" title="Permalink to this heading">#</a></h3>
+<p>El libro incorpora aplicaciones contemporáneas que vinculan teoría y práctica:</p>
+<ul class="simple">
+<li><p>selección de características basada en información,</p></li>
+<li><p>agrupamiento mediante medidas informacionales,</p></li>
+<li><p>análisis de redundancia y relevancia de variables,</p></li>
+<li><p>interpretación de modelos probabilísticos complejos.</p></li>
+</ul>
+<p>Se enfatiza el rol de la información mutua como herramienta transversal en análisis de datos.</p>
+</section>
+<section id="integracion-con-aprendizaje-automatico-y-aprendizaje-profundo">
+<h3>5. Integración con Aprendizaje Automático y Aprendizaje Profundo<a class="headerlink" href="#integracion-con-aprendizaje-automatico-y-aprendizaje-profundo" title="Permalink to this heading">#</a></h3>
+<p>Se analizan aplicaciones modernas en inteligencia artificial, incluyendo:</p>
+<ul class="simple">
+<li><p>estimación de información mutua en redes neuronales,</p></li>
+<li><p>regularización basada en información,</p></li>
+<li><p>representaciones latentes informacionales,</p></li>
+<li><p>aprendizaje de representaciones y codificación eficiente.</p></li>
+</ul>
+<p>Esto posiciona la teoría clásica dentro del contexto contemporáneo del aprendizaje automático.</p>
+</section>
+<section id="enfoque-pedagogico-y-estructural">
+<h3>6. Enfoque Pedagógico y Estructural<a class="headerlink" href="#enfoque-pedagogico-y-estructural" title="Permalink to this heading">#</a></h3>
+<p>El libro ha sido diseñado para facilitar múltiples niveles de lectura:</p>
+<ul class="simple">
+<li><p>desarrollo progresivo desde fundamentos hasta aplicaciones avanzadas,</p></li>
+<li><p>demostraciones formales complementadas con interpretaciones,</p></li>
+<li><p>ejemplos teóricos y computacionales,</p></li>
+<li><p>anexos técnicos con demostraciones extendidas y tablas avanzadas.</p></li>
+</ul>
+<p>Este enfoque permite su uso tanto en cursos de posgrado como en investigación aplicada.</p>
+</section>
+<section id="contribucion-integradora">
+<h3>7. Contribución Integradora<a class="headerlink" href="#contribucion-integradora" title="Permalink to this heading">#</a></h3>
+<p>La contribución principal del libro consiste en establecer un puente estructurado entre:</p>
+<ul class="simple">
+<li><p>teoría clásica de la información,</p></li>
+<li><p>estadística matemática,</p></li>
+<li><p>análisis multivariado,</p></li>
+<li><p>ciencia de datos contemporánea,</p></li>
+<li><p>aprendizaje profundo moderno.</p></li>
+</ul>
+<p>El resultado es un marco unificado para el estudio avanzado de dependencias estadísticas en sistemas complejos y conjuntos de datos de alta dimensión.</p>
+</section>
+</section>
+<span id="document-00_frontmatter/notation"></span><section class="tex2jax_ignore mathjax_ignore" id="notacion-y-convenciones-matematicas">
+<h2>Notación y Convenciones Matemáticas<a class="headerlink" href="#notacion-y-convenciones-matematicas" title="Permalink to this heading">#</a></h2>
+<p>Este capítulo establece las convenciones matemáticas, probabilísticas e informacionales utilizadas a lo largo del libro. La notación ha sido diseñada para mantener coherencia con la literatura científica moderna en teoría de la información, estadística matemática y ciencia de datos.</p>
+<hr class="docutils" />
+<section id="conjuntos-y-espacios">
+<h3>1. Conjuntos y Espacios<a class="headerlink" href="#conjuntos-y-espacios" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbb{R}\)</span> : conjunto de los números reales.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> : espacio euclidiano de dimensión <span class="math notranslate nohighlight">\(n\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{X}, \mathcal{Y}, \mathcal{Z}\)</span> : espacios de valores de variables aleatorias.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Omega\)</span> : espacio muestral.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{F}\)</span> : <span class="math notranslate nohighlight">\(\sigma\)</span>-álgebra asociada al espacio de probabilidad.</p></li>
+<li><p><span class="math notranslate nohighlight">\((\Omega, \mathcal{F}, \mathbb{P})\)</span> : espacio de probabilidad.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="variables-aleatorias-y-distribuciones">
+<h3>2. Variables Aleatorias y Distribuciones<a class="headerlink" href="#variables-aleatorias-y-distribuciones" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X, Y, Z\)</span> : variables aleatorias.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{X}\)</span> : vector aleatorio multivariado.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x, y, z\)</span> : realizaciones específicas de variables aleatorias.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(x)\)</span> : función de masa de probabilidad.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x)\)</span> : función de densidad de probabilidad.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(x,y)\)</span> : distribución conjunta.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(x|y)\)</span> : distribución condicional.</p></li>
+</ul>
+<p>Distribuciones marginales:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) = \sum_y p(x,y)
+\]</div>
+<p>o en el caso continuo,</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) = \int f(x,y)\,dy.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="operadores-probabilisticos">
+<h3>3. Operadores Probabilísticos<a class="headerlink" href="#operadores-probabilisticos" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbb{P}(A)\)</span> : probabilidad de un evento <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{E}[X]\)</span> : esperanza matemática.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathrm{Var}(X)\)</span> : varianza.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathrm{Cov}(X,Y)\)</span> : covarianza.</p></li>
+</ul>
+<p>Esperanza condicional:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}[X|Y].
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="entropia-e-informacion">
+<h3>4. Entropía e Información<a class="headerlink" href="#entropia-e-informacion" title="Permalink to this heading">#</a></h3>
+<p>Entropía de Shannon:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X) = -\sum_x p(x)\log p(x).
+\]</div>
+<p>Entropía conjunta:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y).
+\]</div>
+<p>Entropía condicional:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X|Y).
+\]</div>
+<p>Información mutua:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y).
+\]</div>
+<p>Información mutua condicional:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z).
+\]</div>
+<p>Divergencia de Kullback–Leibler:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="vectores-y-matrices-informacionales">
+<h3>5. Vectores y Matrices Informacionales<a class="headerlink" href="#vectores-y-matrices-informacionales" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{X} = (X_1,\dots,X_n)\)</span> : vector aleatorio.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> : matriz de covarianza.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{M}\)</span> : matriz de información mutua.</p></li>
+<li><p><span class="math notranslate nohighlight">\(M_{ij}\)</span> : información mutua entre <span class="math notranslate nohighlight">\(X_i\)</span> y <span class="math notranslate nohighlight">\(X_j\)</span>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="convenciones-tipograficas">
+<h3>6. Convenciones Tipográficas<a class="headerlink" href="#convenciones-tipograficas" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Variables aleatorias: letras mayúsculas (<span class="math notranslate nohighlight">\(X, Y, Z\)</span>).</p></li>
+<li><p>Observaciones: letras minúsculas (<span class="math notranslate nohighlight">\(x, y, z\)</span>).</p></li>
+<li><p>Vectores: negrita (<span class="math notranslate nohighlight">\(\mathbf{X}\)</span>).</p></li>
+<li><p>Conjuntos: caligráfico (<span class="math notranslate nohighlight">\(\mathcal{X}\)</span>).</p></li>
+<li><p>Operadores matemáticos: roman upright (ej. <span class="math notranslate nohighlight">\(\mathrm{Var}\)</span>).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="notacion-para-aprendizaje-automatico">
+<h3>7. Notación para Aprendizaje Automático<a class="headerlink" href="#notacion-para-aprendizaje-automatico" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{X}\)</span> : matriz de datos.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{z}\)</span> : representación latente.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta\)</span> : parámetros de modelos.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{L}(\theta)\)</span> : función de pérdida.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{\theta}\)</span> : estimador.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="convenciones-logaritmicas">
+<h3>8. Convenciones Logarítmicas<a class="headerlink" href="#convenciones-logaritmicas" title="Permalink to this heading">#</a></h3>
+<p>A menos que se indique lo contrario:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\log\)</span> denota logaritmo base 2.</p></li>
+<li><p>Las unidades de información se expresan en bits.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="comentarios-finales">
+<h3>9. Comentarios Finales<a class="headerlink" href="#comentarios-finales" title="Permalink to this heading">#</a></h3>
+<p>Las definiciones matemáticas detalladas y demostraciones formales se presentan en capítulos posteriores. La notación aquí introducida se utilizará consistentemente a lo largo del texto para garantizar precisión conceptual y coherencia estructural.</p>
+</section>
+</section>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-01_theory/entropy"></span><section class="tex2jax_ignore mathjax_ignore" id="entropia-de-shannon">
+<h2>Entropía de Shannon<a class="headerlink" href="#entropia-de-shannon" title="Permalink to this heading">#</a></h2>
+<p>La entropía es una de las nociones centrales de la teoría de la información. Introducida por Claude Shannon en 1948, cuantifica la incertidumbre promedio asociada a una variable aleatoria y constituye la base matemática para el análisis de sistemas de comunicación, aprendizaje automático y modelos probabilísticos.</p>
+<hr class="docutils" />
+<section id="motivacion-conceptual">
+<h3>1. Motivación Conceptual<a class="headerlink" href="#motivacion-conceptual" title="Permalink to this heading">#</a></h3>
+<p>Considérese una variable aleatoria discreta <span class="math notranslate nohighlight">\(X\)</span> con distribución de probabilidad <span class="math notranslate nohighlight">\(p(x)\)</span>. Si los resultados son altamente predecibles, la incertidumbre es baja; si son impredecibles, la incertidumbre es alta.</p>
+<p>La entropía mide formalmente esta incertidumbre promedio.</p>
+<p>Ejemplos intuitivos:</p>
+<ul class="simple">
+<li><p>Un dado cargado tiene menor entropía que un dado justo.</p></li>
+<li><p>Una variable determinista tiene entropía cero.</p></li>
+<li><p>Una distribución uniforme maximiza la entropía.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="definicion-formal-caso-discreto">
+<h3>2. Definición Formal (Caso Discreto)<a class="headerlink" href="#definicion-formal-caso-discreto" title="Permalink to this heading">#</a></h3>
+<p>Sea <span class="math notranslate nohighlight">\(X\)</span> una variable aleatoria discreta con función de masa <span class="math notranslate nohighlight">\(p(x)\)</span>. La entropía de Shannon se define como:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X) = -\sum_{x \in \mathcal{X}} p(x)\log p(x).
+\]</div>
+<p>donde:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\log\)</span> es el logaritmo base 2.</p></li>
+<li><p>La unidad es el bit.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-informacional">
+<h3>3. Interpretación Informacional<a class="headerlink" href="#interpretacion-informacional" title="Permalink to this heading">#</a></h3>
+<p>La cantidad:</p>
+<div class="math notranslate nohighlight">
+\[
+-\log p(x)
+\]</div>
+<p>representa la información asociada al evento <span class="math notranslate nohighlight">\(x\)</span>. Por tanto, la entropía es el valor esperado de la información:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X) = \mathbb{E}[-\log p(X)].
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>Alta entropía → mayor incertidumbre promedio.</p></li>
+<li><p>Baja entropía → mayor previsibilidad.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="caso-continuo">
+<h3>4. Caso Continuo<a class="headerlink" href="#caso-continuo" title="Permalink to this heading">#</a></h3>
+<p>Para variables aleatorias continuas con densidad <span class="math notranslate nohighlight">\(f(x)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+h(X) = -\int f(x)\log f(x)\,dx.
+\]</div>
+<p>Esta cantidad se denomina entropía diferencial.</p>
+<p>Advertencias:</p>
+<ul class="simple">
+<li><p>Puede ser negativa.</p></li>
+<li><p>No es invariante ante transformaciones lineales.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="propiedades-fundamentales">
+<h3>5. Propiedades Fundamentales<a class="headerlink" href="#propiedades-fundamentales" title="Permalink to this heading">#</a></h3>
+<section id="no-negatividad">
+<h4>5.1 No negatividad<a class="headerlink" href="#no-negatividad" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+H(X) \ge 0.
+\]</div>
+</section>
+<section id="maximo-para-distribuciones-uniformes">
+<h4>5.2 Máximo para distribuciones uniformes<a class="headerlink" href="#maximo-para-distribuciones-uniformes" title="Permalink to this heading">#</a></h4>
+<p>Si <span class="math notranslate nohighlight">\(|\mathcal{X}| = n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X) \le \log n.
+\]</div>
+</section>
+<section id="invarianza-ante-permutaciones">
+<h4>5.3 Invarianza ante permutaciones<a class="headerlink" href="#invarianza-ante-permutaciones" title="Permalink to this heading">#</a></h4>
+<p>La entropía depende únicamente de la distribución, no del etiquetado de los estados.</p>
+</section>
+<section id="aditividad-para-variables-independientes">
+<h4>5.4 Aditividad para variables independientes<a class="headerlink" href="#aditividad-para-variables-independientes" title="Permalink to this heading">#</a></h4>
+<p>Si <span class="math notranslate nohighlight">\(X\)</span> y <span class="math notranslate nohighlight">\(Y\)</span> son independientes:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y) = H(X) + H(Y).
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-computacional">
+<h3>6. Ejemplo Computacional<a class="headerlink" href="#ejemplo-computacional" title="Permalink to this heading">#</a></h3>
+<p>Sea una variable binaria:</p>
+<div class="math notranslate nohighlight">
+\[
+P(X=0)=0.5,\quad P(X=1)=0.5.
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X)= -0.5\log 0.5 -0.5\log 0.5 = 1\ \text{bit}.
+\]</div>
+<p>Caso sesgado:</p>
+<div class="math notranslate nohighlight">
+\[
+P(X=1)=0.9,\quad P(X=0)=0.1.
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H(X) \approx 0.469\ \text{bits}.
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>Mayor sesgo → menor entropía.</p></li>
+<li><p>Mayor equilibrio → mayor incertidumbre.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-geometrica">
+<h3>7. Interpretación Geométrica<a class="headerlink" href="#interpretacion-geometrica" title="Permalink to this heading">#</a></h3>
+<p>La entropía puede interpretarse como una medida de dispersión probabilística sobre el simplex de probabilidades.</p>
+<ul class="simple">
+<li><p>Distribuciones concentradas → cercanas a vértices.</p></li>
+<li><p>Distribuciones uniformes → centro del simplex.</p></li>
+</ul>
+<p>Esta perspectiva es útil en:</p>
+<ul class="simple">
+<li><p>optimización</p></li>
+<li><p>aprendizaje profundo</p></li>
+<li><p>teoría de códigos</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="rol-en-ciencia-de-datos">
+<h3>8. Rol en Ciencia de Datos<a class="headerlink" href="#rol-en-ciencia-de-datos" title="Permalink to this heading">#</a></h3>
+<p>Aplicaciones modernas incluyen:</p>
+<ul class="simple">
+<li><p>selección de características</p></li>
+<li><p>árboles de decisión</p></li>
+<li><p>regularización probabilística</p></li>
+<li><p>aprendizaje no supervisado</p></li>
+<li><p>modelos generativos</p></li>
+</ul>
+<p>En aprendizaje automático:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Ganancia de información} = H(Y) - H(Y|X).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="conexion-con-capitulos-posteriores">
+<h3>9. Conexión con Capítulos Posteriores<a class="headerlink" href="#conexion-con-capitulos-posteriores" title="Permalink to this heading">#</a></h3>
+<p>La entropía sirve como base para:</p>
+<ul class="simple">
+<li><p>entropía condicional</p></li>
+<li><p>información mutua</p></li>
+<li><p>divergencia KL</p></li>
+<li><p>matrices de información</p></li>
+<li><p>modelos multivariados</p></li>
+</ul>
+<p>Estos conceptos serán desarrollados en los capítulos siguientes.</p>
+</section>
+<hr class="docutils" />
+<section id="comentarios-finales">
+<h3>10. Comentarios Finales<a class="headerlink" href="#comentarios-finales" title="Permalink to this heading">#</a></h3>
+<p>La entropía establece el marco cuantitativo fundamental para medir incertidumbre e información. Su formulación probabilística permite conectar estadística, teoría de la comunicación y aprendizaje automático dentro de una estructura matemática unificada.</p>
+<p><span id="id1">[<a class="reference internal" href="intro.html#id6" title="Claude E. Shannon. A mathematical theory of communication. Bell System Technical Journal, 27(3):379–423, 1948.">Shannon, 1948</a>]</span>, <span id="id2">[<a class="reference internal" href="intro.html#id3" title="David MacKay. Information Theory, Inference, and Learning Algorithms. Cambridge University Press, 2003.">MacKay, 2003</a>]</span>, <span id="id3">[<a class="reference internal" href="intro.html#id2" title="Thomas Cover and Joy Thomas. Elements of Information Theory. Wiley, 2006.">Cover and Thomas, 2006</a>]</span></p>
+</section>
+</section>
+<span id="document-01_theory/conditional_entropy"></span><section class="tex2jax_ignore mathjax_ignore" id="entropia-conjunta-y-entropia-condicional">
+<h2>Entropía Conjunta y Entropía Condicional<a class="headerlink" href="#entropia-conjunta-y-entropia-condicional" title="Permalink to this heading">#</a></h2>
+<section id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h3>
+<p>En teoría de la información, la <strong>entropía conjunta</strong> y la <strong>entropía condicional</strong>
+permiten cuantificar la incertidumbre total de sistemas multivariables y la
+incertidumbre residual de una variable cuando otra es conocida.</p>
+<p>Estas cantidades constituyen la base formal para definir medidas más avanzadas
+como la información mutua, la información mutua condicional y diversas medidas
+de dependencia estadística en modelos multivariados.</p>
+</section>
+<hr class="docutils" />
+<section id="entropia-conjunta">
+<h3>Entropía Conjunta<a class="headerlink" href="#entropia-conjunta" title="Permalink to this heading">#</a></h3>
+<section id="definicion">
+<h4>Definición<a class="headerlink" href="#definicion" title="Permalink to this heading">#</a></h4>
+<p>Sean <span class="math notranslate nohighlight">\(X\)</span> y <span class="math notranslate nohighlight">\(Y\)</span> variables aleatorias discretas con distribución conjunta
+<span class="math notranslate nohighlight">\(P(X,Y)\)</span>. La entropía conjunta se define como</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y) = - \sum_{x} \sum_{y} P(x,y)\,\log P(x,y).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="interpretacion">
+<h4>Interpretación<a class="headerlink" href="#interpretacion" title="Permalink to this heading">#</a></h4>
+<p>La entropía conjunta mide:</p>
+<ul class="simple">
+<li><p>La incertidumbre total del sistema formado por <span class="math notranslate nohighlight">\((X,Y)\)</span>.</p></li>
+<li><p>La cantidad promedio de información necesaria para describir simultáneamente
+ambas variables.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="propiedades">
+<h4>Propiedades<a class="headerlink" href="#propiedades" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Simetría</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=H(Y,X)
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>No negatividad</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)\ge 0
+\]</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Independencia</strong></p></li>
+</ol>
+<p>Si <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> son independientes:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=H(X)+H(Y)
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-resuelto">
+<h4>Ejemplo Resuelto<a class="headerlink" href="#ejemplo-resuelto" title="Permalink to this heading">#</a></h4>
+<p>Considere la distribución:</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>X</p></th>
+<th class="head"><p>Y</p></th>
+<th class="head"><p>P(X,Y)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0.25</p></td>
+</tr>
+<tr class="row-odd"><td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>0.25</p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>0.25</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>0.25</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Entonces</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y) = -4(0.25\log 0.25)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= -\log 0.25
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= 2 \text{ bits}.
+\]</div>
+<p>Interpretación: el sistema posee incertidumbre máxima para dos variables binarias
+equiprobables e independientes.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="entropia-condicional">
+<h3>Entropía Condicional<a class="headerlink" href="#entropia-condicional" title="Permalink to this heading">#</a></h3>
+<section id="id1">
+<h4>Definición<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>La entropía condicional de <span class="math notranslate nohighlight">\(X\)</span> dado <span class="math notranslate nohighlight">\(Y\)</span> es</p>
+<div class="math notranslate nohighlight">
+\[
+H(X|Y) = - \sum_{x,y} P(x,y)\log P(x|y).
+\]</div>
+<p>Equivalentemente</p>
+<div class="math notranslate nohighlight">
+\[
+H(X|Y) = \sum_y P(y)\,H(X|Y=y).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h4>Interpretación<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<p>Mide:</p>
+<ul class="simple">
+<li><p>La incertidumbre restante de <span class="math notranslate nohighlight">\(X\)</span> después de conocer <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p>El promedio de incertidumbre de <span class="math notranslate nohighlight">\(X\)</span> dentro de cada subconjunto definido por
+valores de <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="casos-extremos">
+<h4>Casos Extremos<a class="headerlink" href="#casos-extremos" title="Permalink to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Dependencia Determinística</strong></p></li>
+</ol>
+<p>Si <span class="math notranslate nohighlight">\(X=f(Y)\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+H(X|Y)=0
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Independencia</strong></p></li>
+</ol>
+<p>Si <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> son independientes</p>
+<div class="math notranslate nohighlight">
+\[
+H(X|Y)=H(X)
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h4>Ejemplo Resuelto<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<p>Suponga la distribución:</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Clima <span class="math notranslate nohighlight">\(X\)</span></p></th>
+<th class="head"><p>Congestión <span class="math notranslate nohighlight">\(Y\)</span></p></th>
+<th class="head"><p>P(X,Y)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Soleado</p></td>
+<td><p>No</p></td>
+<td><p>0.50</p></td>
+</tr>
+<tr class="row-odd"><td><p>Soleado</p></td>
+<td><p>Sí</p></td>
+<td><p>0.10</p></td>
+</tr>
+<tr class="row-even"><td><p>Lluvioso</p></td>
+<td><p>No</p></td>
+<td><p>0.15</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lluvioso</p></td>
+<td><p>Sí</p></td>
+<td><p>0.25</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Marginal de <span class="math notranslate nohighlight">\(Y\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+P(Y=No)=0.65,\quad P(Y=Sí)=0.35.
+\]</div>
+<p>Probabilidades condicionales:</p>
+<div class="math notranslate nohighlight">
+\[
+P(Soleado|No)=0.769,\quad P(Lluvioso|No)=0.231
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P(Soleado|Sí)=0.286,\quad P(Lluvioso|Sí)=0.714
+\]</div>
+<p>Entropías condicionadas:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X|No)=0.78 \text{ bits}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H(X|Sí)=0.86 \text{ bits}
+\]</div>
+<p>Entropía condicional total:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X|Y)=0.65(0.78)+0.35(0.86)=0.81 \text{ bits}.
+\]</div>
+<p>Interpretación: conocer la congestión reduce parcialmente la incertidumbre del
+clima, pero no completamente.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="relacion-fundamental-regla-de-la-cadena">
+<h3>Relación Fundamental (Regla de la Cadena)<a class="headerlink" href="#relacion-fundamental-regla-de-la-cadena" title="Permalink to this heading">#</a></h3>
+<p>La relación central entre estas cantidades es</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=H(Y)+H(X|Y)
+\]</div>
+<p>y también</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=H(X)+H(Y|X).
+\]</div>
+<hr class="docutils" />
+<section id="demostracion-esquematica">
+<h4>Demostración Esquemática<a class="headerlink" href="#demostracion-esquematica" title="Permalink to this heading">#</a></h4>
+<p>Partiendo de</p>
+<div class="math notranslate nohighlight">
+\[
+P(x,y)=P(x|y)P(y)
+\]</div>
+<p>entonces</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y) = -\sum_{x,y} P(x,y)\log[P(x|y)P(y)].
+\]</div>
+<p>Separando logaritmos</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=H(Y)+H(X|Y).
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-geometrica">
+<h3>Interpretación Geométrica<a class="headerlink" href="#interpretacion-geometrica" title="Permalink to this heading">#</a></h3>
+<p>En términos conceptuales:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(H(X)\)</span> representa la incertidumbre total de <span class="math notranslate nohighlight">\(X\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(H(X|Y)\)</span> es la porción no explicada por <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li><p>La diferencia <span class="math notranslate nohighlight">\(H(X)-H(X|Y)\)</span> corresponde a información compartida
+(información mutua).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="aplicaciones">
+<h3>Aplicaciones<a class="headerlink" href="#aplicaciones" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Modelado de dependencia estadística</p></li>
+<li><p>Selección de características</p></li>
+<li><p>Sistemas de comunicación</p></li>
+<li><p>Aprendizaje profundo</p></li>
+<li><p>Modelos probabilísticos multivariados</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ejercicios-propuestos">
+<h3>Ejercicios Propuestos<a class="headerlink" href="#ejercicios-propuestos" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Demuestre que</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+H(X|Y)\le H(X).
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p>Calcule <span class="math notranslate nohighlight">\(H(X,Y)\)</span> y <span class="math notranslate nohighlight">\(H(X|Y)\)</span> para dos variables binarias correlacionadas
+con probabilidad de coincidencia <span class="math notranslate nohighlight">\(p\)</span>.</p></li>
+<li><p>Verifique la regla de la cadena para un ejemplo numérico propio.</p></li>
+<li><p>Analice cómo cambia <span class="math notranslate nohighlight">\(H(X|Y)\)</span> cuando aumenta la correlación entre variables.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="conclusion">
+<h3>Conclusión<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
+<p>La entropía conjunta y la entropía condicional constituyen herramientas
+fundamentales para descomponer la incertidumbre en sistemas multivariados.
+Estas cantidades permiten comprender la estructura informacional entre
+variables y preparan el camino para la formulación formal de la información
+mutua, estudiada en el siguiente capítulo.</p>
+<p><span id="id4">[<a class="reference internal" href="intro.html#id3" title="David MacKay. Information Theory, Inference, and Learning Algorithms. Cambridge University Press, 2003.">MacKay, 2003</a>]</span>, <span id="id5">[<a class="reference internal" href="intro.html#id2" title="Thomas Cover and Joy Thomas. Elements of Information Theory. Wiley, 2006.">Cover and Thomas, 2006</a>]</span></p>
+</section>
+</section>
+<span id="document-01_theory/mutual_information"></span><section class="tex2jax_ignore mathjax_ignore" id="informacion-mutua">
+<h2>Información Mutua<a class="headerlink" href="#informacion-mutua" title="Permalink to this heading">#</a></h2>
+<section id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h3>
+<p>La información mutua es una medida fundamental de dependencia estadística
+entre variables aleatorias. Cuantifica la reducción promedio de incertidumbre
+de una variable cuando se conoce otra.</p>
+<p>A diferencia de la correlación lineal, la información mutua captura
+dependencias no lineales y relaciones complejas entre variables,
+constituyendo una herramienta central en teoría de la información,
+aprendizaje automático, estadística multivariada y ciencia de datos.</p>
+</section>
+<hr class="docutils" />
+<section id="definicion-formal">
+<h3>Definición Formal<a class="headerlink" href="#definicion-formal" title="Permalink to this heading">#</a></h3>
+<p>Sean <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> variables aleatorias discretas con distribución conjunta
+<span class="math notranslate nohighlight">\(P(X,Y)\)</span> y marginales <span class="math notranslate nohighlight">\(P(X)\)</span> y <span class="math notranslate nohighlight">\(P(Y)\)</span>. La información mutua se define como</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=\sum_{x,y} P(x,y)\log\frac{P(x,y)}{P(x)P(y)}.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="interpretaciones-equivalentes">
+<h3>Interpretaciones Equivalentes<a class="headerlink" href="#interpretaciones-equivalentes" title="Permalink to this heading">#</a></h3>
+<p>La información mutua puede escribirse en términos de entropías como:</p>
+<section id="forma-entropica-principal">
+<h4>Forma Entrópica Principal<a class="headerlink" href="#forma-entropica-principal" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=H(X)+H(Y)-H(X,Y).
+\]</div>
+</section>
+<section id="reduccion-de-incertidumbre">
+<h4>Reducción de Incertidumbre<a class="headerlink" href="#reduccion-de-incertidumbre" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=H(X)-H(X|Y).
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=H(Y)-H(Y|X).
+\]</div>
+<p>Estas expresiones muestran que la información mutua mide la disminución
+de incertidumbre al conocer la otra variable.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-como-divergencia-kl">
+<h3>Interpretación como Divergencia KL<a class="headerlink" href="#interpretacion-como-divergencia-kl" title="Permalink to this heading">#</a></h3>
+<p>La información mutua también puede expresarse como una divergencia
+de Kullback–Leibler:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=D_{KL}\big(P(X,Y)\,\|\,P(X)P(Y)\big).
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>Mide qué tan distinta es la distribución conjunta respecto a la
+distribución que existiría bajo independencia.</p></li>
+<li><p>Si las variables son independientes, la divergencia es cero.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="propiedades-fundamentales">
+<h3>Propiedades Fundamentales<a class="headerlink" href="#propiedades-fundamentales" title="Permalink to this heading">#</a></h3>
+<section id="no-negatividad">
+<h4>1. No negatividad<a class="headerlink" href="#no-negatividad" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)\ge 0.
+\]</div>
+</section>
+<section id="simetria">
+<h4>2. Simetría<a class="headerlink" href="#simetria" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=I(Y;X).
+\]</div>
+</section>
+<section id="independencia">
+<h4>3. Independencia<a class="headerlink" href="#independencia" title="Permalink to this heading">#</a></h4>
+<p>Si <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> son independientes:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=0.
+\]</div>
+</section>
+<section id="cota-superior">
+<h4>4. Cota Superior<a class="headerlink" href="#cota-superior" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)\le \min(H(X),H(Y)).
+\]</div>
+</section>
+<section id="invarianza-ante-transformaciones-biyectivas">
+<h4>5. Invarianza ante transformaciones biyectivas<a class="headerlink" href="#invarianza-ante-transformaciones-biyectivas" title="Permalink to this heading">#</a></h4>
+<p>La información mutua no cambia bajo transformaciones determinísticas
+invertibles de las variables.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-resuelto-clima-y-congestion-vehicular">
+<h3>Ejemplo Resuelto: Clima y Congestión Vehicular<a class="headerlink" href="#ejemplo-resuelto-clima-y-congestion-vehicular" title="Permalink to this heading">#</a></h3>
+<p>Considere la distribución:</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Clima <span class="math notranslate nohighlight">\(X\)</span></p></th>
+<th class="head"><p>Congestión <span class="math notranslate nohighlight">\(Y\)</span></p></th>
+<th class="head"><p>P(X,Y)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Soleado</p></td>
+<td><p>No</p></td>
+<td><p>0.50</p></td>
+</tr>
+<tr class="row-odd"><td><p>Soleado</p></td>
+<td><p>Sí</p></td>
+<td><p>0.10</p></td>
+</tr>
+<tr class="row-even"><td><p>Lluvioso</p></td>
+<td><p>No</p></td>
+<td><p>0.15</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lluvioso</p></td>
+<td><p>Sí</p></td>
+<td><p>0.25</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Marginales:</p>
+<div class="math notranslate nohighlight">
+\[
+P(X=Soleado)=0.60,\quad P(X=Lluvioso)=0.40
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P(Y=No)=0.65,\quad P(Y=Sí)=0.35
+\]</div>
+<p>Entropías previamente obtenidas:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X)=0.97 \text{ bits}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H(X|Y)=0.81 \text{ bits}
+\]</div>
+<p>Información mutua:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=H(X)-H(X|Y)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=0.97-0.81=0.16 \text{ bits}.
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>Existe dependencia moderada entre clima y congestión.</p></li>
+<li><p>Conocer la congestión reduce ligeramente la incertidumbre del clima.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="informacion-mutua-normalizada">
+<h3>Información Mutua Normalizada<a class="headerlink" href="#informacion-mutua-normalizada" title="Permalink to this heading">#</a></h3>
+<p>Para comparar dependencias entre distintos sistemas se utilizan versiones
+normalizadas, por ejemplo:</p>
+<div class="math notranslate nohighlight">
+\[
+NMI=\frac{I(X;Y)}{\sqrt{H(X)H(Y)}}.
+\]</div>
+<p>Aplicaciones:</p>
+<ul class="simple">
+<li><p>clustering</p></li>
+<li><p>evaluación de modelos</p></li>
+<li><p>análisis de dependencia relativa</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="extension-a-variables-continuas">
+<h3>Extensión a Variables Continuas<a class="headerlink" href="#extension-a-variables-continuas" title="Permalink to this heading">#</a></h3>
+<p>Para variables continuas con densidad conjunta <span class="math notranslate nohighlight">\(p(x,y)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=\int\int p(x,y)\log\frac{p(x,y)}{p(x)p(y)}dx\,dy.
+\]</div>
+<p>Observación:</p>
+<ul class="simple">
+<li><p>se usa entropía diferencial</p></li>
+<li><p>pueden aparecer valores negativos en entropía diferencial, pero
+la información mutua permanece no negativa</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-geometrica-informacional">
+<h3>Interpretación Geométrica Informacional<a class="headerlink" href="#interpretacion-geometrica-informacional" title="Permalink to this heading">#</a></h3>
+<p>Conceptualmente:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(H(X)\)</span> es la incertidumbre total de <span class="math notranslate nohighlight">\(X\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(H(X|Y)\)</span> es la parte no explicada por <span class="math notranslate nohighlight">\(Y\)</span></p></li>
+<li><p>la intersección corresponde a <span class="math notranslate nohighlight">\(I(X;Y)\)</span></p></li>
+</ul>
+<p>Esta interpretación se usa frecuentemente en diagramas tipo Venn
+informacionales.</p>
+</section>
+<hr class="docutils" />
+<section id="aplicaciones">
+<h3>Aplicaciones<a class="headerlink" href="#aplicaciones" title="Permalink to this heading">#</a></h3>
+<section id="aprendizaje-automatico">
+<h4>Aprendizaje Automático<a class="headerlink" href="#aprendizaje-automatico" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>selección de características</p></li>
+<li><p>reducción de dimensionalidad</p></li>
+<li><p>aprendizaje profundo</p></li>
+<li><p>representación latente</p></li>
+</ul>
+</section>
+<section id="ciencia-de-datos">
+<h4>Ciencia de Datos<a class="headerlink" href="#ciencia-de-datos" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>análisis de dependencia no lineal</p></li>
+<li><p>clustering basado en información</p></li>
+<li><p>análisis exploratorio</p></li>
+</ul>
+</section>
+<section id="comunicaciones">
+<h4>Comunicaciones<a class="headerlink" href="#comunicaciones" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>capacidad de canal</p></li>
+<li><p>codificación óptima</p></li>
+<li><p>análisis de ruido</p></li>
+</ul>
+</section>
+<section id="estadistica-multivariada">
+<h4>Estadística Multivariada<a class="headerlink" href="#estadistica-multivariada" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>matrices de información mutua</p></li>
+<li><p>análisis de redes probabilísticas</p></li>
+<li><p>modelos gráficos</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="relacion-con-capitulos-posteriores">
+<h3>Relación con Capítulos Posteriores<a class="headerlink" href="#relacion-con-capitulos-posteriores" title="Permalink to this heading">#</a></h3>
+<p>Este concepto será extendido en:</p>
+<ul class="simple">
+<li><p>Matriz de Información Mutua</p></li>
+<li><p>Información Mutua Condicional</p></li>
+<li><p>Modelos Multivariados de Alta Dimensión</p></li>
+<li><p>Divergencia de Kullback–Leibler</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ejercicios-propuestos">
+<h3>Ejercicios Propuestos<a class="headerlink" href="#ejercicios-propuestos" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Demuestre que <span class="math notranslate nohighlight">\(I(X;Y)\ge 0\)</span> usando la desigualdad de Gibbs.</p></li>
+<li><p>Calcule la información mutua para dos variables binarias con
+probabilidad de coincidencia <span class="math notranslate nohighlight">\(p\)</span>.</p></li>
+<li><p>Compare información mutua y correlación lineal en un ejemplo no lineal.</p></li>
+<li><p>Demuestre que</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=0
+\]</div>
+<p>si y solo si las variables son independientes.</p>
+<ol class="arabic simple" start="5">
+<li><p>Construya un ejemplo donde la correlación sea cero pero la
+información mutua sea positiva.</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="conclusion">
+<h3>Conclusión<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
+<p>La información mutua proporciona una medida universal de dependencia
+estadística que trasciende relaciones lineales y permite caracterizar
+estructuras informacionales complejas. Su formulación basada en entropía
+y divergencia KL la convierte en una herramienta central para el análisis
+teórico y aplicado en sistemas multivariados modernos.</p>
+<p><span id="id1">[<a class="reference internal" href="intro.html#id6" title="Claude E. Shannon. A mathematical theory of communication. Bell System Technical Journal, 27(3):379–423, 1948.">Shannon, 1948</a>]</span>, <span id="id2">[<a class="reference internal" href="intro.html#id2" title="Thomas Cover and Joy Thomas. Elements of Information Theory. Wiley, 2006.">Cover and Thomas, 2006</a>]</span></p>
+</section>
+</section>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-02_mathematical_foundations/formal_definitions"></span><section class="tex2jax_ignore mathjax_ignore" id="definiciones-formales">
+<h2>Definiciones Formales<a class="headerlink" href="#definiciones-formales" title="Permalink to this heading">#</a></h2>
+<section id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h3>
+<p>En los capítulos anteriores se presentaron las definiciones clásicas
+de entropía e información mutua para variables discretas. Sin embargo,
+para desarrollar resultados rigurosos y extensiones multivariadas es
+necesario establecer un marco formal basado en teoría de la medida
+y probabilidad moderna.</p>
+<p>Este capítulo introduce:</p>
+<ul class="simple">
+<li><p>espacios de probabilidad</p></li>
+<li><p>variables aleatorias medibles</p></li>
+<li><p>distribuciones conjuntas y marginales</p></li>
+<li><p>definiciones generales de entropía</p></li>
+<li><p>información mutua en espacios generales</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="espacio-de-probabilidad">
+<h3>Espacio de Probabilidad<a class="headerlink" href="#espacio-de-probabilidad" title="Permalink to this heading">#</a></h3>
+<p>Un espacio de probabilidad se define como la terna</p>
+<div class="math notranslate nohighlight">
+\[
+(\Omega,\mathcal{F},P)
+\]</div>
+<p>donde:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\Omega\)</span> es el espacio muestral</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathcal{F}\)</span> es una <span class="math notranslate nohighlight">\(\sigma\)</span>-álgebra de eventos</p></li>
+<li><p><span class="math notranslate nohighlight">\(P:\mathcal{F}\to[0,1]\)</span> es una medida de probabilidad</p></li>
+</ul>
+<p>cumpliendo:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(P(\Omega)=1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(P(A)\ge0\)</span></p></li>
+<li><p>aditividad numerable</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+P\left(\bigcup_i A_i\right)=\sum_i P(A_i)
+\]</div>
+<p>para eventos disjuntos.</p>
+</section>
+<hr class="docutils" />
+<section id="variables-aleatorias">
+<h3>Variables Aleatorias<a class="headerlink" href="#variables-aleatorias" title="Permalink to this heading">#</a></h3>
+<p>Una variable aleatoria es una función medible</p>
+<div class="math notranslate nohighlight">
+\[
+X:\Omega\rightarrow \mathbb{R}
+\]</div>
+<p>tal que</p>
+<div class="math notranslate nohighlight">
+\[
+X^{-1}(B)\in \mathcal{F}
+\]</div>
+<p>para todo conjunto boreliano <span class="math notranslate nohighlight">\(B\)</span>.</p>
+<p>Tipos relevantes:</p>
+<ul class="simple">
+<li><p>discretas</p></li>
+<li><p>continuas</p></li>
+<li><p>mixtas</p></li>
+<li><p>vectoriales</p></li>
+<li><p>procesos estocásticos</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="distribuciones-de-probabilidad">
+<h3>Distribuciones de Probabilidad<a class="headerlink" href="#distribuciones-de-probabilidad" title="Permalink to this heading">#</a></h3>
+<p>Sea <span class="math notranslate nohighlight">\((X,Y)\)</span> un vector aleatorio.</p>
+<section id="distribucion-conjunta">
+<h4>Distribución Conjunta<a class="headerlink" href="#distribucion-conjunta" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+P_{X,Y}(A\times B)=P(X\in A, Y\in B).
+\]</div>
+</section>
+<section id="distribuciones-marginales">
+<h4>Distribuciones Marginales<a class="headerlink" href="#distribuciones-marginales" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+P_X(A)=P(X\in A)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P_Y(B)=P(Y\in B)
+\]</div>
+</section>
+<section id="independencia">
+<h4>Independencia<a class="headerlink" href="#independencia" title="Permalink to this heading">#</a></h4>
+<p>Las variables son independientes si</p>
+<div class="math notranslate nohighlight">
+\[
+P_{X,Y}=P_X\otimes P_Y.
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="entropia-general">
+<h3>Entropía General<a class="headerlink" href="#entropia-general" title="Permalink to this heading">#</a></h3>
+<section id="caso-discreto">
+<h4>Caso Discreto<a class="headerlink" href="#caso-discreto" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+H(X)=-\sum_x P(x)\log P(x).
+\]</div>
+</section>
+<section id="caso-continuo-entropia-diferencial">
+<h4>Caso Continuo (Entropía Diferencial)<a class="headerlink" href="#caso-continuo-entropia-diferencial" title="Permalink to this heading">#</a></h4>
+<p>Si <span class="math notranslate nohighlight">\(X\)</span> tiene densidad <span class="math notranslate nohighlight">\(f(x)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+h(X)=-\int f(x)\log f(x)\,dx.
+\]</div>
+<p>Observaciones:</p>
+<ul class="simple">
+<li><p>puede ser negativa</p></li>
+<li><p>depende de la escala</p></li>
+<li><p>no es invariante ante transformaciones generales</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="entropia-condicional">
+<h3>Entropía Condicional<a class="headerlink" href="#entropia-condicional" title="Permalink to this heading">#</a></h3>
+<section id="forma-general">
+<h4>Forma General<a class="headerlink" href="#forma-general" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+H(X|Y)=\mathbb{E}_{Y}[H(X|Y=y)].
+\]</div>
+<p>Caso discreto:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X|Y)=-\sum_{x,y}P(x,y)\log P(x|y).
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="entropia-conjunta">
+<h3>Entropía Conjunta<a class="headerlink" href="#entropia-conjunta" title="Permalink to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=-\sum_{x,y}P(x,y)\log P(x,y).
+\]</div>
+<p>Regla de la cadena:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=H(X)+H(Y|X).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="informacion-mutua-general">
+<h3>Información Mutua General<a class="headerlink" href="#informacion-mutua-general" title="Permalink to this heading">#</a></h3>
+<p>La definición más general se formula mediante divergencia KL:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=D_{KL}(P_{X,Y}\,\|\,P_X\otimes P_Y).
+\]</div>
+<p>Caso discreto:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=\sum_{x,y}P(x,y)
+\log\frac{P(x,y)}{P(x)P(y)}.
+\]</div>
+<p>Caso continuo:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=\int\int p(x,y)\log
+\frac{p(x,y)}{p(x)p(y)}dxdy.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="informacion-mutua-condicional">
+<h3>Información Mutua Condicional<a class="headerlink" href="#informacion-mutua-condicional" title="Permalink to this heading">#</a></h3>
+<p>Definición general:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)=
+\mathbb{E}_Z
+\left[
+D_{KL}(P_{X,Y|Z}\,\|\,P_{X|Z}P_{Y|Z})
+\right].
+\]</div>
+<p>Forma entrópica:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)=H(X|Z)-H(X|Y,Z).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="informacion-mutua-multivariada">
+<h3>Información Mutua Multivariada<a class="headerlink" href="#informacion-mutua-multivariada" title="Permalink to this heading">#</a></h3>
+<p>Para un vector aleatorio</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{X}=(X_1,\dots,X_n)
+\]</div>
+<p>la información total se define como</p>
+<div class="math notranslate nohighlight">
+\[
+TC(\mathbf{X})=
+D_{KL}(P_{\mathbf{X}}\,
+\|\,\prod_i P_{X_i}).
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>mide dependencia global</p></li>
+<li><p>base para modelos multivariados</p></li>
+<li><p>fundamento de matrices de información mutua</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="variables-aleatorias-vectoriales">
+<h3>Variables Aleatorias Vectoriales<a class="headerlink" href="#variables-aleatorias-vectoriales" title="Permalink to this heading">#</a></h3>
+<p>Sea</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{X}\in \mathbb{R}^d.
+\]</div>
+<p>La entropía diferencial multivariada:</p>
+<div class="math notranslate nohighlight">
+\[
+h(\mathbf{X})=-\int f(\mathbf{x})
+\log f(\mathbf{x})\,d\mathbf{x}.
+\]</div>
+<p>Información mutua vectorial:</p>
+<div class="math notranslate nohighlight">
+\[
+I(\mathbf{X};\mathbf{Y})
+=D_{KL}(P_{\mathbf{X},\mathbf{Y}}
+\|P_{\mathbf{X}}P_{\mathbf{Y}}).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="independencia-condicional">
+<h3>Independencia Condicional<a class="headerlink" href="#independencia-condicional" title="Permalink to this heading">#</a></h3>
+<p>Las variables <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> son independientes dado <span class="math notranslate nohighlight">\(Z\)</span> si</p>
+<div class="math notranslate nohighlight">
+\[
+P_{X,Y|Z}=P_{X|Z}P_{Y|Z}.
+\]</div>
+<p>Equivalente a</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)=0.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="notacion-funcional">
+<h3>Notación Funcional<a class="headerlink" href="#notacion-funcional" title="Permalink to this heading">#</a></h3>
+<p>Se utilizarán las siguientes convenciones:</p>
+<ul class="simple">
+<li><p>letras mayúsculas: variables aleatorias</p></li>
+<li><p>minúsculas: realizaciones</p></li>
+<li><p>negrita: vectores aleatorios</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{E}\)</span>: esperanza</p></li>
+<li><p><span class="math notranslate nohighlight">\(D_{KL}\)</span>: divergencia de Kullback–Leibler</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-formal-discreto">
+<h3>Ejemplo Formal Discreto<a class="headerlink" href="#ejemplo-formal-discreto" title="Permalink to this heading">#</a></h3>
+<p>Sea:</p>
+<div class="math notranslate nohighlight">
+\[
+X,Y\in\{0,1\}.
+\]</div>
+<p>Distribución conjunta:</p>
+<div class="math notranslate nohighlight">
+\[
+P(0,0)=0.4,\quad
+P(0,1)=0.1,
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P(1,0)=0.2,\quad
+P(1,1)=0.3.
+\]</div>
+<p>Marginales:</p>
+<div class="math notranslate nohighlight">
+\[
+P_X(0)=0.5,\quad
+P_X(1)=0.5
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P_Y(0)=0.6,\quad
+P_Y(1)=0.4.
+\]</div>
+<p>Información mutua:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=\sum_{x,y}P(x,y)
+\log\frac{P(x,y)}{P(x)P(y)}.
+\]</div>
+<p>Este ejemplo se retomará en capítulos posteriores para:</p>
+<ul class="simple">
+<li><p>matrices de información mutua</p></li>
+<li><p>modelos multivariados</p></li>
+<li><p>clustering informacional</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="conclusion">
+<h3>Conclusión<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
+<p>Las definiciones formales introducidas permiten extender los conceptos
+clásicos de entropía e información mutua hacia:</p>
+<ul class="simple">
+<li><p>espacios generales de probabilidad</p></li>
+<li><p>variables continuas y vectoriales</p></li>
+<li><p>modelos multivariados complejos</p></li>
+<li><p>ciencia de datos moderna</p></li>
+</ul>
+<p>Este formalismo servirá como base para el desarrollo riguroso de
+propiedades matemáticas y teoremas en el siguiente capítulo.</p>
+<p><span id="id1">[<a class="reference internal" href="intro.html#id10" title="Imre Csiszár. Information Theory and Statistics. Springer, 2011.">Csiszár, 2011</a>]</span>, <span id="id2">[<a class="reference internal" href="intro.html#id2" title="Thomas Cover and Joy Thomas. Elements of Information Theory. Wiley, 2006.">Cover and Thomas, 2006</a>]</span></p>
+</section>
+</section>
+<span id="document-02_mathematical_foundations/properties_theorems"></span><section class="tex2jax_ignore mathjax_ignore" id="propiedades-y-teoremas-fundamentales">
+<h2>Propiedades y Teoremas Fundamentales<a class="headerlink" href="#propiedades-y-teoremas-fundamentales" title="Permalink to this heading">#</a></h2>
+<section id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h3>
+<p>En este capítulo se presentan las propiedades matemáticas esenciales
+de la entropía, la entropía condicional y la información mutua.
+Estos resultados constituyen la base teórica para:</p>
+<ul class="simple">
+<li><p>modelos multivariados</p></li>
+<li><p>aprendizaje automático basado en información</p></li>
+<li><p>selección de características</p></li>
+<li><p>análisis de dependencia estadística</p></li>
+</ul>
+<p>Se incluyen demostraciones formales y resultados clásicos de la
+teoría de la información.</p>
+</section>
+<hr class="docutils" />
+<section id="no-negatividad-de-la-entropia">
+<h3>No Negatividad de la Entropía<a class="headerlink" href="#no-negatividad-de-la-entropia" title="Permalink to this heading">#</a></h3>
+<section id="teorema">
+<h4>Teorema<a class="headerlink" href="#teorema" title="Permalink to this heading">#</a></h4>
+<p>Para toda variable aleatoria discreta:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X)\ge 0.
+\]</div>
+</section>
+<section id="demostracion">
+<h4>Demostración<a class="headerlink" href="#demostracion" title="Permalink to this heading">#</a></h4>
+<p>Dado que <span class="math notranslate nohighlight">\(0\le P(x)\le 1\)</span> se tiene:</p>
+<div class="math notranslate nohighlight">
+\[
+\log P(x)\le 0.
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+- P(x)\log P(x)\ge 0.
+\]</div>
+<p>Sumando sobre todos los valores:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X)\ge 0.
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="entropia-maxima">
+<h3>Entropía Máxima<a class="headerlink" href="#entropia-maxima" title="Permalink to this heading">#</a></h3>
+<section id="id1">
+<h4>Teorema<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<p>Entre todas las distribuciones discretas con soporte finito de tamaño <span class="math notranslate nohighlight">\(n\)</span>,
+la entropía es máxima para la distribución uniforme:</p>
+<div class="math notranslate nohighlight">
+\[
+P(x)=\frac{1}{n}.
+\]</div>
+</section>
+<section id="resultado">
+<h4>Resultado<a class="headerlink" href="#resultado" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+H(X)\le \log n.
+\]</div>
+<p>La igualdad ocurre solo en el caso equiprobable.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="regla-de-la-cadena">
+<h3>Regla de la Cadena<a class="headerlink" href="#regla-de-la-cadena" title="Permalink to this heading">#</a></h3>
+<section id="id2">
+<h4>Teorema<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=H(X)+H(Y|X).
+\]</div>
+</section>
+<section id="id3">
+<h4>Demostración<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<p>Partimos de:</p>
+<div class="math notranslate nohighlight">
+\[
+P(x,y)=P(x)P(y|x).
+\]</div>
+<p>Luego:</p>
+<div class="math notranslate nohighlight">
+\[
+\log P(x,y)=\log P(x)+\log P(y|x).
+\]</div>
+<p>Sustituyendo en la definición de entropía conjunta:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=-\sum P(x,y)\log P(x,y).
+\]</div>
+<p>Se obtiene:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=H(X)+H(Y|X).
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="subaditividad">
+<h3>Subaditividad<a class="headerlink" href="#subaditividad" title="Permalink to this heading">#</a></h3>
+<section id="id4">
+<h4>Teorema<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)\le H(X)+H(Y).
+\]</div>
+</section>
+<section id="id5">
+<h4>Demostración<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<p>Usando:</p>
+<div class="math notranslate nohighlight">
+\[
+H(Y|X)\le H(Y).
+\]</div>
+<p>y la regla de la cadena:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=H(X)+H(Y|X).
+\]</div>
+<p>se concluye la desigualdad.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="desigualdad-de-gibbs">
+<h3>Desigualdad de Gibbs<a class="headerlink" href="#desigualdad-de-gibbs" title="Permalink to this heading">#</a></h3>
+<section id="id6">
+<h4>Teorema<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<p>Para distribuciones <span class="math notranslate nohighlight">\(P\)</span> y <span class="math notranslate nohighlight">\(Q\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)\ge 0.
+\]</div>
+</section>
+<section id="demostracion-jensen">
+<h4>Demostración (Jensen)<a class="headerlink" href="#demostracion-jensen" title="Permalink to this heading">#</a></h4>
+<p>La función <span class="math notranslate nohighlight">\(-\log x\)</span> es convexa.
+Aplicando desigualdad de Jensen:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}\left[\log\frac{Q}{P}\right]
+\le
+\log\mathbb{E}\left[\frac{Q}{P}\right].
+\]</div>
+<p>Se concluye:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)\ge 0.
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="no-negatividad-de-la-informacion-mutua">
+<h3>No Negatividad de la Información Mutua<a class="headerlink" href="#no-negatividad-de-la-informacion-mutua" title="Permalink to this heading">#</a></h3>
+<section id="id7">
+<h4>Teorema<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)\ge 0.
+\]</div>
+</section>
+<section id="id8">
+<h4>Demostración<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<p>Usando:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=D_{KL}(P_{X,Y}\|P_XP_Y)
+\]</div>
+<p>y la desigualdad de Gibbs.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="simetria">
+<h3>Simetría<a class="headerlink" href="#simetria" title="Permalink to this heading">#</a></h3>
+<section id="propiedad">
+<h4>Propiedad<a class="headerlink" href="#propiedad" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=I(Y;X).
+\]</div>
+<p>Esto se deduce directamente de:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X)+H(Y)-H(X,Y).
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="informacion-mutua-nula">
+<h3>Información Mutua Nula<a class="headerlink" href="#informacion-mutua-nula" title="Permalink to this heading">#</a></h3>
+<section id="id9">
+<h4>Teorema<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=0 \iff X\perp Y.
+\]</div>
+</section>
+<section id="interpretacion">
+<h4>Interpretación<a class="headerlink" href="#interpretacion" title="Permalink to this heading">#</a></h4>
+<p>La información mutua mide dependencia estadística.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="regla-de-la-cadena-para-informacion-mutua">
+<h3>Regla de la Cadena para Información Mutua<a class="headerlink" href="#regla-de-la-cadena-para-informacion-mutua" title="Permalink to this heading">#</a></h3>
+<section id="id10">
+<h4>Teorema<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y,Z)=I(X;Y)+I(X;Z|Y).
+\]</div>
+</section>
+<section id="extension">
+<h4>Extensión<a class="headerlink" href="#extension" title="Permalink to this heading">#</a></h4>
+<p>Para múltiples variables:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y_1,\dots,Y_n)=
+\sum_{i=1}^{n}
+I(X;Y_i|Y_1,\dots,Y_{i-1}).
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="desigualdad-de-procesamiento-de-datos">
+<h3>Desigualdad de Procesamiento de Datos<a class="headerlink" href="#desigualdad-de-procesamiento-de-datos" title="Permalink to this heading">#</a></h3>
+<section id="id11">
+<h4>Teorema<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
+<p>Si:</p>
+<div class="math notranslate nohighlight">
+\[
+X\rightarrow Y\rightarrow Z
+\]</div>
+<p>es una cadena de Markov, entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Z)\le I(X;Y).
+\]</div>
+</section>
+<section id="id12">
+<h4>Interpretación<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h4>
+<p>Ninguna transformación puede aumentar la información.</p>
+<p>Aplicaciones:</p>
+<ul class="simple">
+<li><p>redes neuronales profundas</p></li>
+<li><p>compresión de datos</p></li>
+<li><p>modelos generativos</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="monotonicidad-condicional">
+<h3>Monotonicidad Condicional<a class="headerlink" href="#monotonicidad-condicional" title="Permalink to this heading">#</a></h3>
+<section id="id13">
+<h4>Teorema<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+H(X|Y,Z)\le H(X|Y).
+\]</div>
+<p>Más información nunca aumenta la incertidumbre.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="descomposicion-de-informacion-mutua">
+<h3>Descomposición de Información Mutua<a class="headerlink" href="#descomposicion-de-informacion-mutua" title="Permalink to this heading">#</a></h3>
+<section id="identidad">
+<h4>Identidad<a class="headerlink" href="#identidad" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=H(X)-H(X|Y).
+\]</div>
+<p>También:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=H(Y)-H(Y|X).
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="submodularidad">
+<h3>Submodularidad<a class="headerlink" href="#submodularidad" title="Permalink to this heading">#</a></h3>
+<section id="id14">
+<h4>Teorema<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h4>
+<p>La entropía es una función submodular:</p>
+<div class="math notranslate nohighlight">
+\[
+H(A)+H(B)\ge H(A\cup B)+H(A\cap B).
+\]</div>
+<p>Importancia:</p>
+<ul class="simple">
+<li><p>selección de variables</p></li>
+<li><p>optimización combinatoria</p></li>
+<li><p>aprendizaje estructural</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="convexidad-y-concavidad">
+<h3>Convexidad y Concavidad<a class="headerlink" href="#convexidad-y-concavidad" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>La entropía es función cóncava de la distribución</p></li>
+<li><p>La divergencia KL es convexa</p></li>
+</ul>
+<p>Consecuencias:</p>
+<ul class="simple">
+<li><p>estabilidad numérica</p></li>
+<li><p>existencia de soluciones óptimas</p></li>
+<li><p>optimización convexa</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="informacion-total-dependencia-multivariada">
+<h3>Información Total (Dependencia Multivariada)<a class="headerlink" href="#informacion-total-dependencia-multivariada" title="Permalink to this heading">#</a></h3>
+<section id="definicion">
+<h4>Definición<a class="headerlink" href="#definicion" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+TC(X_1,\dots,X_n)=
+D_{KL}(P\|\prod_i P_i).
+\]</div>
+<p>Propiedades:</p>
+<ul class="simple">
+<li><p>siempre no negativa</p></li>
+<li><p>cero solo si independencia total</p></li>
+<li><p>generalización multivariada de información mutua</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="desigualdades-multivariadas">
+<h3>Desigualdades Multivariadas<a class="headerlink" href="#desigualdades-multivariadas" title="Permalink to this heading">#</a></h3>
+<p>Para variables múltiples:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y,Z)\ge I(X;Y).
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y,Z)\le H(X)+H(Y)+H(Z).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-numerico">
+<h3>Ejemplo Numérico<a class="headerlink" href="#ejemplo-numerico" title="Permalink to this heading">#</a></h3>
+<p>Sea:</p>
+<div class="math notranslate nohighlight">
+\[
+P(0,0)=0.4,\;
+P(0,1)=0.1,\;
+P(1,0)=0.2,\;
+P(1,1)=0.3.
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)\ge 0
+\]</div>
+<p>y</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)\le H(X)+H(Y).
+\]</div>
+<p>Este ejemplo se utilizará posteriormente en:</p>
+<ul class="simple">
+<li><p>matrices de información mutua</p></li>
+<li><p>clustering informacional</p></li>
+<li><p>selección de variables</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="conclusion">
+<h3>Conclusión<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
+<p>Las propiedades presentadas establecen la base teórica necesaria
+para desarrollar:</p>
+<ul class="simple">
+<li><p>modelos multivariados de dependencia</p></li>
+<li><p>matrices de información mutua</p></li>
+<li><p>aprendizaje profundo informacional</p></li>
+<li><p>algoritmos de ciencia de datos basados en teoría de la información</p></li>
+</ul>
+<p>El siguiente capítulo introducirá formalmente la divergencia de
+Kullback–Leibler como herramienta central para medir diferencias
+entre distribuciones.</p>
+<p><span id="id15">[<a class="reference internal" href="intro.html#id10" title="Imre Csiszár. Information Theory and Statistics. Springer, 2011.">Csiszár, 2011</a>]</span>, <span id="id16">[<a class="reference internal" href="intro.html#id2" title="Thomas Cover and Joy Thomas. Elements of Information Theory. Wiley, 2006.">Cover and Thomas, 2006</a>]</span></p>
+</section>
+</section>
+<span id="document-02_mathematical_foundations/kl_divergence"></span><section class="tex2jax_ignore mathjax_ignore" id="divergencia-de-kullbackleibler">
+<h2>Divergencia de Kullback–Leibler<a class="headerlink" href="#divergencia-de-kullbackleibler" title="Permalink to this heading">#</a></h2>
+<section id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h3>
+<p>La divergencia de Kullback–Leibler (KL) es una medida fundamental
+de la diferencia entre dos distribuciones de probabilidad.</p>
+<p>En teoría de la información, cuantifica la cantidad de información
+perdida al aproximar una distribución verdadera mediante otra.</p>
+<p>En ciencia de datos y aprendizaje automático aparece en:</p>
+<ul class="simple">
+<li><p>aprendizaje profundo</p></li>
+<li><p>modelos generativos</p></li>
+<li><p>inferencia variacional</p></li>
+<li><p>selección de modelos</p></li>
+<li><p>regularización informacional</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="definicion-formal-variables-discretas">
+<h3>Definición Formal (Variables Discretas)<a class="headerlink" href="#definicion-formal-variables-discretas" title="Permalink to this heading">#</a></h3>
+<p>Sean <span class="math notranslate nohighlight">\(P\)</span> y <span class="math notranslate nohighlight">\(Q\)</span> dos distribuciones sobre el mismo espacio.</p>
+<p>La divergencia KL se define como:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)=
+\sum_x P(x)\log\frac{P(x)}{Q(x)}.
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>mide discrepancia probabilística</p></li>
+<li><p>no es una distancia métrica</p></li>
+<li><p>es una medida direccional</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="definicion-continua">
+<h3>Definición Continua<a class="headerlink" href="#definicion-continua" title="Permalink to this heading">#</a></h3>
+<p>Para variables continuas:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)=
+\int p(x)\log\frac{p(x)}{q(x)}dx.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-informacional">
+<h3>Interpretación Informacional<a class="headerlink" href="#interpretacion-informacional" title="Permalink to this heading">#</a></h3>
+<p>Reescribiendo:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)
+=
+-\sum P(x)\log Q(x)
+-
+H(P).
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>diferencia entre entropía cruzada y entropía real</p></li>
+<li><p>exceso de longitud de código</p></li>
+<li><p>pérdida de eficiencia de compresión</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="propiedades-fundamentales">
+<h3>Propiedades Fundamentales<a class="headerlink" href="#propiedades-fundamentales" title="Permalink to this heading">#</a></h3>
+<section id="no-negatividad">
+<h4>No Negatividad<a class="headerlink" href="#no-negatividad" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)\ge 0.
+\]</div>
+<p>Igualdad solo si:</p>
+<div class="math notranslate nohighlight">
+\[
+P=Q.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="no-simetria">
+<h4>No Simetría<a class="headerlink" href="#no-simetria" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)\neq D_{KL}(Q\|P).
+\]</div>
+<p>Consecuencia:</p>
+<p>no es una métrica.</p>
+</section>
+<hr class="docutils" />
+<section id="no-cumple-desigualdad-triangular">
+<h4>No Cumple Desigualdad Triangular<a class="headerlink" href="#no-cumple-desigualdad-triangular" title="Permalink to this heading">#</a></h4>
+<p>No define distancia geométrica clásica.</p>
+</section>
+<hr class="docutils" />
+<section id="convexidad">
+<h4>Convexidad<a class="headerlink" href="#convexidad" title="Permalink to this heading">#</a></h4>
+<p>La divergencia KL es convexa respecto a <span class="math notranslate nohighlight">\(Q\)</span>.</p>
+<p>Importancia:</p>
+<ul class="simple">
+<li><p>optimización convexa</p></li>
+<li><p>aprendizaje probabilístico</p></li>
+<li><p>estabilidad numérica</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="relacion-con-entropia-cruzada">
+<h3>Relación con Entropía Cruzada<a class="headerlink" href="#relacion-con-entropia-cruzada" title="Permalink to this heading">#</a></h3>
+<p>Definición:</p>
+<div class="math notranslate nohighlight">
+\[
+H(P,Q)=
+-\sum P(x)\log Q(x).
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)=H(P,Q)-H(P).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="relacion-con-informacion-mutua">
+<h3>Relación con Información Mutua<a class="headerlink" href="#relacion-con-informacion-mutua" title="Permalink to this heading">#</a></h3>
+<p>Recordemos:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=
+D_{KL}(P_{X,Y}\|P_XP_Y).
+\]</div>
+<p>Interpretación:</p>
+<p>la información mutua mide desviación respecto a independencia.</p>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-discreto">
+<h3>Ejemplo Discreto<a class="headerlink" href="#ejemplo-discreto" title="Permalink to this heading">#</a></h3>
+<p>Sea:</p>
+<div class="math notranslate nohighlight">
+\[
+P=(0.6,0.4),
+\quad
+Q=(0.5,0.5).
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)
+=
+0.6\log\frac{0.6}{0.5}
++
+0.4\log\frac{0.4}{0.5}.
+\]</div>
+<p>Calculando:</p>
+<div class="math notranslate nohighlight">
+\[
+=0.6\log(1.2)+0.4\log(0.8).
+\]</div>
+<p>Resultado positivo ⇒ distribuciones diferentes.</p>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-interpretativo-modelo-mal-especificado">
+<h3>Ejemplo Interpretativo (Modelo Mal Especificado)<a class="headerlink" href="#ejemplo-interpretativo-modelo-mal-especificado" title="Permalink to this heading">#</a></h3>
+<p>Supongamos:</p>
+<ul class="simple">
+<li><p>distribución real: <span class="math notranslate nohighlight">\(P\)</span></p></li>
+<li><p>modelo estimado: <span class="math notranslate nohighlight">\(Q\)</span></p></li>
+</ul>
+<p>La divergencia KL mide:</p>
+<ul class="simple">
+<li><p>error informacional del modelo</p></li>
+<li><p>pérdida de eficiencia predictiva</p></li>
+</ul>
+<p>Aplicaciones:</p>
+<ul class="simple">
+<li><p>modelos bayesianos</p></li>
+<li><p>machine learning</p></li>
+<li><p>selección de arquitectura</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="divergencia-kl-condicional">
+<h3>Divergencia KL Condicional<a class="headerlink" href="#divergencia-kl-condicional" title="Permalink to this heading">#</a></h3>
+<p>Para variables:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P(X|Y)\|Q(X|Y)).
+\]</div>
+<p>Definición promedio:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb{E}_Y
+\left[
+D_{KL}(P(X|Y)\|Q(X|Y))
+\right].
+\]</div>
+<p>Uso:</p>
+<ul class="simple">
+<li><p>modelos jerárquicos</p></li>
+<li><p>inferencia variacional</p></li>
+<li><p>redes probabilísticas</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="descomposicion-de-kl">
+<h3>Descomposición de KL<a class="headerlink" href="#descomposicion-de-kl" title="Permalink to this heading">#</a></h3>
+<p>Para variables conjuntas:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P(X,Y)\|Q(X,Y))
+=
+D_{KL}(P(X)\|Q(X))
++
+D_{KL}(P(Y|X)\|Q(Y|X)).
+\]</div>
+<p>Importancia:</p>
+<ul class="simple">
+<li><p>modelos estructurados</p></li>
+<li><p>factorización probabilística</p></li>
+<li><p>aprendizaje profundo</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="kl-en-aprendizaje-automatico">
+<h3>KL en Aprendizaje Automático<a class="headerlink" href="#kl-en-aprendizaje-automatico" title="Permalink to this heading">#</a></h3>
+<section id="funcion-de-perdida">
+<h4>Función de Pérdida<a class="headerlink" href="#funcion-de-perdida" title="Permalink to this heading">#</a></h4>
+<p>Muchos modelos minimizan:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P_{datos}\|P_{modelo}).
+\]</div>
+<p>Ejemplos:</p>
+<ul class="simple">
+<li><p>modelos generativos</p></li>
+<li><p>VAE</p></li>
+<li><p>language models</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="regularizacion">
+<h4>Regularización<a class="headerlink" href="#regularizacion" title="Permalink to this heading">#</a></h4>
+<p>KL controla:</p>
+<ul class="simple">
+<li><p>complejidad del modelo</p></li>
+<li><p>sobreajuste</p></li>
+<li><p>divergencia respecto a prior</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="inferencia-variacional">
+<h3>Inferencia Variacional<a class="headerlink" href="#inferencia-variacional" title="Permalink to this heading">#</a></h3>
+<p>Objetivo:</p>
+<p>aproximar posterior:</p>
+<div class="math notranslate nohighlight">
+\[
+p(z|x)
+\]</div>
+<p>mediante:</p>
+<div class="math notranslate nohighlight">
+\[
+q(z).
+\]</div>
+<p>Minimizando:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(q(z)\|p(z|x)).
+\]</div>
+<p>Base matemática de:</p>
+<ul class="simple">
+<li><p>autoencoders variacionales</p></li>
+<li><p>modelos bayesianos modernos</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="relacion-con-otras-medidas">
+<h3>Relación con Otras Medidas<a class="headerlink" href="#relacion-con-otras-medidas" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Jensen–Shannon divergence</p></li>
+<li><p>Total variation</p></li>
+<li><p>Wasserstein distance</p></li>
+</ul>
+<p>KL destaca por:</p>
+<ul class="simple">
+<li><p>tractabilidad analítica</p></li>
+<li><p>diferenciabilidad</p></li>
+<li><p>conexión directa con entropía</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-multivariado">
+<h3>Ejemplo Multivariado<a class="headerlink" href="#ejemplo-multivariado" title="Permalink to this heading">#</a></h3>
+<p>Sea:</p>
+<div class="math notranslate nohighlight">
+\[
+P(X,Y)
+\]</div>
+<p>y modelo independiente:</p>
+<div class="math notranslate nohighlight">
+\[
+Q=P_XP_Y.
+\]</div>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\|Q)=I(X;Y).
+\]</div>
+<p>Interpretación:</p>
+<p>la información mutua es KL contra independencia.</p>
+</section>
+<hr class="docutils" />
+<section id="conclusion">
+<h3>Conclusión<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
+<p>La divergencia de Kullback–Leibler constituye el núcleo matemático
+de la teoría moderna de la información y el aprendizaje automático.</p>
+<p>Proporciona:</p>
+<ul class="simple">
+<li><p>medida fundamental de discrepancia</p></li>
+<li><p>base para información mutua</p></li>
+<li><p>herramienta central en deep learning</p></li>
+<li><p>fundamento de inferencia probabilística</p></li>
+</ul>
+<p>En los siguientes capítulos se utilizará extensivamente para:</p>
+<ul class="simple">
+<li><p>matrices de información mutua</p></li>
+<li><p>modelos multivariados</p></li>
+<li><p>selección de características</p></li>
+<li><p>análisis informacional en ciencia de datos</p></li>
+</ul>
+<p><span id="id1">[<a class="reference internal" href="intro.html#id15" title="Solomon Kullback and Richard Leibler. On information and sufficiency. Annals of Mathematical Statistics, 1951.">Kullback and Leibler, 1951</a>]</span>, <span id="id2">[<a class="reference internal" href="intro.html#id4" title="Christopher Bishop. Pattern Recognition and Machine Learning. Springer, 2006.">Bishop, 2006</a>]</span></p>
+</section>
+</section>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-03_multivariate_models/mi_matrix"></span><section class="tex2jax_ignore mathjax_ignore" id="matriz-de-informacion-mutua">
+<h2>Matriz de Información Mutua<a class="headerlink" href="#matriz-de-informacion-mutua" title="Permalink to this heading">#</a></h2>
+<section id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h3>
+<p>En sistemas multivariados resulta fundamental cuantificar
+las dependencias entre múltiples variables aleatorias.</p>
+<p>Mientras que la información mutua clásica mide la dependencia
+entre dos variables, la matriz de información mutua permite
+extender este concepto a conjuntos de variables.</p>
+<p>Aplicaciones principales:</p>
+<ul class="simple">
+<li><p>análisis multivariado</p></li>
+<li><p>selección de características</p></li>
+<li><p>aprendizaje automático</p></li>
+<li><p>análisis de redes complejas</p></li>
+<li><p>modelamiento probabilístico de alta dimensión</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="definicion-del-sistema-multivariado">
+<h3>Definición del Sistema Multivariado<a class="headerlink" href="#definicion-del-sistema-multivariado" title="Permalink to this heading">#</a></h3>
+<p>Sea un vector aleatorio:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{X} = (X_1,X_2,\dots,X_n).
+\]</div>
+<p>Cada variable tiene distribución marginal:</p>
+<div class="math notranslate nohighlight">
+\[
+P_{X_i}.
+\]</div>
+<p>La distribución conjunta es:</p>
+<div class="math notranslate nohighlight">
+\[
+P_{X_1,\dots,X_n}.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="definicion-de-la-matriz-de-informacion-mutua">
+<h3>Definición de la Matriz de Información Mutua<a class="headerlink" href="#definicion-de-la-matriz-de-informacion-mutua" title="Permalink to this heading">#</a></h3>
+<p>La matriz de información mutua se define como:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{M} =
+[I(X_i;X_j)]_{i,j=1}^n.
+\]</div>
+<p>Donde cada entrada es:</p>
+<div class="math notranslate nohighlight">
+\[
+M_{ij}=I(X_i;X_j).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="estructura-de-la-matriz">
+<h3>Estructura de la Matriz<a class="headerlink" href="#estructura-de-la-matriz" title="Permalink to this heading">#</a></h3>
+<section id="diagonal">
+<h4>Diagonal<a class="headerlink" href="#diagonal" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+M_{ii}=H(X_i).
+\]</div>
+<p>Interpretación:</p>
+<p>la información mutua de una variable consigo misma
+equivale a su entropía.</p>
+</section>
+<hr class="docutils" />
+<section id="simetria">
+<h4>Simetría<a class="headerlink" href="#simetria" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X_i;X_j)=I(X_j;X_i).
+\]</div>
+<p>Por lo tanto:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{M}
+\]</div>
+<p>es una matriz simétrica.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-informacional">
+<h3>Interpretación Informacional<a class="headerlink" href="#interpretacion-informacional" title="Permalink to this heading">#</a></h3>
+<p>Cada elemento mide:</p>
+<ul class="simple">
+<li><p>reducción de incertidumbre</p></li>
+<li><p>dependencia estadística</p></li>
+<li><p>redundancia informacional</p></li>
+<li><p>relación funcional potencial</p></li>
+</ul>
+<p>Valores altos ⇒ fuerte dependencia.</p>
+<p>Valores cercanos a cero ⇒ independencia.</p>
+</section>
+<hr class="docutils" />
+<section id="relacion-con-la-matriz-de-covarianza">
+<h3>Relación con la Matriz de Covarianza<a class="headerlink" href="#relacion-con-la-matriz-de-covarianza" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Aspecto</p></th>
+<th class="head"><p>Covarianza</p></th>
+<th class="head"><p>Información Mutua</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Tipo de dependencia</p></td>
+<td><p>Lineal</p></td>
+<td><p>General</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sensibilidad</p></td>
+<td><p>Baja a no linealidad</p></td>
+<td><p>Alta</p></td>
+</tr>
+<tr class="row-even"><td><p>Invarianza a transformaciones</p></td>
+<td><p>Limitada</p></td>
+<td><p>Más robusta</p></td>
+</tr>
+<tr class="row-odd"><td><p>Aplicación</p></td>
+<td><p>Estadística clásica</p></td>
+<td><p>Ciencia de datos moderna</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>La matriz de información mutua detecta:</p>
+<ul class="simple">
+<li><p>dependencias no lineales</p></li>
+<li><p>relaciones complejas</p></li>
+<li><p>interacciones ocultas</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="construccion-practica">
+<h3>Construcción Práctica<a class="headerlink" href="#construccion-practica" title="Permalink to this heading">#</a></h3>
+<section id="paso-1-estimar-distribuciones">
+<h4>Paso 1: Estimar distribuciones<a class="headerlink" href="#paso-1-estimar-distribuciones" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>histogramas</p></li>
+<li><p>KDE</p></li>
+<li><p>estimadores k-NN</p></li>
+<li><p>modelos probabilísticos</p></li>
+</ul>
+</section>
+<section id="paso-2-calcular-informacion-mutua">
+<h4>Paso 2: Calcular información mutua<a class="headerlink" href="#paso-2-calcular-informacion-mutua" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X_i;X_j)
+=
+H(X_i)+H(X_j)-H(X_i,X_j).
+\]</div>
+</section>
+<section id="paso-3-construir-la-matriz">
+<h4>Paso 3: Construir la matriz<a class="headerlink" href="#paso-3-construir-la-matriz" title="Permalink to this heading">#</a></h4>
+<p>Para todo par:</p>
+<div class="math notranslate nohighlight">
+\[
+(i,j).
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-conceptual">
+<h3>Ejemplo Conceptual<a class="headerlink" href="#ejemplo-conceptual" title="Permalink to this heading">#</a></h3>
+<p>Sea:</p>
+<div class="math notranslate nohighlight">
+\[
+(X_1,X_2,X_3).
+\]</div>
+<p>La matriz es:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{pmatrix}
+H(X_1) &amp; I(X_1;X_2) &amp; I(X_1;X_3) \\
+I(X_2;X_1) &amp; H(X_2) &amp; I(X_2;X_3) \\
+I(X_3;X_1) &amp; I(X_3;X_2) &amp; H(X_3)
+\end{pmatrix}.
+\end{split}\]</div>
+</section>
+<hr class="docutils" />
+<section id="propiedades-matematicas">
+<h3>Propiedades Matemáticas<a class="headerlink" href="#propiedades-matematicas" title="Permalink to this heading">#</a></h3>
+<section id="no-negatividad">
+<h4>No Negatividad<a class="headerlink" href="#no-negatividad" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+M_{ij}\ge 0.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id1">
+<h4>Simetría<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{M}=\mathbf{M}^T.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="dependencia-funcional">
+<h4>Dependencia Funcional<a class="headerlink" href="#dependencia-funcional" title="Permalink to this heading">#</a></h4>
+<p>Si:</p>
+<div class="math notranslate nohighlight">
+\[
+X_j=f(X_i)
+\]</div>
+<p>entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X_i;X_j)=H(X_j).
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-geometrica">
+<h3>Interpretación Geométrica<a class="headerlink" href="#interpretacion-geometrica" title="Permalink to this heading">#</a></h3>
+<p>La matriz define un grafo informacional:</p>
+<ul class="simple">
+<li><p>nodos = variables</p></li>
+<li><p>pesos = información mutua</p></li>
+</ul>
+<p>Esto permite:</p>
+<ul class="simple">
+<li><p>análisis de redes</p></li>
+<li><p>clustering estructural</p></li>
+<li><p>inferencia causal preliminar</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="uso-en-ciencia-de-datos">
+<h3>Uso en Ciencia de Datos<a class="headerlink" href="#uso-en-ciencia-de-datos" title="Permalink to this heading">#</a></h3>
+<section id="seleccion-de-variables">
+<h4>Selección de Variables<a class="headerlink" href="#seleccion-de-variables" title="Permalink to this heading">#</a></h4>
+<p>Identificar:</p>
+<ul class="simple">
+<li><p>redundancia</p></li>
+<li><p>variables irrelevantes</p></li>
+<li><p>grupos altamente dependientes</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="modelos-generativos">
+<h4>Modelos Generativos<a class="headerlink" href="#modelos-generativos" title="Permalink to this heading">#</a></h4>
+<p>Detectar:</p>
+<ul class="simple">
+<li><p>estructuras probabilísticas</p></li>
+<li><p>correlaciones ocultas</p></li>
+<li><p>dependencias jerárquicas</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="deep-learning">
+<h4>Deep Learning<a class="headerlink" href="#deep-learning" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>análisis de representaciones internas</p></li>
+<li><p>aprendizaje auto-supervisado</p></li>
+<li><p>regularización informacional</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-conceptual-de-ciencia-de-datos">
+<h3>Ejemplo Conceptual de Ciencia de Datos<a class="headerlink" href="#ejemplo-conceptual-de-ciencia-de-datos" title="Permalink to this heading">#</a></h3>
+<p>Variables:</p>
+<ul class="simple">
+<li><p>Edad</p></li>
+<li><p>Presión arterial</p></li>
+<li><p>Índice de masa corporal</p></li>
+<li><p>Nivel de actividad</p></li>
+</ul>
+<p>La matriz permite:</p>
+<ul class="simple">
+<li><p>detectar redundancia clínica</p></li>
+<li><p>analizar interacción fisiológica</p></li>
+<li><p>reducir dimensionalidad</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="limitaciones">
+<h3>Limitaciones<a class="headerlink" href="#limitaciones" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>estimación difícil en alta dimensión</p></li>
+<li><p>sesgo en muestras pequeñas</p></li>
+<li><p>necesidad de estimadores robustos</p></li>
+<li><p>costo computacional elevado</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="extensiones">
+<h3>Extensiones<a class="headerlink" href="#extensiones" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>matriz de información mutua condicional</p></li>
+<li><p>grafos de información</p></li>
+<li><p>redes bayesianas</p></li>
+<li><p>matrices normalizadas</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="conclusion">
+<h3>Conclusión<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
+<p>La matriz de información mutua generaliza el concepto
+de dependencia informacional al contexto multivariado.</p>
+<p>Proporciona una herramienta poderosa para:</p>
+<ul class="simple">
+<li><p>análisis estadístico avanzado</p></li>
+<li><p>aprendizaje automático</p></li>
+<li><p>ciencia de datos moderna</p></li>
+<li><p>modelamiento probabilístico de alta dimensión</p></li>
+</ul>
+<p>En el siguiente capítulo se desarrollará la
+información mutua condicional multivariada,
+clave para analizar dependencias indirectas
+y relaciones causales complejas.</p>
+<p><span id="id2">[<a class="reference internal" href="intro.html#id5" title="Kevin Murphy. Machine Learning: A Probabilistic Perspective. MIT Press, 2012.">Murphy, 2012</a>]</span></p>
+</section>
+</section>
+<span id="document-03_multivariate_models/conditional_mi"></span><section class="tex2jax_ignore mathjax_ignore" id="informacion-mutua-condicional-multivariada">
+<h2>Información Mutua Condicional Multivariada<a class="headerlink" href="#informacion-mutua-condicional-multivariada" title="Permalink to this heading">#</a></h2>
+<section id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h3>
+<p>En sistemas multivariados complejos, las dependencias entre variables
+no siempre son directas. Muchas relaciones observadas pueden deberse
+a variables intermedias o factores latentes.</p>
+<p>La información mutua condicional permite medir la dependencia entre
+dos variables eliminando la influencia de una o más variables de control.</p>
+<p>Este concepto es fundamental en:</p>
+<ul class="simple">
+<li><p>inferencia causal</p></li>
+<li><p>redes bayesianas</p></li>
+<li><p>selección de variables</p></li>
+<li><p>análisis de dependencia estructural</p></li>
+<li><p>aprendizaje automático moderno</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="definicion-general">
+<h3>Definición General<a class="headerlink" href="#definicion-general" title="Permalink to this heading">#</a></h3>
+<p>Sean variables aleatorias:</p>
+<div class="math notranslate nohighlight">
+\[
+X,\ Y,\ Z.
+\]</div>
+<p>La información mutua condicional se define como:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)
+=
+H(X|Z)
+-
+H(X|Y,Z).
+\]</div>
+<p>También puede escribirse como:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)
+=
+H(X,Z)
++
+H(Y,Z)
+-
+H(Z)
+-
+H(X,Y,Z).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-informacional">
+<h3>Interpretación Informacional<a class="headerlink" href="#interpretacion-informacional" title="Permalink to this heading">#</a></h3>
+<p>La cantidad:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)
+\]</div>
+<p>mide la reducción de incertidumbre sobre <span class="math notranslate nohighlight">\(X\)</span> al conocer <span class="math notranslate nohighlight">\(Y\)</span>,
+una vez que ya conocemos <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>dependencia directa residual</p></li>
+<li><p>información adicional</p></li>
+<li><p>asociación libre de confusores</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="caso-multivariado-general">
+<h3>Caso Multivariado General<a class="headerlink" href="#caso-multivariado-general" title="Permalink to this heading">#</a></h3>
+<p>Sean vectores aleatorios:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{X},\ \mathbf{Y},\ \mathbf{Z}.
+\]</div>
+<p>La definición general es:</p>
+<div class="math notranslate nohighlight">
+\[
+I(\mathbf{X};\mathbf{Y}|\mathbf{Z})
+=
+H(\mathbf{X}|\mathbf{Z})
+-
+H(\mathbf{X}|\mathbf{Y},\mathbf{Z}).
+\]</div>
+<p>Equivalentemente:</p>
+<div class="math notranslate nohighlight">
+\[
+I(\mathbf{X};\mathbf{Y}|\mathbf{Z})
+=
+H(\mathbf{X},\mathbf{Z})
++
+H(\mathbf{Y},\mathbf{Z})
+-
+H(\mathbf{Z})
+-
+H(\mathbf{X},\mathbf{Y},\mathbf{Z}).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="interpretacion-geometrica">
+<h3>Interpretación Geométrica<a class="headerlink" href="#interpretacion-geometrica" title="Permalink to this heading">#</a></h3>
+<p>En términos de incertidumbre:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Z\)</span> define el contexto informacional</p></li>
+<li><p><span class="math notranslate nohighlight">\(Y\)</span> aporta información adicional sobre <span class="math notranslate nohighlight">\(X\)</span></p></li>
+<li><p>la dependencia medida es la parte irreducible
+una vez controlado <span class="math notranslate nohighlight">\(Z\)</span></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="independencia-condicional">
+<h3>Independencia Condicional<a class="headerlink" href="#independencia-condicional" title="Permalink to this heading">#</a></h3>
+<p>Si:</p>
+<div class="math notranslate nohighlight">
+\[
+X \perp Y \mid Z
+\]</div>
+<p>entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)=0.
+\]</div>
+<p>Esto permite detectar:</p>
+<ul class="simple">
+<li><p>independencia estructural</p></li>
+<li><p>separación d-separation en grafos</p></li>
+<li><p>relaciones indirectas</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="propiedades-fundamentales">
+<h3>Propiedades Fundamentales<a class="headerlink" href="#propiedades-fundamentales" title="Permalink to this heading">#</a></h3>
+<section id="no-negatividad">
+<h4>No Negatividad<a class="headerlink" href="#no-negatividad" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)\ge 0.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="simetria">
+<h4>Simetría<a class="headerlink" href="#simetria" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)=I(Y;X|Z).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="regla-de-cadena">
+<h4>Regla de Cadena<a class="headerlink" href="#regla-de-cadena" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y,Z)
+=
+I(X;Z)
++
+I(X;Y|Z).
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="expansion-multivariable">
+<h4>Expansión Multivariable<a class="headerlink" href="#expansion-multivariable" title="Permalink to this heading">#</a></h4>
+<p>Para variables múltiples:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y_1,Y_2|Z)
+=
+I(X;Y_1|Z)
++
+I(X;Y_2|Y_1,Z).
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="relacion-con-grafos-probabilisticos">
+<h3>Relación con Grafos Probabilísticos<a class="headerlink" href="#relacion-con-grafos-probabilisticos" title="Permalink to this heading">#</a></h3>
+<p>La información mutua condicional permite:</p>
+<ul class="simple">
+<li><p>aprender estructuras de redes bayesianas</p></li>
+<li><p>identificar aristas redundantes</p></li>
+<li><p>evaluar independencia estructural</p></li>
+</ul>
+<p>Ejemplo:</p>
+<div class="math notranslate nohighlight">
+\[
+X \rightarrow Z \rightarrow Y
+\]</div>
+<p>puede implicar:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)&gt;0
+\]</div>
+<p>pero:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)=0.
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="construccion-de-la-matriz-de-informacion-mutua-condicional">
+<h3>Construcción de la Matriz de Información Mutua Condicional<a class="headerlink" href="#construccion-de-la-matriz-de-informacion-mutua-condicional" title="Permalink to this heading">#</a></h3>
+<p>Sea:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{X}=(X_1,\dots,X_n).
+\]</div>
+<p>Definimos la matriz condicionada a <span class="math notranslate nohighlight">\(Z\)</span> como:</p>
+<div class="math notranslate nohighlight">
+\[
+M_{ij}^{(Z)}=I(X_i;X_j|Z).
+\]</div>
+<p>Aplicaciones:</p>
+<ul class="simple">
+<li><p>análisis estructural</p></li>
+<li><p>inferencia causal</p></li>
+<li><p>reducción de dimensionalidad</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-conceptual">
+<h3>Ejemplo Conceptual<a class="headerlink" href="#ejemplo-conceptual" title="Permalink to this heading">#</a></h3>
+<p>Variables:</p>
+<ul class="simple">
+<li><p>Edad</p></li>
+<li><p>Presión arterial</p></li>
+<li><p>Índice de masa corporal</p></li>
+<li><p>Actividad física</p></li>
+</ul>
+<p>Supongamos:</p>
+<p>Edad → Presión
+Edad → IMC
+IMC → Presión</p>
+<p>Entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+I(IMC;Presión)&gt;0
+\]</div>
+<p>pero posiblemente:</p>
+<div class="math notranslate nohighlight">
+\[
+I(IMC;Presión|Edad)
+\]</div>
+<p>disminuye significativamente.</p>
+</section>
+<hr class="docutils" />
+<section id="aplicaciones-en-ciencia-de-datos">
+<h3>Aplicaciones en Ciencia de Datos<a class="headerlink" href="#aplicaciones-en-ciencia-de-datos" title="Permalink to this heading">#</a></h3>
+<section id="seleccion-de-caracteristicas">
+<h4>Selección de Características<a class="headerlink" href="#seleccion-de-caracteristicas" title="Permalink to this heading">#</a></h4>
+<p>Detectar:</p>
+<ul class="simple">
+<li><p>redundancia indirecta</p></li>
+<li><p>variables irrelevantes</p></li>
+<li><p>efectos mediadores</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="aprendizaje-estructural">
+<h4>Aprendizaje Estructural<a class="headerlink" href="#aprendizaje-estructural" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>redes bayesianas</p></li>
+<li><p>grafos probabilísticos</p></li>
+<li><p>modelos causales</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="deep-learning">
+<h4>Deep Learning<a class="headerlink" href="#deep-learning" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>análisis de representaciones internas</p></li>
+<li><p>regularización informacional</p></li>
+<li><p>aprendizaje contrastivo</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="desafios-computacionales">
+<h3>Desafíos Computacionales<a class="headerlink" href="#desafios-computacionales" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>estimación en alta dimensión</p></li>
+<li><p>sesgo en muestras pequeñas</p></li>
+<li><p>necesidad de estimadores robustos</p></li>
+<li><p>complejidad combinatoria</p></li>
+</ul>
+<p>Métodos comunes:</p>
+<ul class="simple">
+<li><p>k-NN estimators</p></li>
+<li><p>métodos kernel</p></li>
+<li><p>modelos generativos</p></li>
+<li><p>normalizing flows</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="extensiones-avanzadas">
+<h3>Extensiones Avanzadas<a class="headerlink" href="#extensiones-avanzadas" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>información mutua parcial</p></li>
+<li><p>información multivariada total</p></li>
+<li><p>sinergia e información redundante</p></li>
+<li><p>descomposición PID (Partial Information Decomposition)</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="conclusion">
+<h3>Conclusión<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h3>
+<p>La información mutua condicional multivariada permite analizar
+dependencias directas eliminando la influencia de variables de control.</p>
+<p>Es una herramienta esencial para:</p>
+<ul class="simple">
+<li><p>inferencia causal</p></li>
+<li><p>modelamiento probabilístico</p></li>
+<li><p>análisis estructural</p></li>
+<li><p>aprendizaje automático moderno</p></li>
+</ul>
+<p>En el siguiente capítulo se abordará el análisis de sistemas
+de alta dimensión mediante herramientas computacionales
+y notebooks experimentales.</p>
+<p><span id="id1">[<a class="reference internal" href="intro.html#id9" title="Judea Pearl. Causality. Cambridge, 2009.">Pearl, 2009</a>]</span>, <span id="id2">[<a class="reference internal" href="intro.html#id5" title="Kevin Murphy. Machine Learning: A Probabilistic Perspective. MIT Press, 2012.">Murphy, 2012</a>]</span>.</p>
+</section>
+</section>
+<span id="document-03_multivariate_models/high_dimensional"></span><section class="tex2jax_ignore mathjax_ignore" id="analisis-de-informacion-mutua-en-alta-dimension">
+<h2>Análisis de Información Mutua en Alta Dimensión<a class="headerlink" href="#analisis-de-informacion-mutua-en-alta-dimension" title="Permalink to this heading">#</a></h2>
+<p>Este cuaderno presenta técnicas computacionales para analizar
+dependencias informacionales en sistemas multivariados de alta dimensión.</p>
+<p>Objetivos:</p>
+<ul class="simple">
+<li><p>Simular sistemas con dependencias estructuradas</p></li>
+<li><p>Estimar información mutua entre múltiples variables</p></li>
+<li><p>Construir matrices de información mutua</p></li>
+<li><p>Analizar información mutua condicional</p></li>
+<li><p>Evaluar desafíos computacionales en alta dimensión</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.feature_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">mutual_info_regression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="generacion-de-datos-sinteticos-multivariados">
+<h3>Generación de Datos Sintéticos Multivariados<a class="headerlink" href="#generacion-de-datos-sinteticos-multivariados" title="Permalink to this heading">#</a></h3>
+<p>Construiremos un sistema con:</p>
+<ul class="simple">
+<li><p>dependencias directas</p></li>
+<li><p>relaciones no lineales</p></li>
+<li><p>correlaciones indirectas</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">n_samples</span> <span class="o">=</span> <span class="mi">1500</span>
+
+<span class="n">X1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n_samples</span><span class="p">)</span>
+<span class="n">X2</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">X1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_samples</span><span class="p">)</span>
+<span class="n">X3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_samples</span><span class="p">)</span>
+<span class="n">X4</span> <span class="o">=</span> <span class="n">X2</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n_samples</span><span class="p">)</span>
+<span class="n">X5</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n_samples</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">X3</span><span class="p">,</span> <span class="n">X4</span><span class="p">,</span> <span class="n">X5</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;X1&quot;</span><span class="p">,</span><span class="s2">&quot;X2&quot;</span><span class="p">,</span><span class="s2">&quot;X3&quot;</span><span class="p">,</span><span class="s2">&quot;X4&quot;</span><span class="p">,</span><span class="s2">&quot;X5&quot;</span><span class="p">])</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="normalizacion">
+<h3>Normalización<a class="headerlink" href="#normalizacion" title="Permalink to this heading">#</a></h3>
+<p>La normalización estabiliza estimaciones informacionales
+en espacios de alta dimensión.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">data_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="estimacion-de-matriz-de-informacion-mutua">
+<h3>Estimación de Matriz de Información Mutua<a class="headerlink" href="#estimacion-de-matriz-de-informacion-mutua" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n_features</span> <span class="o">=</span> <span class="n">data_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">mi_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_features</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_features</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+            <span class="n">mi_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">mutual_info_regression</span><span class="p">(</span>
+                <span class="n">data_scaled</span><span class="p">[:,</span> <span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+                <span class="n">data_scaled</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span>
+                <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">mi_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mi_matrix</span><span class="p">,</span>
+                     <span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+                     <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="n">mi_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizacion-de-la-matriz-mi">
+<h3>Visualización de la Matriz MI<a class="headerlink" href="#visualizacion-de-la-matriz-mi" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mi_matrix</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_features</span><span class="p">),</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_features</span><span class="p">),</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Matriz de Información Mutua&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="informacion-mutua-condicional-aproximada">
+<h3>Información Mutua Condicional Aproximada<a class="headerlink" href="#informacion-mutua-condicional-aproximada" title="Permalink to this heading">#</a></h3>
+<p>Aproximaremos:</p>
+<p>I(Xi ; Xj | Xk)</p>
+<p>mediante regresión residual.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">conditional_mi_residual</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">):</span>
+    <span class="n">model_x</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="n">model_y</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+    <span class="n">rx</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">model_x</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+    <span class="n">ry</span> <span class="o">=</span> <span class="n">Y</span> <span class="o">-</span> <span class="n">model_y</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">mutual_info_regression</span><span class="p">(</span>
+        <span class="n">rx</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">ry</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+    <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cmiv</span> <span class="o">=</span> <span class="n">conditional_mi_residual</span><span class="p">(</span>
+    <span class="n">data_scaled</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">data_scaled</span><span class="p">[:,</span><span class="mi">3</span><span class="p">],</span>
+    <span class="n">data_scaled</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I(X1 ; X4 | X2) ≈&quot;</span><span class="p">,</span> <span class="n">cmiv</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="crecimiento-de-dimensionalidad">
+<h3>Crecimiento de Dimensionalidad<a class="headerlink" href="#crecimiento-de-dimensionalidad" title="Permalink to this heading">#</a></h3>
+<p>Analizamos el comportamiento de la estimación
+cuando aumenta el número de variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dims</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">times</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">]:</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="n">d</span><span class="p">))</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                <span class="n">mutual_info_regression</span><span class="p">(</span><span class="n">X</span><span class="p">[:,[</span><span class="n">i</span><span class="p">]],</span> <span class="n">X</span><span class="p">[:,</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="n">dims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Dimensión&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Tiempo (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Costo Computacional en Alta Dimensión&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="discusion">
+<h3>Discusión<a class="headerlink" href="#discusion" title="Permalink to this heading">#</a></h3>
+<p>Observaciones principales:</p>
+<ul class="simple">
+<li><p>La información mutua detecta dependencias no lineales.</p></li>
+<li><p>La dimensionalidad incrementa rápidamente el costo computacional.</p></li>
+<li><p>La información mutua condicional permite eliminar dependencias indirectas.</p></li>
+<li><p>La estimación robusta en alta dimensión requiere métodos avanzados.</p></li>
+</ul>
+<p>Este análisis establece las bases para aplicaciones reales
+en ciencia de datos y aprendizaje profundo.</p>
+<p><span id="id1">[<a class="reference internal" href="intro.html#id7" title="Alexander Kraskov, Harald Stögbauer, and Peter Grassberger. Estimating mutual information. Physical Review E, 69(6):066138, 2004.">Kraskov <em>et al.</em>, 2004</a>]</span>.</p>
+</section>
+</section>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-04_data_science_applications/clustering_mi"></span><section class="tex2jax_ignore mathjax_ignore" id="clustering-basado-en-informacion-mutua">
+<h2>Clustering basado en Información Mutua<a class="headerlink" href="#clustering-basado-en-informacion-mutua" title="Permalink to this heading">#</a></h2>
+<section id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h3>
+<p>La información mutua constituye una herramienta fundamental para medir la dependencia estadística entre variables aleatorias.<br />
+En ciencia de datos, se utiliza ampliamente para:</p>
+<ul class="simple">
+<li><p>Evaluar calidad de agrupamientos</p></li>
+<li><p>Diseñar funciones objetivo</p></li>
+<li><p>Comparar particiones</p></li>
+<li><p>Detectar estructura latente en datos</p></li>
+</ul>
+<p>A diferencia de métricas basadas en distancia euclidiana, la información mutua captura relaciones no lineales y dependencias complejas.</p>
+</section>
+<hr class="docutils" />
+<section id="definicion-de-informacion-mutua-para-clustering">
+<h3>Definición de Información Mutua para Clustering<a class="headerlink" href="#definicion-de-informacion-mutua-para-clustering" title="Permalink to this heading">#</a></h3>
+<p>Sean:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(C\)</span> : etiquetas reales</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{C}\)</span> : etiquetas obtenidas por el algoritmo de clustering</p></li>
+</ul>
+<p>La información mutua se define como:</p>
+<div class="math notranslate nohighlight">
+\[
+I(C;\hat{C}) = \sum_{c,\hat{c}} P(c,\hat{c})
+\log \frac{P(c,\hat{c})}{P(c)P(\hat{c})}
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(I=0\)</span> → independencia total</p></li>
+<li><p><span class="math notranslate nohighlight">\(I\)</span> grande → fuerte concordancia estructural</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="normalized-mutual-information-nmi">
+<h3>Normalized Mutual Information (NMI)<a class="headerlink" href="#normalized-mutual-information-nmi" title="Permalink to this heading">#</a></h3>
+<p>Para comparar clustering con distinto número de grupos se utiliza:</p>
+<div class="math notranslate nohighlight">
+\[
+NMI = \frac{I(C;\hat{C})}{\sqrt{H(C)H(\hat{C})}}
+\]</div>
+<p>Propiedades:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(0 \leq NMI \leq 1\)</span></p></li>
+<li><p>Invariante ante permutaciones de etiquetas</p></li>
+<li><p>Robusta frente a clusters desbalanceados</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ajuste-por-azar-adjusted-mutual-information-ami">
+<h3>Ajuste por Azar: Adjusted Mutual Information (AMI)<a class="headerlink" href="#ajuste-por-azar-adjusted-mutual-information-ami" title="Permalink to this heading">#</a></h3>
+<p>Corrige el sesgo introducido por coincidencias aleatorias:</p>
+<div class="math notranslate nohighlight">
+\[
+AMI = \frac{I - E[I]}{\max(H(C),H(\hat{C})) - E[I]}
+\]</div>
+<p>Ventajas:</p>
+<ul class="simple">
+<li><p>Penaliza coincidencias fortuitas</p></li>
+<li><p>Mejora comparabilidad entre modelos</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ejemplo-conceptual">
+<h3>Ejemplo Conceptual<a class="headerlink" href="#ejemplo-conceptual" title="Permalink to this heading">#</a></h3>
+<p>Supongamos:</p>
+<ul class="simple">
+<li><p>Clases reales: 3</p></li>
+<li><p>Clusters obtenidos: 3</p></li>
+</ul>
+<p>Matriz de contingencia:</p>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Real / Pred</p></th>
+<th class="head"><p>A</p></th>
+<th class="head"><p>B</p></th>
+<th class="head"><p>C</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>30</p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>25</p></td>
+<td><p>2</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>1</p></td>
+<td><p>4</p></td>
+<td><p>28</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A partir de esta tabla:</p>
+<ol class="arabic simple">
+<li><p>Se calcula <span class="math notranslate nohighlight">\(P(c,\hat{c})\)</span></p></li>
+<li><p>Se obtienen marginales</p></li>
+<li><p>Se evalúa la suma de información mutua</p></li>
+</ol>
+<p>Resultado esperado:</p>
+<ul class="simple">
+<li><p>NMI alto</p></li>
+<li><p>Buen alineamiento estructural</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="informacion-mutua-como-funcion-objetivo">
+<h3>Información Mutua como Función Objetivo<a class="headerlink" href="#informacion-mutua-como-funcion-objetivo" title="Permalink to this heading">#</a></h3>
+<p>Algunos algoritmos maximizan directamente:</p>
+<div class="math notranslate nohighlight">
+\[
+\max I(X;Z)
+\]</div>
+<p>donde:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X\)</span> datos originales</p></li>
+<li><p><span class="math notranslate nohighlight">\(Z\)</span> representación latente</p></li>
+</ul>
+<p>Ejemplos:</p>
+<ul class="simple">
+<li><p>Information Bottleneck Clustering</p></li>
+<li><p>Deep InfoMax Clustering</p></li>
+<li><p>Spectral Clustering basado en MI</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="ventajas-frente-a-distancias-clasicas">
+<h3>Ventajas frente a Distancias Clásicas<a class="headerlink" href="#ventajas-frente-a-distancias-clasicas" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Métrica</p></th>
+<th class="head"><p>Dependencias no lineales</p></th>
+<th class="head"><p>Invarianza</p></th>
+<th class="head"><p>Robustez</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Euclidiana</p></td>
+<td><p>No</p></td>
+<td><p>Baja</p></td>
+<td><p>Media</p></td>
+</tr>
+<tr class="row-odd"><td><p>Coseno</p></td>
+<td><p>Parcial</p></td>
+<td><p>Media</p></td>
+<td><p>Media</p></td>
+</tr>
+<tr class="row-even"><td><p>Información Mutua</p></td>
+<td><p>Sí</p></td>
+<td><p>Alta</p></td>
+<td><p>Alta</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="limitaciones">
+<h3>Limitaciones<a class="headerlink" href="#limitaciones" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Estimación de probabilidades en alta dimensión</p></li>
+<li><p>Sensibilidad a discretización</p></li>
+<li><p>Costo computacional</p></li>
+</ul>
+<p>Soluciones modernas:</p>
+<ul class="simple">
+<li><p>Estimadores kNN</p></li>
+<li><p>KDE</p></li>
+<li><p>Redes neuronales estimadoras de MI</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="conclusiones">
+<h3>Conclusiones<a class="headerlink" href="#conclusiones" title="Permalink to this heading">#</a></h3>
+<p>La información mutua permite:</p>
+<ul class="simple">
+<li><p>Evaluar clustering sin suposiciones geométricas</p></li>
+<li><p>Capturar relaciones complejas</p></li>
+<li><p>Diseñar algoritmos robustos</p></li>
+</ul>
+<p>Es especialmente útil en:</p>
+<ul class="simple">
+<li><p>Datos no lineales</p></li>
+<li><p>Variables categóricas</p></li>
+<li><p>Representaciones profundas</p></li>
+</ul>
+<p><span id="id1">[<a class="reference internal" href="intro.html#id4" title="Christopher Bishop. Pattern Recognition and Machine Learning. Springer, 2006.">Bishop, 2006</a>]</span>, <span id="id2">[<a class="reference internal" href="intro.html#id5" title="Kevin Murphy. Machine Learning: A Probabilistic Perspective. MIT Press, 2012.">Murphy, 2012</a>]</span>.</p>
+</section>
+</section>
+<span id="document-04_data_science_applications/deep_learning_mi"></span><section class="tex2jax_ignore mathjax_ignore" id="informacion-mutua-en-deep-learning">
+<h2>Información Mutua en Deep Learning<a class="headerlink" href="#informacion-mutua-en-deep-learning" title="Permalink to this heading">#</a></h2>
+<section id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h3>
+<p>La información mutua ha emergido como una herramienta central en el análisis y diseño de modelos de aprendizaje profundo.<br />
+Permite cuantificar:</p>
+<ul class="simple">
+<li><p>Cantidad de información preservada</p></li>
+<li><p>Compresión de representaciones</p></li>
+<li><p>Dependencia entre capas</p></li>
+</ul>
+<p>Se aplica en:</p>
+<ul class="simple">
+<li><p>aprendizaje auto-supervisado</p></li>
+<li><p>aprendizaje contrastivo</p></li>
+<li><p>representación latente</p></li>
+<li><p>regularización informacional</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="marco-teorico-information-bottleneck">
+<h3>Marco Teórico: Information Bottleneck<a class="headerlink" href="#marco-teorico-information-bottleneck" title="Permalink to this heading">#</a></h3>
+<p>Sea:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X\)</span> entrada</p></li>
+<li><p><span class="math notranslate nohighlight">\(Y\)</span> salida</p></li>
+<li><p><span class="math notranslate nohighlight">\(Z\)</span> representación intermedia</p></li>
+</ul>
+<p>Objetivo:</p>
+<div class="math notranslate nohighlight">
+\[
+\min I(X;Z) - \beta I(Z;Y)
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>minimizar redundancia</p></li>
+<li><p>maximizar información relevante</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="deep-infomax">
+<h3>Deep InfoMax<a class="headerlink" href="#deep-infomax" title="Permalink to this heading">#</a></h3>
+<p>Busca maximizar:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Z)
+\]</div>
+<p>entre:</p>
+<ul class="simple">
+<li><p>entrada global</p></li>
+<li><p>representación latente</p></li>
+</ul>
+<p>Aplicaciones:</p>
+<ul class="simple">
+<li><p>aprendizaje no supervisado</p></li>
+<li><p>representación robusta</p></li>
+<li><p>embeddings semánticos</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="aprendizaje-contrastivo">
+<h3>Aprendizaje Contrastivo<a class="headerlink" href="#aprendizaje-contrastivo" title="Permalink to this heading">#</a></h3>
+<p>Métodos como:</p>
+<ul class="simple">
+<li><p>SimCLR</p></li>
+<li><p>MoCo</p></li>
+<li><p>BYOL</p></li>
+<li><p>InfoNCE</p></li>
+</ul>
+<p>optimizan aproximaciones de información mutua.</p>
+<p>Función InfoNCE:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L} =
+-\mathbb{E}
+\left[
+\log
+\frac{\exp(f(x,x^+))}
+{\sum_j \exp(f(x,x_j))}
+\right]
+\]</div>
+<p>Interpretación:</p>
+<ul class="simple">
+<li><p>maximiza similitud positiva</p></li>
+<li><p>minimiza similitud negativa</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="estimadores-neuronales-de-informacion-mutua">
+<h3>Estimadores Neuronales de Información Mutua<a class="headerlink" href="#estimadores-neuronales-de-informacion-mutua" title="Permalink to this heading">#</a></h3>
+<p>Debido a la dificultad de estimar MI directamente:</p>
+<section id="mine-mutual-information-neural-estimation">
+<h4>MINE (Mutual Information Neural Estimation)<a class="headerlink" href="#mine-mutual-information-neural-estimation" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y) \ge
+E[T_\theta] -
+\log E[e^{T_\theta}]
+\]</div>
+<p>Ventajas:</p>
+<ul class="simple">
+<li><p>escalable</p></li>
+<li><p>diferenciable</p></li>
+<li><p>apto para entrenamiento end-to-end</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="aplicaciones-en-redes-profundas">
+<h3>Aplicaciones en Redes Profundas<a class="headerlink" href="#aplicaciones-en-redes-profundas" title="Permalink to this heading">#</a></h3>
+<section id="autoencoders-variacionales">
+<h4>1. Autoencoders Variacionales<a class="headerlink" href="#autoencoders-variacionales" title="Permalink to this heading">#</a></h4>
+<p>Relación con divergencia KL:</p>
+<div class="math notranslate nohighlight">
+\[
+KL(q(z|x) || p(z))
+\]</div>
+<p>Controla:</p>
+<ul class="simple">
+<li><p>regularización</p></li>
+<li><p>compresión latente</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="representacion-auto-supervisada">
+<h4>2. Representación Auto-supervisada<a class="headerlink" href="#representacion-auto-supervisada" title="Permalink to this heading">#</a></h4>
+<p>Maximizar MI entre:</p>
+<ul class="simple">
+<li><p>vistas aumentadas</p></li>
+<li><p>proyecciones latentes</p></li>
+</ul>
+<p>Resultados:</p>
+<ul class="simple">
+<li><p>robustez</p></li>
+<li><p>generalización</p></li>
+<li><p>invariancia</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="redes-generativas">
+<h4>3. Redes Generativas<a class="headerlink" href="#redes-generativas" title="Permalink to this heading">#</a></h4>
+<p>GANs y modelos generativos usan MI para:</p>
+<ul class="simple">
+<li><p>disentanglement</p></li>
+<li><p>control semántico</p></li>
+<li><p>interpretabilidad</p></li>
+</ul>
+<p>Ejemplo: InfoGAN</p>
+<div class="math notranslate nohighlight">
+\[
+\max I(c;G(z,c))
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="limitaciones-practicas">
+<h3>Limitaciones Prácticas<a class="headerlink" href="#limitaciones-practicas" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>estimación sesgada</p></li>
+<li><p>explosión numérica</p></li>
+<li><p>alta varianza</p></li>
+</ul>
+<p>Soluciones:</p>
+<ul class="simple">
+<li><p>estimadores contrastivos</p></li>
+<li><p>regularización espectral</p></li>
+<li><p>clipping de gradientes</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="tendencias-actuales-en-investigacion">
+<h3>Tendencias Actuales en Investigación<a class="headerlink" href="#tendencias-actuales-en-investigacion" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Self-supervised learning</p></li>
+<li><p>Multimodal representation learning</p></li>
+<li><p>Graph neural networks informacionales</p></li>
+<li><p>Causal representation learning</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="conclusiones">
+<h3>Conclusiones<a class="headerlink" href="#conclusiones" title="Permalink to this heading">#</a></h3>
+<p>La información mutua permite:</p>
+<ul class="simple">
+<li><p>interpretar redes profundas</p></li>
+<li><p>diseñar funciones objetivo informacionales</p></li>
+<li><p>mejorar representaciones latentes</p></li>
+</ul>
+<p>Se ha convertido en un componente clave del deep learning moderno.</p>
+<p><span id="id1">[<a class="reference internal" href="intro.html#id8" title="Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. MIT Press, 2016.">Goodfellow <em>et al.</em>, 2016</a>]</span>.</p>
+</section>
+</section>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-05_appendices/proofs"></span><section class="tex2jax_ignore mathjax_ignore" id="demostraciones-matematicas-avanzadas">
+<h2>Demostraciones Matemáticas Avanzadas<a class="headerlink" href="#demostraciones-matematicas-avanzadas" title="Permalink to this heading">#</a></h2>
+<section id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h3>
+<p>Este apéndice presenta demostraciones formales de resultados fundamentales de la teoría de la información utilizados a lo largo del libro.<br />
+El enfoque combina rigor matemático con interpretaciones informacionales relevantes para ciencia de datos e ingeniería.</p>
+</section>
+<hr class="docutils" />
+<section id="a-1-no-negatividad-de-la-informacion-mutua">
+<h3>A.1 No Negatividad de la Información Mutua<a class="headerlink" href="#a-1-no-negatividad-de-la-informacion-mutua" title="Permalink to this heading">#</a></h3>
+<section id="teorema">
+<h4>Teorema<a class="headerlink" href="#teorema" title="Permalink to this heading">#</a></h4>
+<p>Para variables aleatorias discretas <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y) \ge 0
+\]</div>
+<p>con igualdad si y sólo si <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span> son independientes.</p>
+</section>
+<hr class="docutils" />
+<section id="demostracion">
+<h4>Demostración<a class="headerlink" href="#demostracion" title="Permalink to this heading">#</a></h4>
+<p>Por definición:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=
+\sum_{x,y} P(x,y)
+\log \frac{P(x,y)}{P(x)P(y)}
+\]</div>
+<p>Esto corresponde exactamente a la divergencia KL:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=
+D_{KL}\big(P(X,Y)\parallel P(X)P(Y)\big)
+\]</div>
+<p>Sabemos que:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P||Q)\ge 0
+\]</div>
+<p>por la desigualdad de Gibbs.</p>
+<p>Por lo tanto:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)\ge0
+\]</div>
+<p>La igualdad ocurre únicamente cuando:</p>
+<div class="math notranslate nohighlight">
+\[
+P(x,y)=P(x)P(y)
+\]</div>
+<p>lo que implica independencia estadística.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="a-2-regla-de-la-cadena-para-la-entropia">
+<h3>A.2 Regla de la Cadena para la Entropía<a class="headerlink" href="#a-2-regla-de-la-cadena-para-la-entropia" title="Permalink to this heading">#</a></h3>
+<section id="id1">
+<h4>Teorema<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=H(X)+H(Y|X)
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id2">
+<h4>Demostración<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
+<p>Definición de entropía conjunta:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=-\sum_{x,y}P(x,y)\log P(x,y)
+\]</div>
+<p>Usamos:</p>
+<div class="math notranslate nohighlight">
+\[
+P(x,y)=P(x)P(y|x)
+\]</div>
+<p>entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+\log P(x,y)=\log P(x)+\log P(y|x)
+\]</div>
+<p>Sustituyendo:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=
+-\sum P(x,y)\log P(x)
+-\sum P(x,y)\log P(y|x)
+\]</div>
+<p>Primer término:</p>
+<div class="math notranslate nohighlight">
+\[
+-\sum_x P(x)\log P(x)=H(X)
+\]</div>
+<p>Segundo término:</p>
+<div class="math notranslate nohighlight">
+\[
+-\sum P(x,y)\log P(y|x)=H(Y|X)
+\]</div>
+<p>Concluimos:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=H(X)+H(Y|X)
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="a-3-simetria-de-la-informacion-mutua">
+<h3>A.3 Simetría de la Información Mutua<a class="headerlink" href="#a-3-simetria-de-la-informacion-mutua" title="Permalink to this heading">#</a></h3>
+<section id="id3">
+<h4>Teorema<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=I(Y;X)
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h4>Demostración<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<p>Usando la identidad:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=H(X)+H(Y)-H(X,Y)
+\]</div>
+<p>y observando que:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X,Y)=H(Y,X)
+\]</div>
+<p>la expresión es simétrica en <span class="math notranslate nohighlight">\(X\)</span> e <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+<p>Por lo tanto:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=I(Y;X)
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="a-4-desigualdad-de-gibbs">
+<h3>A.4 Desigualdad de Gibbs<a class="headerlink" href="#a-4-desigualdad-de-gibbs" title="Permalink to this heading">#</a></h3>
+<section id="id5">
+<h4>Teorema<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
+<p>Para distribuciones <span class="math notranslate nohighlight">\(P\)</span> y <span class="math notranslate nohighlight">\(Q\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P||Q)\ge0
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h4>Demostración<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<p>Consideremos:</p>
+<div class="math notranslate nohighlight">
+\[
+\log x \le x-1
+\]</div>
+<p>para todo <span class="math notranslate nohighlight">\(x&gt;0\)</span>.</p>
+<p>Sea:</p>
+<div class="math notranslate nohighlight">
+\[
+x=\frac{Q(x)}{P(x)}
+\]</div>
+<p>entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+-\log\frac{Q(x)}{P(x)}\ge1-\frac{Q(x)}{P(x)}
+\]</div>
+<p>Multiplicando por <span class="math notranslate nohighlight">\(P(x)\)</span> y sumando:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum P(x)\log\frac{P(x)}{Q(x)}\ge0
+\]</div>
+<p>lo que demuestra la no negatividad de la divergencia KL.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="a-5-regla-de-la-cadena-para-informacion-mutua">
+<h3>A.5 Regla de la Cadena para Información Mutua<a class="headerlink" href="#a-5-regla-de-la-cadena-para-informacion-mutua" title="Permalink to this heading">#</a></h3>
+<section id="id7">
+<h4>Teorema<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y,Z)=I(X;Y)+I(X;Z|Y)
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id8">
+<h4>Demostración<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<p>Partimos de:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y,Z)=H(X)-H(X|Y,Z)
+\]</div>
+<p>Usamos:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X|Y,Z)=H(X|Y)-I(X;Z|Y)
+\]</div>
+<p>entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y,Z)=
+H(X)-H(X|Y)+I(X;Z|Y)
+\]</div>
+<p>pero:</p>
+<div class="math notranslate nohighlight">
+\[
+H(X)-H(X|Y)=I(X;Y)
+\]</div>
+<p>por lo que:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y,Z)=I(X;Y)+I(X;Z|Y)
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="a-6-desigualdad-de-procesamiento-de-datos">
+<h3>A.6 Desigualdad de Procesamiento de Datos<a class="headerlink" href="#a-6-desigualdad-de-procesamiento-de-datos" title="Permalink to this heading">#</a></h3>
+<section id="id9">
+<h4>Teorema<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
+<p>Si:</p>
+<div class="math notranslate nohighlight">
+\[
+X \rightarrow Y \rightarrow Z
+\]</div>
+<p>forma una cadena de Markov, entonces:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Z)\le I(X;Y)
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="demostracion-esquema-formal">
+<h4>Demostración (Esquema Formal)<a class="headerlink" href="#demostracion-esquema-formal" title="Permalink to this heading">#</a></h4>
+<p>Propiedad de Markov:</p>
+<div class="math notranslate nohighlight">
+\[
+P(z|x,y)=P(z|y)
+\]</div>
+<p>Se demuestra que:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Z)=I(X;Y)-I(X;Y|Z)+I(X;Z|Y)
+\]</div>
+<p>pero:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Z|Y)=0
+\]</div>
+<p>bajo la condición de Markov.</p>
+<p>Dado que:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y|Z)\ge0
+\]</div>
+<p>se obtiene:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Z)\le I(X;Y)
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="a-7-descomposicion-de-informacion-mutua-multivariada">
+<h3>A.7 Descomposición de Información Mutua Multivariada<a class="headerlink" href="#a-7-descomposicion-de-informacion-mutua-multivariada" title="Permalink to this heading">#</a></h3>
+<section id="id10">
+<h4>Teorema<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y,Z,W)
+=I(X;Y)+I(X;Z|Y)+I(X;W|Y,Z)
+\]</div>
+</section>
+<hr class="docutils" />
+<section id="id11">
+<h4>Demostración<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
+<p>Aplicamos repetidamente la regla de la cadena:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y,Z,W)=I(X;Y)+I(X;Z,W|Y)
+\]</div>
+<p>Luego:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Z,W|Y)=I(X;Z|Y)+I(X;W|Y,Z)
+\]</div>
+<p>Combinando:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y,Z,W)=I(X;Y)+I(X;Z|Y)+I(X;W|Y,Z)
+\]</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="conclusion-del-apendice">
+<h3>Conclusión del Apéndice<a class="headerlink" href="#conclusion-del-apendice" title="Permalink to this heading">#</a></h3>
+<p>Las demostraciones anteriores establecen los fundamentos formales para:</p>
+<ul class="simple">
+<li><p>teoría de la información clásica</p></li>
+<li><p>modelos multivariados</p></li>
+<li><p>aprendizaje profundo informacional</p></li>
+<li><p>análisis estadístico de dependencias</p></li>
+</ul>
+<p>Sirven como base matemática rigurosa para los capítulos teóricos y aplicaciones presentados en el libro.</p>
+</section>
+</section>
+<span id="document-05_appendices/advanced_tables"></span><section class="tex2jax_ignore mathjax_ignore" id="tablas-avanzadas-de-teoria-de-la-informacion">
+<h2>Tablas Avanzadas de Teoría de la Información<a class="headerlink" href="#tablas-avanzadas-de-teoria-de-la-informacion" title="Permalink to this heading">#</a></h2>
+<section id="introduccion">
+<h3>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this heading">#</a></h3>
+<p>Este apéndice reúne tablas de referencia rápida con definiciones, propiedades,
+desigualdades fundamentales y relaciones estructurales entre medidas de la
+teoría de la información.<br />
+El objetivo es proporcionar un compendio operativo útil para investigación,
+docencia y aplicaciones en ciencia de datos e ingeniería.</p>
+</section>
+<hr class="docutils" />
+<section id="b-1-definiciones-fundamentales">
+<h3>B.1 Definiciones Fundamentales<a class="headerlink" href="#b-1-definiciones-fundamentales" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Medida</p></th>
+<th class="head"><p>Definición Matemática</p></th>
+<th class="head"><p>Interpretación</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Entropía</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X)=-\sum_x P(x)\log P(x)\)</span></p></td>
+<td><p>Incertidumbre promedio</p></td>
+</tr>
+<tr class="row-odd"><td><p>Entropía conjunta</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X,Y)\)</span></p></td>
+<td><p>Incertidumbre del sistema completo</p></td>
+</tr>
+<tr class="row-even"><td><p>Entropía condicional</p></td>
+<td><p>$H(X</p></td>
+<td><p>Y)$</p></td>
+</tr>
+<tr class="row-odd"><td><p>Información mutua</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)\)</span></p></td>
+<td><p>Dependencia estadística</p></td>
+</tr>
+<tr class="row-even"><td><p>MI condicional</p></td>
+<td><p>$I(X;Y</p></td>
+<td><p>Z)$</p></td>
+</tr>
+<tr class="row-odd"><td><p>Divergencia KL</p></td>
+<td><p>$D_{KL}(P</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-2-relaciones-fundamentales">
+<h3>B.2 Relaciones Fundamentales<a class="headerlink" href="#b-2-relaciones-fundamentales" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Relación</p></th>
+<th class="head"><p>Expresión</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Regla de cadena</p></td>
+<td><p>$H(X,Y)=H(X)+H(Y</p></td>
+</tr>
+<tr class="row-odd"><td><p>MI por entropías</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)=H(X)+H(Y)-H(X,Y)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>MI alternativa</p></td>
+<td><p>$I(X;Y)=H(X)-H(X</p></td>
+</tr>
+<tr class="row-odd"><td><p>MI condicional</p></td>
+<td><p>$I(X;Y</p></td>
+</tr>
+<tr class="row-even"><td><p>Cadena MI</p></td>
+<td><p>$I(X;Y,Z)=I(X;Y)+I(X;Z</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-3-desigualdades-clasicas">
+<h3>B.3 Desigualdades Clásicas<a class="headerlink" href="#b-3-desigualdades-clasicas" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Desigualdad</p></th>
+<th class="head"><p>Expresión</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>No negatividad KL</p></td>
+<td><p>$D_{KL}(P</p></td>
+</tr>
+<tr class="row-odd"><td><p>No negatividad MI</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)\ge0\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Subaditividad</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X,Y)\le H(X)+H(Y)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Monotonía</p></td>
+<td><p>$H(X</p></td>
+</tr>
+<tr class="row-even"><td><p>Procesamiento de datos</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Z)\le I(X;Y)\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-4-propiedades-algebraicas">
+<h3>B.4 Propiedades Algebraicas<a class="headerlink" href="#b-4-propiedades-algebraicas" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Propiedad</p></th>
+<th class="head"><p>Entropía</p></th>
+<th class="head"><p>Información Mutua</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Simetría</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X,Y)=H(Y,X)\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)=I(Y;X)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>No negatividad</p></td>
+<td><p><span class="math notranslate nohighlight">\(H(X)\ge0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)\ge0\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Invariancia</p></td>
+<td><p>Bajo permutaciones</p></td>
+<td><p>Bajo permutaciones</p></td>
+</tr>
+<tr class="row-odd"><td><p>Extensibilidad</p></td>
+<td><p>Sí</p></td>
+<td><p>Sí</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-5-descomposicion-multivariada">
+<h3>B.5 Descomposición Multivariada<a class="headerlink" href="#b-5-descomposicion-multivariada" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Expansión</p></th>
+<th class="head"><p>Expresión</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Entropía triple</p></td>
+<td><p>$H(X,Y,Z)=H(X)+H(Y</p></td>
+</tr>
+<tr class="row-odd"><td><p>MI triple</p></td>
+<td><p>$I(X;Y,Z)=I(X;Y)+I(X;Z</p></td>
+</tr>
+<tr class="row-even"><td><p>MI cuádruple</p></td>
+<td><p>$I(X;Y,Z,W)=I(X;Y)+I(X;Z</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-6-interpretaciones-en-ciencia-de-datos">
+<h3>B.6 Interpretaciones en Ciencia de Datos<a class="headerlink" href="#b-6-interpretaciones-en-ciencia-de-datos" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Medida</p></th>
+<th class="head"><p>Uso típico</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Entropía</p></td>
+<td><p>Medición de complejidad</p></td>
+</tr>
+<tr class="row-odd"><td><p>MI</p></td>
+<td><p>Selección de características</p></td>
+</tr>
+<tr class="row-even"><td><p>MI condicional</p></td>
+<td><p>Eliminación de redundancia</p></td>
+</tr>
+<tr class="row-odd"><td><p>KL</p></td>
+<td><p>Evaluación de modelos</p></td>
+</tr>
+<tr class="row-even"><td><p>Entropía conjunta</p></td>
+<td><p>Modelado multivariado</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-7-propiedades-en-aprendizaje-automatico">
+<h3>B.7 Propiedades en Aprendizaje Automático<a class="headerlink" href="#b-7-propiedades-en-aprendizaje-automatico" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Contexto</p></th>
+<th class="head"><p>Uso de MI</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Feature Selection</p></td>
+<td><p>Ranking informacional</p></td>
+</tr>
+<tr class="row-odd"><td><p>Clustering</p></td>
+<td><p>Medida de similitud</p></td>
+</tr>
+<tr class="row-even"><td><p>Deep Learning</p></td>
+<td><p>Bottleneck informacional</p></td>
+</tr>
+<tr class="row-odd"><td><p>Representaciones latentes</p></td>
+<td><p>Maximización MI</p></td>
+</tr>
+<tr class="row-even"><td><p>Regularización</p></td>
+<td><p>Penalización KL</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-8-propiedades-de-independencia">
+<h3>B.8 Propiedades de Independencia<a class="headerlink" href="#b-8-propiedades-de-independencia" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Condición</p></th>
+<th class="head"><p>Consecuencia</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Independencia</p></td>
+<td><p><span class="math notranslate nohighlight">\(I(X;Y)=0\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Independencia condicional</p></td>
+<td><p>$I(X;Y</p></td>
+</tr>
+<tr class="row-even"><td><p>Cadena de Markov</p></td>
+<td><p>Procesamiento de datos</p></td>
+</tr>
+<tr class="row-odd"><td><p>Factorización</p></td>
+<td><p><span class="math notranslate nohighlight">\(P(x,y)=P(x)P(y)\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-9-propiedades-diferenciales-continuas">
+<h3>B.9 Propiedades Diferenciales (Continuas)<a class="headerlink" href="#b-9-propiedades-diferenciales-continuas" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Medida</p></th>
+<th class="head"><p>Forma Continua</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Entropía diferencial</p></td>
+<td><p><span class="math notranslate nohighlight">\(h(X)=-\int p(x)\log p(x)\,dx\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>MI continua</p></td>
+<td><p>Integral doble</p></td>
+</tr>
+<tr class="row-even"><td><p>KL continua</p></td>
+<td><p>Integral sobre densidades</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-10-complejidad-computacional-estimacion-mi">
+<h3>B.10 Complejidad Computacional (Estimación MI)<a class="headerlink" href="#b-10-complejidad-computacional-estimacion-mi" title="Permalink to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Método</p></th>
+<th class="head"><p>Complejidad Aproximada</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Histogramas</p></td>
+<td><p><span class="math notranslate nohighlight">\(O(n)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>KDE</p></td>
+<td><p><span class="math notranslate nohighlight">\(O(n^2)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>kNN</p></td>
+<td><p><span class="math notranslate nohighlight">\(O(n\log n)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>MINE</p></td>
+<td><p>Dependiente del modelo</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="b-11-resumen-de-relaciones-clave">
+<h3>B.11 Resumen de Relaciones Clave<a class="headerlink" href="#b-11-resumen-de-relaciones-clave" title="Permalink to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+I(X;Y) &amp;= H(X)-H(X|Y) \\
+I(X;Y) &amp;= D_{KL}(P(X,Y)||P(X)P(Y)) \\
+H(X,Y) &amp;= H(X)+H(Y|X) \\
+I(X;Y|Z) &amp;= H(X|Z)-H(X|Y,Z)
+\end{aligned}
+\end{split}\]</div>
+</section>
+<hr class="docutils" />
+<section id="conclusion-del-apendice">
+<h3>Conclusión del Apéndice<a class="headerlink" href="#conclusion-del-apendice" title="Permalink to this heading">#</a></h3>
+<p>Las tablas anteriores sintetizan las relaciones estructurales más importantes
+de la teoría de la información y constituyen una referencia rápida para:</p>
+<ul class="simple">
+<li><p>desarrollo teórico</p></li>
+<li><p>análisis estadístico</p></li>
+<li><p>modelamiento multivariado</p></li>
+<li><p>aplicaciones en ciencia de datos y aprendizaje automático</p></li>
+</ul>
+</section>
+</section>
+<span id="document-05_appendices/acknowledgments"></span><section class="tex2jax_ignore mathjax_ignore" id="agradecimientos">
+<h2>Agradecimientos<a class="headerlink" href="#agradecimientos" title="Permalink to this heading">#</a></h2>
+<p>:class: unnumbered</p>
+<p>El autor expresa su sincero agradecimiento a la comunidad académica
+de teoría de la información, aprendizaje automático y ciencia de datos,
+cuyas contribuciones han permitido el desarrollo conceptual presentado
+en este libro.</p>
+<p>Se reconoce especialmente la influencia de los trabajos clásicos de
+Claude Shannon, Thomas Cover, David MacKay y Kevin Murphy,
+cuyas obras constituyen pilares fundamentales en la disciplina.</p>
+<p>Asimismo, se agradece a la comunidad científica abierta por el
+desarrollo de herramientas computacionales como Python, Jupyter
+y el ecosistema científico que posibilita la reproducibilidad
+del conocimiento.</p>
+</section>
+<span id="document-05_appendices/references"></span><section class="tex2jax_ignore mathjax_ignore" id="bibliografia">
+<h2>Bibliografía<a class="headerlink" href="#bibliografia" title="Permalink to this heading">#</a></h2>
+<p>:class: unnumbered</p>
+<div class="docutils container" id="id1">
+<dl class="citation">
+<dt class="label" id="id4"><span class="brackets">Bis06</span></dt>
+<dd><p>Christopher Bishop. <em>Pattern Recognition and Machine Learning</em>. Springer, 2006.</p>
+</dd>
+<dt class="label" id="id2"><span class="brackets">CT06</span></dt>
+<dd><p>Thomas Cover and Joy Thomas. <em>Elements of Information Theory</em>. Wiley, 2006.</p>
+</dd>
+<dt class="label" id="id10"><span class="brackets">Csi11</span></dt>
+<dd><p>Imre Csiszár. <em>Information Theory and Statistics</em>. Springer, 2011.</p>
+</dd>
+<dt class="label" id="id8"><span class="brackets">GBC16</span></dt>
+<dd><p>Ian Goodfellow, Yoshua Bengio, and Aaron Courville. <em>Deep Learning</em>. MIT Press, 2016.</p>
+</dd>
+<dt class="label" id="id12"><span class="brackets">Gra11</span></dt>
+<dd><p>Robert Gray. <em>Entropy and Information Theory</em>. Springer, 2011.</p>
+</dd>
+<dt class="label" id="id7"><span class="brackets">KSG04</span></dt>
+<dd><p>Alexander Kraskov, Harald Stögbauer, and Peter Grassberger. Estimating mutual information. <em>Physical Review E</em>, 69(6):066138, 2004.</p>
+</dd>
+<dt class="label" id="id15"><span class="brackets">KL51</span></dt>
+<dd><p>Solomon Kullback and Richard Leibler. On information and sufficiency. <em>Annals of Mathematical Statistics</em>, 1951.</p>
+</dd>
+<dt class="label" id="id3"><span class="brackets">Mac03</span></dt>
+<dd><p>David MacKay. <em>Information Theory, Inference, and Learning Algorithms</em>. Cambridge University Press, 2003.</p>
+</dd>
+<dt class="label" id="id5"><span class="brackets">Mur12</span></dt>
+<dd><p>Kevin Murphy. <em>Machine Learning: A Probabilistic Perspective</em>. MIT Press, 2012.</p>
+</dd>
+<dt class="label" id="id9"><span class="brackets">Pea09</span></dt>
+<dd><p>Judea Pearl. <em>Causality</em>. Cambridge, 2009.</p>
+</dd>
+<dt class="label" id="id13"><span class="brackets">Pen05</span></dt>
+<dd><p>Hanchuan Peng. Feature selection based on mutual information. <em>IEEE TPAMI</em>, 2005.</p>
+</dd>
+<dt class="label" id="id6"><span class="brackets">Sha48</span></dt>
+<dd><p>Claude E. Shannon. A mathematical theory of communication. <em>Bell System Technical Journal</em>, 27(3):379–423, 1948.</p>
+</dd>
+<dt class="label" id="id14"><span class="brackets">Tis00</span></dt>
+<dd><p>Naftali Tishby. The information bottleneck method. <em>arXiv preprint physics/0004057</em>, 2000.</p>
+</dd>
+<dt class="label" id="id11"><span class="brackets">Yeu08</span></dt>
+<dd><p>Raymond Yeung. <em>Information Theory and Network Coding</em>. Springer, 2008.</p>
+</dd>
+</dl>
+</div>
+</section>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <p aria-level="2" class="caption" role="heading"><span class="caption-text">Portada</span></p>
+<ul class="visible nav section-nav flex-column">
+<li class="toctree-l1 toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-00_frontmatter/abstract">Resumen</a></li>
+<li class="toctree-l1 toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-00_frontmatter/contributions">Contribuciones del Libro</a></li>
+<li class="toctree-l1 toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-00_frontmatter/notation">Notación y Convenciones Matemáticas</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Teóricos</span></p>
+<ul class="nav section-nav flex-column">
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-01_theory/entropy">Entropía de Shannon</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-01_theory/conditional_entropy">Entropía Conjunta y Entropía Condicional</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-01_theory/mutual_information">Información Mutua</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Fundamentos Matemáticos</span></p>
+<ul class="nav section-nav flex-column">
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-02_mathematical_foundations/formal_definitions">Definiciones Formales</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-02_mathematical_foundations/properties_theorems">Propiedades y Teoremas Fundamentales</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-02_mathematical_foundations/kl_divergence">Divergencia de Kullback–Leibler</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Modelos Multivariados</span></p>
+<ul class="nav section-nav flex-column">
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-03_multivariate_models/mi_matrix">Matriz de Información Mutua</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-03_multivariate_models/conditional_mi">Información Mutua Condicional Multivariada</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-03_multivariate_models/high_dimensional">Análisis de Información Mutua en Alta Dimensión</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Aplicaciones en Ciencia de Datos</span></p>
+<ul class="nav section-nav flex-column">
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-04_data_science_applications/clustering_mi">Clustering basado en Información Mutua</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-04_data_science_applications/deep_learning_mi">Información Mutua en Deep Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Apéndices</span></p>
+<ul class="nav section-nav flex-column">
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-05_appendices/proofs">Demostraciones Matemáticas Avanzadas</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-05_appendices/advanced_tables">Tablas Avanzadas de Teoría de la Información</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-05_appendices/acknowledgments">Agradecimientos</a></li>
+<li class="toctree-l1 nav-item toc-entry"><a class="reference internal nav-link" href="intro.html#document-05_appendices/references">Bibliografía</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Juan Luis Aguayo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+format: jb-book
+root: intro
+parts:
+
+  - caption: Portada
+    chapters:
+      - file: 00_frontmatter/abstract
+      - file: 00_frontmatter/contributions
+      - file: 00_frontmatter/notation
+
+  - caption: Fundamentos Teóricos
+    chapters:
+      - file: 01_theory/entropy
+      - file: 01_theory/conditional_entropy
+      - file: 01_theory/mutual_information
+
+  - caption: Fundamentos Matemáticos
+    chapters:
+      - file: 02_mathematical_foundations/formal_definitions
+      - file: 02_mathematical_foundations/properties_theorems
+      - file: 02_mathematical_foundations/kl_divergence
+
+  - caption: Modelos Multivariados
+    chapters:
+      - file: 03_multivariate_models/mi_matrix
+      - file: 03_multivariate_models/conditional_mi
+      - file: 03_multivariate_models/high_dimensional
+
+  - caption: Aplicaciones en Ciencia de Datos
+    chapters:
+      - file: 04_data_science_applications/clustering_mi
+      - file: 04_data_science_applications/deep_learning_mi
+
+  - caption: Apéndices
+    chapters:
+      - file: 05_appendices/proofs
+      - file: 05_appendices/advanced_tables
+      - file: 05_appendices/acknowledgments
+      - file: 05_appendices/references

@@ -1,0 +1,78 @@
+title: Información Mutua, Fundamentos Matemáticos y Aplicaciones en Ciencia de Datos
+author: Juan Luis Aguayo
+language: es
+
+execute:
+  execute_notebooks: off
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - dollarmath
+    - colon_fence
+    - deflist
+
+bibtex_bibfiles:
+  - references.bib
+
+sphinx:
+  extra_extensions:
+    - sphinx_proof
+    - sphinx_togglebutton
+    - sphinxcontrib.bibtex
+
+  config:
+    numfig: true
+    math_numfig: true
+
+    proof_theorem_types:
+      theorem: Teorema
+      lemma: Lema
+      proposition: Proposición
+      definition: Definición
+      example: Ejemplo
+      remark: Observación
+      corollary: Corolario
+
+    bibtex_reference_style: author_year
+
+  latex: 
+    latex_engine: pdflatex 
+    use_jupyterbook_latex: true
+    latex_documents:
+      targetname: book.tex
+    latex_additional_files:
+    - lncs_preamble.tex
+    latex_elements:
+      papersize: letterpaper
+      pointsize: 11pt
+
+      preamble: |
+        % ======================
+        % ESTILO SPRINGER DATA SCIENCE
+        % ======================
+        \usepackage{amsmath}
+        \usepackage{amssymb}
+        \usepackage{amsfonts}
+        \usepackage{mathtools}
+        \usepackage{physics}
+        \usepackage{bm}
+        \usepackage{microtype}
+        \usepackage{booktabs}
+        \usepackage{graphicx}
+
+        % ======================
+        % OPERADORES
+        % ======================
+        \newcommand{\E}{\mathbb{E}}
+        \newcommand{\Prob}{\mathbb{P}}
+        \newcommand{\Var}{\mathrm{Var}}
+        \newcommand{\Cov}{\mathrm{Cov}}
+        \newcommand{\Entropy}{\mathrm{H}}
+        \newcommand{\MI}{\mathrm{I}}
+        \newcommand{\KL}{\mathrm{D}_{KL}}
+
+        % ======================
+        % NUMERACION
+        % ======================
+        \numberwithin{equation}{chapter}
