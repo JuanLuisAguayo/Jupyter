@@ -1,0 +1,10 @@
+name: informacion_mutua
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy
+  - scikit-learn
+  - scipy
+  - jupyter
