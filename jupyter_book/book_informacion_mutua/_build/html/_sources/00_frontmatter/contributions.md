@@ -58,18 +58,7 @@ Se analizan aplicaciones modernas en inteligencia artificial, incluyendo:
 
 Esto posiciona la teoría clásica dentro del contexto contemporáneo del aprendizaje automático.
 
-## 6. Enfoque Pedagógico y Estructural
-
-El libro ha sido diseñado para facilitar múltiples niveles de lectura:
-
-- desarrollo progresivo desde fundamentos hasta aplicaciones avanzadas,
-- demostraciones formales complementadas con interpretaciones,
-- ejemplos teóricos y computacionales,
-- anexos técnicos con demostraciones extendidas y tablas avanzadas.
-
-Este enfoque permite su uso tanto en cursos de posgrado como en investigación aplicada.
-
-## 7. Contribución Integradora
+## 6. Contribución Integradora
 
 La contribución principal del libro consiste en establecer un puente estructurado entre:
 

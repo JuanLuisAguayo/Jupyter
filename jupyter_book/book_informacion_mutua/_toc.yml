@@ -35,5 +35,4 @@ parts:
     chapters:
       - file: 05_appendices/proofs
       - file: 05_appendices/advanced_tables
-      - file: 05_appendices/acknowledgments
       - file: 05_appendices/references
