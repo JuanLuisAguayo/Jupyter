@@ -1,9 +1,0 @@
-format: jb-book
-root: intro
-
-chapters:
-  - file: teoria/teoria_de_la_informacion
-  - file: teoria/entropia
-  - file: teoria/informacion_mutua
-  - file: teoria/divergencia_KL
-  - file: notebook/ejemplos
