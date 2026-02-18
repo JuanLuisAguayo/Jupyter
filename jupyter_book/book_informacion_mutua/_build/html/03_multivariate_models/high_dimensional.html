@@ -382,7 +382,7 @@ dependencias informacionales en sistemas multivariados de alta dimensión.</p>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
@@ -402,7 +402,7 @@ dependencias informacionales en sistemas multivariados de alta dimensión.</p>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="n">n_samples</span> <span class="o">=</span> <span class="mi">1500</span>
 
@@ -420,6 +420,76 @@ dependencias informacionales en sistemas multivariados de alta dimensión.</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X1</th>
+      <th>X2</th>
+      <th>X3</th>
+      <th>X4</th>
+      <th>X5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.496714</td>
+      <td>0.708716</td>
+      <td>0.094978</td>
+      <td>0.214644</td>
+      <td>-1.114081</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-0.138264</td>
+      <td>-0.331086</td>
+      <td>-0.309901</td>
+      <td>-0.296135</td>
+      <td>-0.630931</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.647689</td>
+      <td>0.190871</td>
+      <td>0.520624</td>
+      <td>-0.438645</td>
+      <td>-0.942060</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.523030</td>
+      <td>1.217074</td>
+      <td>1.376397</td>
+      <td>1.605169</td>
+      <td>-0.547996</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-0.234153</td>
+      <td>-0.255397</td>
+      <td>-0.120709</td>
+      <td>0.001007</td>
+      <td>-0.214150</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 <section id="normalizacion">
@@ -428,7 +498,7 @@ dependencias informacionales en sistemas multivariados de alta dimensión.</p>
 en espacios de alta dimensión.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
 <span class="n">data_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -439,7 +509,7 @@ en espacios de alta dimensión.</p>
 <h2>Estimación de Matriz de Información Mutua<a class="headerlink" href="#estimacion-de-matriz-de-informacion-mutua" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n_features</span> <span class="o">=</span> <span class="n">data_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_features</span> <span class="o">=</span> <span class="n">data_scaled</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">mi_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_features</span><span class="p">,</span> <span class="n">n_features</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_features</span><span class="p">):</span>
@@ -459,13 +529,83 @@ en espacios de alta dimensión.</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X1</th>
+      <th>X2</th>
+      <th>X3</th>
+      <th>X4</th>
+      <th>X5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>X1</th>
+      <td>0.000000</td>
+      <td>0.806271</td>
+      <td>1.108439</td>
+      <td>0.306209</td>
+      <td>0.008489</td>
+    </tr>
+    <tr>
+      <th>X2</th>
+      <td>0.806271</td>
+      <td>0.000000</td>
+      <td>0.532232</td>
+      <td>1.021324</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>X3</th>
+      <td>1.108439</td>
+      <td>0.532232</td>
+      <td>0.000000</td>
+      <td>0.136456</td>
+      <td>0.018682</td>
+    </tr>
+    <tr>
+      <th>X4</th>
+      <td>0.306209</td>
+      <td>1.021324</td>
+      <td>0.136456</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>X5</th>
+      <td>0.008489</td>
+      <td>0.000000</td>
+      <td>0.018682</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 <section id="visualizacion-de-la-matriz-mi">
 <h2>Visualización de la Matriz MI<a class="headerlink" href="#visualizacion-de-la-matriz-mi" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mi_matrix</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
@@ -478,6 +618,9 @@ en espacios de alta dimensión.</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/a221d491ca570373a0d57cd4805348e158ad05c818d9005e82381c0ac28b1f83.png" src="../_images/a221d491ca570373a0d57cd4805348e158ad05c818d9005e82381c0ac28b1f83.png" />
+</div>
 </div>
 </section>
 <section id="informacion-mutua-condicional-aproximada">
@@ -487,7 +630,7 @@ en espacios de alta dimensión.</p>
 <p>mediante regresión residual.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">conditional_mi_residual</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">):</span>
     <span class="n">model_x</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
@@ -507,13 +650,18 @@ en espacios de alta dimensión.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cmiv</span> <span class="o">=</span> <span class="n">conditional_mi_residual</span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cmiv</span> <span class="o">=</span> <span class="n">conditional_mi_residual</span><span class="p">(</span>
     <span class="n">data_scaled</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span>
     <span class="n">data_scaled</span><span class="p">[:,</span><span class="mi">3</span><span class="p">],</span>
     <span class="n">data_scaled</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I(X1 ; X4 | X2) ≈&quot;</span><span class="p">,</span> <span class="n">cmiv</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>I(X1 ; X4 | X2) ≈ 0.018405442057696675
 </pre></div>
 </div>
 </div>
@@ -525,7 +673,7 @@ en espacios de alta dimensión.</p>
 cuando aumenta el número de variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dims</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dims</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">times</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">]:</span>
@@ -549,7 +697,7 @@ cuando aumenta el número de variables.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Dimensión&quot;</span><span class="p">)</span>
@@ -559,6 +707,9 @@ cuando aumenta el número de variables.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/bc9668c4d5e25433b6173c5a2a15ba31d44bd68f1a6e0cdc10dcd7b841c51630.png" src="../_images/bc9668c4d5e25433b6173c5a2a15ba31d44bd68f1a6e0cdc10dcd7b841c51630.png" />
 </div>
 </div>
 </section>
